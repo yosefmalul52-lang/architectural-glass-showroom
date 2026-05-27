@@ -42,7 +42,7 @@ function PillarsHeader() {
             </span>
           ))}
         </motion.h2>
-        <HeadingAccent align="center" className="mx-auto" />
+        <HeadingAccent align="center" className="mx-auto" color="#2d6b84" />
         <motion.p
           initial="hidden"
           whileInView="visible"
@@ -78,10 +78,16 @@ function PillarCard({
       initial={{ opacity: 0, x: fromRight ? 48 : -48, filter: "blur(4px)" }}
       animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : { opacity: 0, x: fromRight ? 48 : -48, filter: "blur(4px)" }}
       transition={{ duration: 0.85, ease: E, delay }}
-      className="card-surface card-surface-interactive group relative overflow-hidden border-s-[3px] border-s-accent-teal/25 hover:border-s-accent-teal/50 transition-[border-color,box-shadow] duration-500"
+      className="card-surface card-surface-interactive group relative overflow-hidden border border-accent-teal/30 transition-[border-color,box-shadow] duration-500 hover:border-accent-teal/60"
     >
-      {/* Top accent — teal on hover */}
-      <div className="h-px w-full bg-accent-teal/25 transition-all duration-700 group-hover:bg-accent-teal/60" />
+      {/* Top gradient stripe */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-accent-teal/50 to-transparent transition-all duration-500 group-hover:via-accent-teal/80" />
+
+      {/* Left gradient stripe */}
+      <div className="pointer-events-none absolute inset-y-0 start-0 w-px bg-gradient-to-b from-transparent via-accent-teal/50 to-transparent transition-all duration-500 group-hover:via-accent-teal/80" aria-hidden />
+
+      {/* Right gradient stripe */}
+      <div className="pointer-events-none absolute inset-y-0 end-0 w-px bg-gradient-to-b from-transparent via-accent-teal/50 to-transparent transition-all duration-500 group-hover:via-accent-teal/80" aria-hidden />
 
       {/* Dot connector toward center line — desktop only */}
       <div
@@ -112,6 +118,9 @@ function PillarCard({
         <div className="mt-4 h-px w-full bg-hairline" />
         <p className="mt-3 text-xs leading-relaxed text-accent-teal/80">{pillar.proof}</p>
       </div>
+
+      {/* Bottom gradient stripe */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-accent-teal/50 to-transparent transition-all duration-500 group-hover:via-accent-teal/80" />
     </motion.article>
   );
 }

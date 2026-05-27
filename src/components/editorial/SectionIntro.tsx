@@ -114,22 +114,6 @@ export function SectionIntro({
         )
       )}
 
-      {description && (
-        <motion.p
-          initial="hidden"
-          whileInView="visible"
-          viewport={scrollRevealViewport}
-          variants={subtextVariant}
-          className={cn(
-            "type-lead mt-6 max-w-2xl",
-            align === "center" && "mx-auto",
-            descriptionClassName
-          )}
-        >
-          {description}
-        </motion.p>
-      )}
-
       {showAccent && (title || children) && (
         <div
           className={cn(
@@ -163,6 +147,22 @@ export function SectionIntro({
             style={{ backgroundColor: accent }}
           />
         </div>
+      )}
+
+      {description && (
+        <motion.p
+          initial="hidden"
+          whileInView="visible"
+          viewport={scrollRevealViewport}
+          variants={subtextVariant}
+          className={cn(
+            "type-lead mt-6 max-w-2xl",
+            align === "center" && "mx-auto",
+            descriptionClassName
+          )}
+        >
+          {description}
+        </motion.p>
       )}
     </header>
   );

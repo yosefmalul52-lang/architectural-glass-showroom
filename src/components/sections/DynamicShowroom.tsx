@@ -173,6 +173,7 @@ export function DynamicShowroom() {
           description="עיינו בתיק עבודותינו — לחצו על כל פרויקט לפרטי גימור, חומרים ומפרט טכני מלא."
           className="[&_h2]:text-accent-teal"
           descriptionClassName="!text-accent-teal"
+          accentColor="#C7B39A"
         />
 
         <div className="mb-8 flex flex-col gap-6 border-b border-hairline pb-6 sm:flex-row sm:items-end sm:justify-between">
