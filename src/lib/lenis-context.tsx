@@ -41,7 +41,8 @@ export function useLenis() {
   return useContext(LenisContext);
 }
 
-const HEADER_OFFSET = 72;
+/** No fixed header — anchors align to section top */
+const SCROLL_ANCHOR_OFFSET = 0;
 
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
   const reducedMotion = usePrefersReducedMotion();
@@ -108,7 +109,7 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       const el = document.querySelector(href) as HTMLElement | null;
       if (!el) return;
       e.preventDefault();
-      lenis.scrollTo(el, { offset: -HEADER_OFFSET, duration: 1.2 });
+      lenis.scrollTo(el, { offset: -SCROLL_ANCHOR_OFFSET, duration: 1.2 });
     };
 
     document.addEventListener("click", handleClick);
@@ -124,7 +125,7 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       if (!el) return;
       if (lenis) {
         lenis.scrollTo(el, {
-          offset: options?.offset ?? -HEADER_OFFSET,
+          offset: options?.offset ?? -SCROLL_ANCHOR_OFFSET,
           duration: 1.2,
         });
       } else {

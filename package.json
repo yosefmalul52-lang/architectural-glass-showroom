@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "bash scripts/dev.sh",
     "dev:clean": "bash scripts/dev-reset.sh",
     "dev:reset": "bash scripts/dev-reset.sh",
+    "dev:webpack": "next dev",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint"

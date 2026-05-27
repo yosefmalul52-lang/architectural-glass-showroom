@@ -2,13 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, ArrowLeft } from "lucide-react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { motion, AnimatePresence } from "framer-motion";
 import type { PortfolioProject, MaterialTag } from "@/data/portfolio";
 import { materialLabels } from "@/data/portfolio";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLenis } from "@/lib/lenis-context";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
@@ -93,23 +92,32 @@ export function ProjectLightbox({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={luxuryTransition}
-                className="fixed inset-0 z-[71] flex flex-col"
+                className="fixed inset-0 z-[71] flex flex-col lg:flex-row"
                 data-lenis-prevent
+                aria-label="תצוגת פרויקט מלאה"
               >
+                <DialogPrimitive.Title className="sr-only">
+                  {project.title}
+                </DialogPrimitive.Title>
+                <DialogPrimitive.Description className="sr-only">
+                  {project.description}
+                </DialogPrimitive.Description>
+
                 <button
                   type="button"
                   onClick={onClose}
-                  className="absolute left-6 top-6 z-10 text-white/80 transition-colors hover:text-white"
+                  className="absolute left-6 top-6 z-20 text-white/80 transition-colors hover:text-white"
                   aria-label="סגור"
                 >
                   <X className="h-6 w-6" strokeWidth={1.25} />
                 </button>
 
-                <div className="relative flex flex-1 items-center justify-center overflow-hidden px-4 pt-16 pb-4 md:px-16">
-                  <div className="relative h-full w-full max-w-6xl overflow-hidden">
+                {/* Image stage */}
+                <div className="relative flex flex-1 items-center justify-center overflow-hidden px-4 pt-16 pb-4 lg:px-12 lg:pb-8 lg:pt-16">
+                  <div className="relative h-full w-full max-w-5xl overflow-hidden">
                     <div
                       className={cn(
-                        "relative h-full w-full",
+                        "relative h-full w-full min-h-[40vh] lg:min-h-0",
                         !reduced && "ken-burns-active"
                       )}
                     >
@@ -117,28 +125,28 @@ export function ProjectLightbox({
                         src={project.image}
                         alt={project.alt}
                         fill
-                        sizes="100vw"
+                        quality={95}
+                        sizes="(max-width: 768px) 100vw, 65vw"
                         className="object-contain"
-                        priority
                       />
                     </div>
                   </div>
 
-                  <div className="absolute inset-y-0 right-4 flex items-center md:right-8">
+                  <div className="absolute inset-y-0 right-4 flex items-center lg:right-6">
                     <button
                       type="button"
                       onClick={goNext}
-                      className="flex h-14 w-14 items-center justify-center border border-white/20 text-white transition-colors hover:border-brand-gold hover:text-brand-gold"
+                      className="flex h-12 w-12 items-center justify-center border border-white/20 text-white transition-colors hover:border-brand-gold hover:text-brand-gold"
                       aria-label="פרויקט הבא"
                     >
                       <ChevronRight className="h-5 w-5" />
                     </button>
                   </div>
-                  <div className="absolute inset-y-0 left-4 flex items-center md:left-8">
+                  <div className="absolute inset-y-0 left-4 flex items-center lg:left-6">
                     <button
                       type="button"
                       onClick={goPrev}
-                      className="flex h-14 w-14 items-center justify-center border border-white/20 text-white transition-colors hover:border-brand-gold hover:text-brand-gold"
+                      className="flex h-12 w-12 items-center justify-center border border-white/20 text-white transition-colors hover:border-brand-gold hover:text-brand-gold"
                       aria-label="פרויקט קודם"
                     >
                       <ChevronLeft className="h-5 w-5" />
@@ -146,55 +154,32 @@ export function ProjectLightbox({
                   </div>
                 </div>
 
-                <div className="border-t border-white/10 bg-text-main/40 px-6 py-8 backdrop-blur-md md:px-16">
-                  <div className="mx-auto max-w-4xl text-center text-white">
-                    <p className="text-xs tracking-[0.2em] text-brand-gold">
-                      {String(currentIndex + 1).padStart(2, "0")} /{" "}
-                      {String(projects.length).padStart(2, "0")}
-                    </p>
-                    <h3 className="mt-2 font-display text-display-2xl font-light">
-                      {project.title}
-                    </h3>
-                    <p className="mt-3 text-base leading-relaxed text-white/70">
-                      {project.description}
-                    </p>
+                {/* Floating data sidebar — desktop */}
+                <aside
+                  className="glass-premium relative z-10 hidden w-full max-w-sm shrink-0 flex-col p-8 text-white lg:m-6 lg:flex lg:w-80 lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto xl:w-96"
+                  aria-label="פרטי פרויקט"
+                >
+                  <ProjectDetails
+                    project={project}
+                    currentIndex={currentIndex}
+                    total={projects.length}
+                    activeMaterial={activeMaterial}
+                    onMaterialChange={setActiveMaterial}
+                    onClose={onClose}
+                  />
+                </aside>
 
-                    <p className="mt-6 text-xs tracking-[0.14em] text-brand-gold/80">
-                      דגימות זכוכית
-                    </p>
-                    <div className="mt-3 flex flex-wrap justify-center gap-2">
-                      {project.materials.map((m) => (
-                        <button
-                          key={m}
-                          type="button"
-                          onClick={() => setActiveMaterial(m)}
-                          className={cn(
-                            "border px-3 py-1.5 text-xs tracking-wide transition-all duration-300",
-                            activeMaterial === m
-                              ? "border-brand-gold bg-brand-gold/20 text-brand-gold"
-                              : "border-white/20 text-white/80 hover:border-brand-gold/50"
-                          )}
-                        >
-                          {materialLabels[m]}
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="mt-8">
-                      <Button variant="gold" asChild>
-                        <Link
-                          href="#contact"
-                          onClick={() => {
-                            sessionStorage.setItem(SHOWROOM_INTEREST_KEY, project.title);
-                            onClose();
-                          }}
-                        >
-                          רוצים פרויקט בסגנון הזה?
-                          <ArrowLeft className="h-4 w-4" />
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
+                {/* Mobile details panel */}
+                <div className="glass-premium border-t border-white/20 p-6 lg:hidden">
+                  <ProjectDetails
+                    project={project}
+                    currentIndex={currentIndex}
+                    total={projects.length}
+                    activeMaterial={activeMaterial}
+                    onMaterialChange={setActiveMaterial}
+                    onClose={onClose}
+                    compact
+                  />
                 </div>
               </motion.div>
             </DialogPrimitive.Content>
@@ -202,5 +187,85 @@ export function ProjectLightbox({
         )}
       </AnimatePresence>
     </DialogPrimitive.Root>
+  );
+}
+
+function ProjectDetails({
+  project,
+  currentIndex,
+  total,
+  activeMaterial,
+  onMaterialChange,
+  onClose,
+  compact = false,
+}: {
+  project: PortfolioProject;
+  currentIndex: number;
+  total: number;
+  activeMaterial: MaterialTag | null;
+  onMaterialChange: (m: MaterialTag) => void;
+  onClose: () => void;
+  compact?: boolean;
+}) {
+  return (
+    <div className={cn(compact ? "text-center" : "flex flex-col")}>
+      <p className="type-spec text-brand-gold">
+        {String(currentIndex + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+      </p>
+      <h3
+        className={cn(
+          "mt-3 font-display font-light tracking-tight text-white",
+          compact ? "text-display-2xl" : "text-display-3xl"
+        )}
+      >
+        {project.title}
+      </h3>
+      <p className="type-lead mt-4 text-white/75">{project.description}</p>
+
+      <p className="type-spec mt-8 text-brand-gold/90" id="material-filter-label">
+        דגימות זכוכית
+      </p>
+      <div
+        role="group"
+        aria-labelledby="material-filter-label"
+        className={cn(
+          "mt-3 flex flex-wrap gap-2",
+          compact && "justify-center"
+        )}
+      >
+        {project.materials.map((m) => (
+          <button
+            key={m}
+            type="button"
+            onClick={() => onMaterialChange(m)}
+            aria-label={`בחירת חומר: ${materialLabels[m]}`}
+            aria-pressed={activeMaterial === m}
+            className={cn(
+              "border px-3 py-1.5 transition-all duration-300",
+              activeMaterial === m
+                ? "border-brand-gold text-brand-gold"
+                : "border-white/25 text-white/80 hover:border-brand-gold/50"
+            )}
+          >
+            <span className="type-spec text-[9px]">{materialLabels[m]}</span>
+          </button>
+        ))}
+      </div>
+
+      <div className={cn("mt-8", compact && "flex justify-center")}>
+        <Button variant="gold" asChild>
+          <Link
+            href="#contact"
+            onClick={() => {
+              sessionStorage.setItem(SHOWROOM_INTEREST_KEY, project.title);
+              onClose();
+            }}
+          >
+            רוצים פרויקט בסגנון הזה?
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+        </Button>
+      </div>
+    </div>
   );
 }

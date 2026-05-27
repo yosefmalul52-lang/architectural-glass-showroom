@@ -37,7 +37,7 @@ export function SectionHeader({
       viewport={scrollRevealViewport}
       variants={fadeUpVariants}
       className={cn(
-        "relative mb-16 lg:mb-24",
+        "relative mb-10 lg:mb-14",
         align === "center" && "text-center",
         className
       )}

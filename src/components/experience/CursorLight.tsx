@@ -45,7 +45,7 @@ export function CursorLight() {
           x,
           y,
           background:
-            "radial-gradient(circle, rgba(197,160,89,0.12) 0%, rgba(197,160,89,0.04) 35%, transparent 70%)",
+            "radial-gradient(circle, rgba(200,180,155,0.13) 0%, rgba(220,206,187,0.05) 35%, transparent 70%)",
         }}
       />
     </motion.div>

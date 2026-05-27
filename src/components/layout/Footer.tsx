@@ -1,37 +1,89 @@
 import Link from "next/link";
 import { navSections } from "@/data/funnel";
+import { BRAND, CONTACT } from "@/data/site";
+
+const services = [
+  "מקלחונים Triplex מחוסמת",
+  "מראות LED מותאמות-אישית",
+  "מחיצות זכוכית אדריכליות",
+  "חזיתות ופנלים",
+  "בריכות ואזורי חוץ",
+];
 
 export function Footer() {
   return (
-    <footer className="border-t border-hairline bg-bg-secondary">
-      <div className="mx-auto grid max-w-[1400px] gap-12 px-6 py-16 md:grid-cols-3 lg:px-10">
-        <div>
-          <p className="font-display text-xl text-text-main">
-            זכוכית<span className="text-brand-teal">.</span>סטודיו
-          </p>
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-text-muted">
-            זכוכית אדריכלית יוקרתית — תכנון, הנדסה וביצוע מדויק.
-          </p>
+    <footer
+      className="bg-[#18344A]"
+      style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
+    >
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
+
+        {/* Main grid */}
+        <div className="grid gap-12 py-16 md:grid-cols-4 md:py-20">
+
+          {/* Brand */}
+          <div className="md:col-span-1">
+            <p className="font-display text-xl text-white/90">{BRAND.name}</p>
+            <p className="mt-4 text-sm leading-relaxed text-white/38">
+              {BRAND.tagline} — מ-{BRAND.founded}.
+            </p>
+            <div className="mt-6 h-px w-8 bg-brand-gold" />
+          </div>
+
+          {/* Services */}
+          <div>
+            <p className="mb-5 text-sm tracking-[0.2em] uppercase" style={{ color: "#C7B299" }}>שירותים</p>
+            <ul className="flex flex-col gap-3">
+              {services.map((s) => (
+                <li key={s} className="text-sm text-white/45">
+                  {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Navigation */}
+          <div>
+            <p className="mb-5 text-sm tracking-[0.2em] uppercase" style={{ color: "#C7B299" }}>ניווט</p>
+            <nav className="flex flex-col gap-3" aria-label="ניווט תחתון">
+              {navSections.map((link) => (
+                <Link
+                  key={link.id}
+                  href={`#${link.id}`}
+                  className="text-sm text-white/45 transition-colors duration-300 hover:text-white/80"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <p className="mb-5 text-sm tracking-[0.2em] uppercase" style={{ color: "#C7B299" }}>יצירת קשר</p>
+            <div className="flex flex-col gap-3 text-sm">
+              <a href={`tel:${CONTACT.phoneTel}`} className="text-white/55 transition-colors duration-300 hover:text-white/85">
+                {CONTACT.phone}
+              </a>
+              <a href={`mailto:${CONTACT.email}`} className="text-white/55 transition-colors duration-300 hover:text-white/85">
+                {CONTACT.email}
+              </a>
+              <p className="mt-2 text-white/75">{CONTACT.address}</p>
+              <p className="text-xs text-white/30">{CONTACT.hours}</p>
+            </div>
+          </div>
         </div>
 
-        <nav className="flex flex-col gap-3" aria-label="ניווט תחתון">
-          {navSections.map((link) => (
-            <Link
-              key={link.id}
-              href={`#${link.id}`}
-              className="text-sm text-text-muted transition-colors hover:text-text-main"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="text-sm text-text-muted">
-          <p className="text-text-main">תל אביב, ישראל</p>
-          <p className="mt-2">info@glass.studio</p>
-          <p className="mt-2">050-000-0000</p>
-          <p className="mt-8 text-xs tracking-wide text-text-muted/70">
-            © {new Date().getFullYear()} זכוכית.סטודיו
+        {/* Bottom bar */}
+        <div
+          className="flex flex-col items-start gap-3 py-6 sm:flex-row sm:items-center sm:justify-between"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        >
+          <p className="text-xs text-white/25">
+            © {new Date().getFullYear()} {BRAND.name} — כל הזכויות שמורות
+          </p>
+          <p className="text-xs text-white/25">
+            זכוכית אדריכלית · תכנון וביצוע · ישראל
           </p>
         </div>
       </div>

@@ -1,3 +1,5 @@
+import { buildWhatsAppUrl } from "@/data/site";
+
 export type FunnelSectionId =
   | "hero"
   | "pillars"
@@ -39,57 +41,134 @@ export const funnelCtas: Record<
   }
 > = {
   pillars: {
-    headline: "רוצים לראות איך זה נראה בפרויקט אמיתי?",
-    subline: "גלו את תיק העבודות שלנו — ספא, בתים פרטיים ומשרדים",
+    headline: "רוצים לראות את הדיוק הזה בפרויקט שלכם?",
+    subline: "ייעוץ אדריכלי ראשוני — ללא עלות וללא התחייבות",
     primaryLabel: "לתיק העבודות",
     primaryHref: "#showroom",
-    secondaryLabel: "תיאום ייעוץ",
-    secondaryHref: "#contact",
+    secondaryLabel: "שאלה מהירה בוואטסאפ",
+    secondaryHref: buildWhatsAppUrl("שלום, יש לי שאלה על פרויקט זכוכית"),
     variant: "soft",
   },
   showroom: {
-    headline: "מצאתם סגנון שמתאים לכם?",
-    subline: "נשמח לתכנן יחד פרויקט בסגנון הזה — ללא התחייבות",
-    primaryLabel: "תיאום פגישת ייעוץ",
+    headline: "מצאתם סגנון שמתאים לפרויקט?",
+    subline: "כל פרויקט בתיק נוצר מדידה — נשמח לתכנן עבורכם ממש כך",
+    primaryLabel: "קבעו פגישת ייעוץ ללא עלות",
     primaryHref: "#contact",
     secondaryLabel: "וואטסאפ ישיר",
-    secondaryHref:
-      "https://wa.me/972500000000?text=%D7%91%D7%A8%D7%95%D7%A5%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A2%D7%9C%20%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98%20%D7%96%D7%9B%D7%95%D7%9B%D7%99%D7%AA",
+    secondaryHref: buildWhatsAppUrl("שלום, אשמח לפרטים על פרויקט זכוכית"),
     variant: "emphasis",
   },
   atelier: {
-    headline: "מעוניינים באותו רמת גימור?",
-    subline: "בוטיק אומר דיוק בכל פרט — מהשרטוט ועד ההתקנה",
-    primaryLabel: "תיאום פגישת ייעוץ",
+    headline: "רוצים את אותה רמת גימור בפרויקט שלכם?",
+    subline: "מהשרטוט הראשון ועד הניקוי הסופי — אנחנו לצדכם",
+    primaryLabel: "קבעו שיחת היכרות",
     primaryHref: "#contact",
     secondaryLabel: "וואטסאפ ישיר",
-    secondaryHref:
-      "https://wa.me/972500000000?text=%D7%91%D7%A8%D7%95%D7%A5%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A2%D7%9C%20%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98%20%D7%96%D7%9B%D7%95%D7%9B%D7%99%D7%AA",
+    secondaryHref: buildWhatsAppUrl("שלום, אשמח לפרטים על פרויקט זכוכית"),
     variant: "soft",
   },
   trust: {
-    headline: "הצטרפו ללקוחות שכבר בחרו בנו",
-    subline: "ייעוץ אדריכלי ראשוני ללא התחייבות",
-    primaryLabel: "תיאום פגישת ייעוץ",
+    headline: "מוכנים להתחיל לתכנן?",
+    subline: "ייעוץ ראשוני ללא עלות — מענה תוך 24 שעות",
+    primaryLabel: "לתיאום ייעוץ",
     primaryHref: "#contact",
     secondaryLabel: "וואטסאפ ישיר",
-    secondaryHref:
-      "https://wa.me/972500000000?text=%D7%91%D7%A8%D7%95%D7%A5%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A2%D7%9C%20%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98%20%D7%96%D7%9B%D7%95%D7%9B%D7%99%D7%AA",
+    secondaryHref: buildWhatsAppUrl("שלום, אשמח לפרטים על פרויקט זכוכית"),
     variant: "emphasis",
   },
 };
 
-export const WHATSAPP_URL =
-  "https://wa.me/972500000000?text=%D7%91%D7%A8%D7%95%D7%A5%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%A2%D7%9C%20%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98%20%D7%96%D7%9B%D7%95%D7%9B%D7%99%D7%AA";
+export const WHATSAPP_URL = buildWhatsAppUrl(
+  "שלום, אשמח לפרטים על פרויקט זכוכית"
+);
 
 export const audienceTags = [
-  { label: "מקלחונים", href: "#showroom", tab: "showers" },
-  { label: "מראות", href: "#showroom", tab: "mirrors" },
-  { label: "משרדים", href: "#showroom", tab: "offices" },
+  { label: "מקלחונים ייחודיים", href: "#showroom", tab: "showers" },
+  { label: "מראות LED מוארות", href: "#showroom", tab: "mirrors" },
+  { label: "מחיצות משרד", href: "#showroom", tab: "offices" },
 ] as const;
 
 export const processSteps = [
-  { step: "01", label: "ייעוץ אדריכלי" },
-  { step: "02", label: "שרטוט ותכנון" },
-  { step: "03", label: "התקנה מדויקת" },
+  { step: "01", label: "ייעוץ אדריכלי ומידות" },
+  { step: "02", label: "שרטוט ואישור לקוח" },
+  { step: "03", label: "ייצור CNC מדויק" },
+  { step: "04", label: "התקנה ובדיקה סופית" },
 ];
+
+/** Lead capture — private consultation request */
+export const WEBHOOK_URL =
+  process.env.NEXT_PUBLIC_WEBHOOK_URL ?? "";
+
+export const consultationIntro = {
+  number: "",
+  label: "",
+  title: "נתחיל בשיחה — נסיים בפרויקט שלם",
+  description:
+    "ספרו לנו על החלל. נחזור אליכם עם ייעוץ חומר, לוח זמנים ריאלי והצעת מחיר מפורטת — ללא התחייבות וללא עלות.",
+} as const;
+
+export const projectScopes = [
+  { value: "office-cladding", label: "חיפויי זכוכית למשרדים" },
+  { value: "custom-showers", label: "מקלחונים בעיצוב אישי" },
+  { value: "premium-mirrors", label: "מראות פרימיום מוארות" },
+  { value: "complex-architectural", label: "פרויקט אדריכלי מורכב" },
+] as const;
+
+export type ProjectScopeValue = (typeof projectScopes)[number]["value"];
+
+export const consultationProcessSteps = [
+  { step: "01", label: "אפיון וייעוץ" },
+  { step: "02", label: "מדידת לייזר מדויקת בשטח" },
+  { step: "03", label: "ייצור CNC והקשחה" },
+  { step: "04", label: "התקנה נקייה ואחריות" },
+] as const;
+
+export type LeadPayload = {
+  name: string;
+  phone: string;
+  projectScope: ProjectScopeValue;
+  projectScopeLabel: string;
+  message?: string;
+  showroomInterest?: string;
+  submittedAt: string;
+  source: "website";
+};
+
+export function buildLeadPayload(data: {
+  name: string;
+  phone: string;
+  projectScope: ProjectScopeValue;
+  message?: string;
+  showroomInterest?: string;
+}): LeadPayload {
+  const scope = projectScopes.find((s) => s.value === data.projectScope);
+  return {
+    name: data.name.trim(),
+    phone: data.phone.trim(),
+    projectScope: data.projectScope,
+    projectScopeLabel: scope?.label ?? data.projectScope,
+    message: data.message?.trim() || undefined,
+    showroomInterest: data.showroomInterest?.trim() || undefined,
+    submittedAt: new Date().toISOString(),
+    source: "website",
+  };
+}
+
+export async function submitLeadToWebhook(payload: LeadPayload): Promise<void> {
+  if (!WEBHOOK_URL) {
+    if (process.env.NODE_ENV === "development") {
+      console.info("[LeadCapture] WEBHOOK_URL not set — payload:", payload);
+    }
+    return;
+  }
+
+  const res = await fetch(WEBHOOK_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Webhook failed: ${res.status}`);
+  }
+}

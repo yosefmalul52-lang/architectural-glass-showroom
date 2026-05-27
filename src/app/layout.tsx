@@ -1,34 +1,51 @@
 import type { Metadata } from "next";
-import { El_Messiri, Assistant, Heebo } from "next/font/google";
+import { Frank_Ruhl_Libre, Assistant, Heebo } from "next/font/google";
 import { ClientShell } from "@/components/layout/ClientShell";
 import "./globals.css";
 
-const elMessiri = El_Messiri({
-  variable: "--font-el-messiri",
-  subsets: ["latin", "arabic"],
-  weight: ["400", "500", "600", "700"],
+const frankRuhlLibre = Frank_Ruhl_Libre({
+  variable: "--font-frank-ruhl",
+  subsets: ["hebrew", "latin"],
+  weight: ["300", "400", "500", "700", "900"],
   display: "swap",
 });
 
 const assistant = Assistant({
   variable: "--font-assistant",
   subsets: ["hebrew", "latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["200", "300", "400", "500", "600", "700"],
   display: "swap",
 });
 
 const heebo = Heebo({
   variable: "--font-heebo",
   subsets: ["hebrew", "latin"],
-  weight: ["400", "500", "700"],
+  weight: ["300", "400", "500", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "זכוכית.סטודיו | בוטיק לזכוכית אדריכלית",
+  title: "זכוכית הפסגה | זכוכית אדריכלית — תכנון, הנדסה וביצוע",
   description:
-    "סטודיו בוטיק לתכנון וביצוע פרויקטי זכוכית אדריכלית — דיוק מיקרוני, הנדסה ואמנות החומר לבתים פרטיים, ספא ומשרדים.",
-  keywords: ["זכוכית אדריכלית", "מקלחונים יוקרה", "זכוכית בטיחותית", "ספא", "משרדים"],
+    "זכוכית הפסגה — תכנון וביצוע פרויקטי זכוכית אדריכלית בתקן EN12150. ייצור CNC, Triplex מחוסמת, מדידת לייזר ממוחשבת. מקלחונים, מחיצות משרד, מראות מותאמות.",
+  keywords: [
+    "זכוכית אדריכלית",
+    "מקלחונים",
+    "מחיצות זכוכית",
+    "זכוכית בטיחותית",
+    "EN12150",
+    "Triplex",
+    "CNC",
+    "זכוכית הפסגה",
+    "קיסריה",
+  ],
+  openGraph: {
+    title: "זכוכית הפסגה | זכוכית אדריכלית — תכנון, הנדסה וביצוע",
+    description:
+      "פרויקטי זכוכית אדריכלית בתקן EN12150 — ייצור CNC, Triplex מחוסמת, מדידת לייזר ממוחשבת. ייעוץ ראשוני ללא עלות.",
+    locale: "he_IL",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -39,8 +56,14 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body
-        className={`${elMessiri.variable} ${assistant.variable} ${heebo.variable} overflow-x-hidden antialiased`}
+        className={`${frankRuhlLibre.variable} ${assistant.variable} ${heebo.variable} overflow-x-hidden antialiased`}
       >
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:end-4 focus:z-[120] focus:border focus:border-brand-gold/40 focus:bg-bg-elevated focus:px-4 focus:py-2 focus:text-sm focus:text-text-main"
+        >
+          דלג לתוכן הראשי
+        </a>
         <ClientShell>{children}</ClientShell>
       </body>
     </html>

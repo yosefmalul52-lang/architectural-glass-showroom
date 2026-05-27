@@ -1,8 +1,6 @@
-import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { GrainOverlay } from "@/components/editorial/GrainOverlay";
 import { ScrollProgress } from "@/components/editorial/ScrollProgress";
-import { ScrollSpy } from "@/components/editorial/ScrollSpy";
 import { StickyCtaBar } from "@/components/conversion/StickyCtaBar";
 import { Hero } from "@/components/sections/Hero";
 import { EngineeringPillars } from "@/components/sections/EngineeringPillars";
@@ -17,13 +15,17 @@ export default function Home() {
     <>
       <GrainOverlay />
       <ScrollProgress />
-      <ScrollSpy />
-      <Header />
-      <main>
+      <main id="main-content" className="m-0 p-0 pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0">
         <Hero />
         <EngineeringPillars />
         <DynamicShowroom />
         <AtelierReel />
+        <div
+          aria-hidden
+          className="mx-auto w-full max-w-[1400px] px-6 py-8 lg:px-10 lg:py-12"
+        >
+          <div className="h-px w-full bg-hairline" />
+        </div>
         <SocialProof />
         <LeadCapture />
       </main>

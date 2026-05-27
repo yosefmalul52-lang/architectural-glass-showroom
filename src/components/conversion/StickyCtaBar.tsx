@@ -10,34 +10,46 @@ import { cn } from "@/lib/utils";
 export function StickyCtaBar() {
   const scrolled = useScrolled(400);
   const [contactVisible, setContactVisible] = useState(false);
+  const [footerVisible, setFooterVisible] = useState(false);
 
   useEffect(() => {
     const contact = document.getElementById("contact");
-    if (!contact) return;
+    const footer = document.querySelector("footer");
+    if (!contact && !footer) return;
 
-    const observer = new IntersectionObserver(
+    const contactObserver = new IntersectionObserver(
       ([entry]) => setContactVisible(entry.isIntersecting),
       { threshold: 0.1 }
     );
-    observer.observe(contact);
-    return () => observer.disconnect();
+    const footerObserver = new IntersectionObserver(
+      ([entry]) => setFooterVisible(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+
+    if (contact) contactObserver.observe(contact);
+    if (footer) footerObserver.observe(footer);
+
+    return () => {
+      contactObserver.disconnect();
+      footerObserver.disconnect();
+    };
   }, []);
 
-  const show = scrolled && !contactVisible;
+  const show = scrolled && !contactVisible && !footerVisible;
 
   return (
     <div
       className={cn(
-        "fixed inset-x-0 bottom-0 z-50 border-t border-hairline bg-bg-elevated/95 backdrop-blur-md transition-transform duration-500 ease-luxury md:hidden",
+        "glass-premium fixed inset-x-0 bottom-0 z-50 border-t border-white/20 transition-transform duration-500 ease-luxury md:hidden",
         show ? "translate-y-0" : "translate-y-full"
       )}
       role="region"
       aria-label="פעולות המרה"
     >
-      <div className="flex gap-2 p-3">
+      <div className="flex gap-2 bg-transparent p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <Link
           href="#contact"
-          className="flex flex-1 items-center justify-center gap-2 bg-brand-gold py-3.5 text-sm font-medium text-text-main"
+          className="flex flex-1 items-center justify-center gap-2 bg-brand-gold py-3.5 text-sm font-medium text-text-main focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
           aria-label="תיאום פגישת ייעוץ"
         >
           תיאום ייעוץ
@@ -47,7 +59,7 @@ export function StickyCtaBar() {
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex h-[52px] w-[52px] shrink-0 items-center justify-center bg-brand-teal text-white"
+          className="flex h-[52px] w-[52px] shrink-0 items-center justify-center bg-brand-teal text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
           aria-label="וואטסאפ ישיר"
         >
           <MessageCircle className="h-5 w-5" strokeWidth={1.25} />

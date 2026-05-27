@@ -18,7 +18,7 @@ export function ChapterDivider({ beforeSectionId }: ChapterDividerProps) {
       whileInView="visible"
       viewport={scrollRevealViewport}
       variants={fadeUpVariants}
-      className="relative mx-auto max-w-[1400px] px-6 py-12 lg:px-10"
+      className="relative mx-auto max-w-[1400px] px-6 pb-10 lg:px-10"
       aria-hidden
     >
       <div className="flex items-center gap-6">

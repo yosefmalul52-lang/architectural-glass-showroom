@@ -23,7 +23,7 @@ export const showerProjects: PortfolioProject[] = [
     slug: "spa-smoked-gold-shower",
     title: "מקלחון מעושן במסגרת זהב",
     description:
-      "זכוכית bronze מעושנת, פרופיל זהב מברש, תאורת LED פרימטרית וסגירה שקטה — חוויית ספא יוקרתית.",
+      "זכוכית bronze מעושנת 8mm, פרופיל זהב מברש, תאורת LED פרימטרית וסגירה שקטה עם ציר מוסתר.",
     alt: "מקלחון זכוכית מעושנת עם פרופיל זהב ותאורת LED",
     image: img("spa-smoked-gold-shower"),
     category: "showers",
@@ -75,17 +75,6 @@ export const showerProjects: PortfolioProject[] = [
     materials: ["gold", "clear"],
     aspect: "landscape",
   },
-  {
-    id: "spa-fluted-gold",
-    slug: "spa-fluted-gold",
-    title: "זכוכית מחוספת וזהב",
-    description: "פאנל fluted לפרטיות עדינה, מקלחון שקוף וכלים בגימור brass מברש.",
-    alt: "מקלחון עם זכוכית מחוספת ופרופיל זהב",
-    image: img("spa-fluted-gold"),
-    category: "showers",
-    materials: ["fluted", "gold", "clear"],
-    aspect: "portrait",
-  },
 ];
 
 export const mirrorProjects: PortfolioProject[] = [
@@ -93,7 +82,7 @@ export const mirrorProjects: PortfolioProject[] = [
     id: "spa-backlit-fluted",
     slug: "spa-backlit-mirror-fluted",
     title: "מראה מוארת ומחיצה מחוספת",
-    description: "מראת LED אחורית אופקית, מחיצת fluted ועץ אלון בגימור בוטיק.",
+    description: "מראת LED אחורית אופקית, מחיצת fluted 6mm עם ליטוש קצוות מלא ועץ אלון.",
     alt: "מראה מוארת עם מחיצת זכוכית מחוספת",
     image: img("spa-backlit-mirror-fluted"),
     category: "mirrors",
@@ -242,3 +231,14 @@ export const materialLabels: Record<MaterialTag, string> = {
   smoked: "מעושן",
   clear: "שקוף",
 };
+
+export const atelierShots = [
+  { image: img("spa-smoked-gold-shower"), alt: "פרופיל זהב מברש על זכוכית מעושנת" },
+  { image: img("spa-backlit-mirror-fluted"), alt: "מראה LED עם חיתוך CNC" },
+  { image: img("spa-fluted-gold"), alt: "טקסטורת Fluted וזהב" },
+  { image: img("spa-circular-halo-mirror"), alt: "תאורת Halo במראה עגולה" },
+  { image: img("spa-onyx-pill-mirror"), alt: "מראת Pill על קיר אוניקס" },
+  { image: img("office-fluted-herringbone"), alt: "מחיצת Fluted במסדרון" },
+  { image: img("spa-greige-gold-bench"), alt: "Triplex 10מ״מ עם ספסל אבן" },
+  { image: img("office-black-profile-charcoal"), alt: "פרופיל אלומיניום שחור מאט" },
+];

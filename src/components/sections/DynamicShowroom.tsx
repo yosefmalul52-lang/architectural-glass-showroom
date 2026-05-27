@@ -1,21 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { SectionHeader } from "@/components/editorial/SectionHeader";
-import { ChapterDivider } from "@/components/experience/ChapterDivider";
+import { SectionIntro } from "@/components/editorial/SectionIntro";
 import {
-  materialFilters,
   projectsByCategory,
   showroomCategories,
-  type MaterialTag,
   type PortfolioProject,
   type ProjectCategory,
 } from "@/data/portfolio";
-import { gallerySpanClass, partitionShowroom } from "@/lib/showroom-layout";
-import { luxuryTransition } from "@/lib/motion";
-import { FunnelCta } from "@/components/conversion/FunnelCta";
+import { luxuryTransition, MOTION_EASE } from "@/lib/motion";
 import { ProjectLightbox } from "./ProjectLightbox";
 import { ShowroomCard } from "./ShowroomCard";
 import { cn } from "@/lib/utils";
@@ -23,20 +17,21 @@ import { cn } from "@/lib/utils";
 const SHOWROOM_INTEREST_KEY = "showroom-interest";
 const SHOWROOM_TAB_KEY = "showroom-tab";
 
-function handleProjectSelect(
-  project: PortfolioProject,
-  onSelect: (p: PortfolioProject) => void
-) {
-  sessionStorage.setItem(SHOWROOM_INTEREST_KEY, project.title);
-  onSelect(project);
-}
+const cardVariant = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: MOTION_EASE },
+  },
+};
 
-const tabs = showroomCategories;
-
-function filterByMaterial(projects: PortfolioProject[], material: MaterialTag | "all") {
-  if (material === "all") return projects;
-  return projects.filter((p) => p.materials.includes(material));
-}
+const gridStagger = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.05 },
+  },
+};
 
 function ShowroomGrid({
   projects,
@@ -45,233 +40,191 @@ function ShowroomGrid({
   projects: PortfolioProject[];
   onSelect: (p: PortfolioProject) => void;
 }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const { featured, secondary, gallery } = partitionShowroom(projects);
-
   if (projects.length === 0) {
     return (
-      <p className="py-12 text-center text-text-muted">אין פרויקטים בתצוגה לפי הפילטר הנבחר.</p>
+      <p className="py-16 text-center text-text-muted">
+        אין פרויקטים בתצוגה לפי הפילטר הנבחר.
+      </p>
     );
   }
 
-  const projectIndex = (id: string) => projects.findIndex((p) => p.id === id);
-  const denseGallery = gallery.length >= 6;
+  const select = (p: PortfolioProject) => {
+    sessionStorage.setItem(SHOWROOM_INTEREST_KEY, p.title);
+    onSelect(p);
+  };
+
+  const [hero, sec1, sec2, ...tiles] = projects;
 
   return (
-    <>
-      <div className="showroom-stack hidden md:flex">
-        <div className="showroom-lead">
-          {featured && (
-            <div className="showroom-lead__hero">
-              <ShowroomCard
-                card={featured}
-                index={projectIndex(featured.id)}
-                variant="hero"
-                onSelect={(p) => handleProjectSelect(p, onSelect)}
-              />
-            </div>
-          )}
+    <motion.div
+      className="flex flex-col gap-2"
+      variants={gridStagger}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.05 }}
+    >
+      <div className="hidden md:flex min-h-[min(440px,55dvh)] gap-2 lg:min-h-[min(520px,65dvh)]">
+        {hero && (
+          <motion.div variants={cardVariant} className="relative flex-[1.65]">
+            <ShowroomCard
+              card={hero}
+              index={0}
+              sizes="(max-width: 768px) 100vw, 62vw"
+              onSelect={select}
+            />
+          </motion.div>
+        )}
 
-          {secondary.length > 0 && (
-            <div
-              className={cn(
-                "showroom-lead__side",
-                secondary.length === 1 && "showroom-lead__side--single"
-              )}
-            >
-              {secondary.map((card) => (
+        {(sec1 || sec2) && (
+          <div className="flex-1 flex flex-col gap-2">
+            {sec1 && (
+              <motion.div variants={cardVariant} className="relative flex-1">
                 <ShowroomCard
-                  key={card.id}
-                  card={card}
-                  index={projectIndex(card.id)}
-                  variant="compact"
-                  onSelect={(p) => handleProjectSelect(p, onSelect)}
+                  card={sec1}
+                  index={1}
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                  onSelect={select}
                 />
-              ))}
-            </div>
-          )}
-        </div>
-
-        {gallery.length > 0 && (
-          <div
-            className={cn(
-              "showroom-gallery",
-              denseGallery && "showroom-gallery--dense"
+              </motion.div>
             )}
-          >
-            {gallery.map((card) => (
-              <div
-                key={card.id}
-                className={cn("min-w-0", gallerySpanClass(card.aspect))}
-              >
+            {sec2 && (
+              <motion.div variants={cardVariant} className="relative flex-1">
                 <ShowroomCard
-                  card={card}
-                  index={projectIndex(card.id)}
-                  variant="tile"
-                  onSelect={(p) => handleProjectSelect(p, onSelect)}
+                  card={sec2}
+                  index={2}
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                  onSelect={select}
                 />
-              </div>
-            ))}
+              </motion.div>
+            )}
           </div>
         )}
       </div>
 
-      <div
-        ref={scrollRef}
-        className="snap-carousel flex items-stretch gap-4 overflow-x-auto pb-6 md:hidden"
-        onScroll={(e) => {
-          const el = e.currentTarget;
-          const children = el.children;
-          if (!children.length) return;
-          const center = el.scrollLeft + el.clientWidth / 2;
-          let closest = 0;
-          let minDist = Infinity;
-          Array.from(children).forEach((child, i) => {
-            const elChild = child as HTMLElement;
-            const childCenter = elChild.offsetLeft + elChild.offsetWidth / 2;
-            const dist = Math.abs(center - childCenter);
-            if (dist < minDist) {
-              minDist = dist;
-              closest = i;
-            }
-          });
-          setActiveIndex(closest);
-        }}
-      >
-        {projects.map((card, index) => (
-          <div
-            key={card.id}
-            className={cn(
-              "transition-transform duration-500",
-              activeIndex === index ? "scale-100" : "scale-[0.94] opacity-85"
+      <div className="md:hidden flex flex-col gap-2">
+        {hero && (
+          <motion.div variants={cardVariant} className="relative aspect-[4/3]">
+            <ShowroomCard card={hero} index={0} sizes="100vw" onSelect={select} />
+          </motion.div>
+        )}
+        {(sec1 || sec2) && (
+          <div className="grid grid-cols-2 gap-2">
+            {[sec1, sec2].filter(Boolean).map((card, i) =>
+              card ? (
+                <motion.div key={card.id} variants={cardVariant} className="relative aspect-[3/4]">
+                  <ShowroomCard card={card} index={i + 1} sizes="50vw" onSelect={select} />
+                </motion.div>
+              ) : null
             )}
-            style={{ transitionTimingFunction: "var(--ease-luxury)" }}
-          >
-            <ShowroomCard
-              card={card}
-              index={index}
-              variant={card.featured ? "hero" : "tile"}
-              active={activeIndex === index}
-              onSelect={(p) => handleProjectSelect(p, onSelect)}
-            />
           </div>
-        ))}
+        )}
       </div>
-    </>
+
+      {/* Bottom row — fixed 2-col grid (same division as משרדים) */}
+      {tiles.length > 0 && (
+        <div className="grid grid-cols-2 gap-2">
+          {tiles.map((card, i) => (
+            <motion.div
+              key={card.id}
+              variants={cardVariant}
+              className="relative aspect-[4/3]"
+            >
+              <ShowroomCard
+                card={card}
+                index={i + 3}
+                sizes="(max-width: 768px) 50vw, 25vw"
+                onSelect={select}
+              />
+            </motion.div>
+          ))}
+        </div>
+      )}
+    </motion.div>
   );
 }
 
 export function DynamicShowroom() {
   const [activeTab, setActiveTab] = useState<ProjectCategory>("showers");
-  const [material, setMaterial] = useState<MaterialTag | "all">("all");
   const [lightboxProject, setLightboxProject] = useState<PortfolioProject | null>(null);
 
-  const baseProjects = projectsByCategory[activeTab];
   const filteredProjects = useMemo(
-    () => filterByMaterial(baseProjects, material),
-    [baseProjects, material]
+    () => projectsByCategory[activeTab],
+    [activeTab]
   );
 
   useEffect(() => {
     setLightboxProject(null);
-  }, [activeTab, material]);
+  }, [activeTab]);
 
   useEffect(() => {
     const tab = sessionStorage.getItem(SHOWROOM_TAB_KEY);
     if (tab === "mirrors" || tab === "showers" || tab === "offices") {
-      setActiveTab(tab);
+      setActiveTab(tab as ProjectCategory);
       sessionStorage.removeItem(SHOWROOM_TAB_KEY);
     }
   }, []);
 
-  const projectCount = filteredProjects.length;
-
   return (
-    <section id="showroom" data-funnel-step="desire" className="py-section">
-      <ChapterDivider beforeSectionId="showroom" />
+    <section id="showroom" data-funnel-step="desire" className="py-section bg-bg-elevated">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
-        <SectionHeader
-          number="02"
-          label="תיק עבודות"
-          title="בחרו את הסגנון שמתקרב לחזון שלכם"
-          description="בחרו קטגוריה, סננו לפי חומר — כל פרויקט עם פרטי גימור מלאים. לחצו לצפייה."
+        <SectionIntro
+          align="center"
+          title="כל פרויקט — גימור ייחודי, תכנון מדויק"
+          description="עיינו בתיק עבודותינו — לחצו על כל פרויקט לפרטי גימור, חומרים ומפרט טכני מלא."
+          className="[&_h2]:text-accent-teal"
+          descriptionClassName="!text-accent-teal"
         />
 
-        <Tabs
-          value={activeTab}
-          onValueChange={(v) => setActiveTab(v as ProjectCategory)}
-          dir="rtl"
-        >
-          <div className="mb-6 flex flex-col gap-4 border-b border-hairline pb-6 sm:flex-row sm:items-end sm:justify-between">
-            <TabsList className="relative mb-0 border-0 bg-transparent p-0">
-              {tabs.map((tab) => (
-                <TabsTrigger
+        <div className="mb-8 flex flex-col gap-6 border-b border-hairline pb-6 sm:flex-row sm:items-end sm:justify-between">
+          <nav className="flex gap-0" role="tablist" aria-label="קטגוריות תיק עבודות">
+            {showroomCategories.map((tab) => {
+              const isActive = activeTab === tab.value;
+              return (
+                <button
                   key={tab.value}
-                  value={tab.value}
-                  className="relative z-10 px-6 md:px-8"
+                  type="button"
+                  role="tab"
+                  id={`showroom-tab-${tab.value}`}
+                  aria-selected={isActive}
+                  aria-controls="showroom-panel"
+                  onClick={() => setActiveTab(tab.value)}
+                  className={cn(
+                    "relative px-5 py-3 font-display text-sm tracking-wide transition-colors duration-300",
+                    isActive ? "text-text-main" : "text-text-muted hover:text-text-main"
+                  )}
+                  aria-label={`קטגוריה: ${tab.label}${isActive ? " — נבחר" : ""}`}
                 >
                   {tab.label}
-                  {activeTab === tab.value && (
+                  {isActive && (
                     <motion.span
-                      layoutId="showroom-tab-indicator"
-                      className="absolute inset-x-3 -bottom-4 h-px bg-brand-gold"
+                      layoutId="tab-underline"
+                      className="absolute inset-x-3 -bottom-6 h-px bg-brand-gold"
                       transition={luxuryTransition}
                     />
                   )}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-            <p className="text-xs tracking-wide text-text-muted">
-              {projectCount} פרויקטים בתצוגה
-            </p>
-          </div>
+                </button>
+              );
+            })}
+          </nav>
+          <span className="text-xs tracking-wide text-text-muted">
+            {filteredProjects.length} פרויקטים
+          </span>
+        </div>
 
-          <div className="mb-8 flex flex-wrap gap-2">
-            {materialFilters.map((f) => (
-              <button
-                key={f.value}
-                type="button"
-                onClick={() => setMaterial(f.value)}
-                className={cn(
-                  "relative border px-4 py-2 text-xs tracking-wide transition-colors duration-500",
-                  material === f.value
-                    ? "border-brand-gold text-text-main"
-                    : "border-hairline text-text-muted hover:border-brand-gold/50 hover:text-text-main"
-                )}
-              >
-                {material === f.value && (
-                  <motion.span
-                    layoutId="material-filter-active"
-                    className="absolute inset-0 bg-brand-gold/10"
-                    transition={luxuryTransition}
-                  />
-                )}
-                <span className="relative">{f.label}</span>
-              </button>
-            ))}
-          </div>
-
-          {tabs.map((tab) => (
-            <TabsContent key={tab.value} value={tab.value}>
-              <AnimatePresence mode="popLayout">
-                {activeTab === tab.value && (
-                  <motion.div
-                    key={`${tab.value}-${material}`}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={luxuryTransition}
-                  >
-                    <ShowroomGrid projects={filteredProjects} onSelect={setLightboxProject} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </TabsContent>
-          ))}
-        </Tabs>
-
-        <FunnelCta step="showroom" />
+        <AnimatePresence mode="wait">
+          <motion.div
+            id="showroom-panel"
+            role="tabpanel"
+            aria-labelledby={`showroom-tab-${activeTab}`}
+            key={activeTab}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.4, ease: MOTION_EASE }}
+          >
+            <ShowroomGrid projects={filteredProjects} onSelect={setLightboxProject} />
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       <ProjectLightbox

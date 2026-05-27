@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { funnelCtas, type FunnelCtaKey } from "@/data/funnel";
+import { HeadingAccent } from "@/components/editorial/HeadingAccent";
 import { fadeUpVariants, scrollRevealViewport } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -24,18 +25,19 @@ export function FunnelCta({ step, className }: FunnelCtaProps) {
       viewport={scrollRevealViewport}
       variants={fadeUpVariants}
       className={cn(
-        "mt-16 border border-hairline p-8 md:p-10",
+        "card-surface mt-10 p-7 md:p-9",
         cta.variant === "emphasis"
-          ? "border-t-2 border-t-brand-gold bg-bg-elevated"
-          : "bg-bg-secondary",
+          ? "card-surface--cream border-t-2 border-t-brand-gold"
+          : "card-surface--muted",
         className
       )}
     >
-      <h3 className="font-display text-display-xl font-light text-text-main">
+      <h3 className="font-display text-display-xl font-light tracking-tight text-text-main">
         {cta.headline}
       </h3>
+      <HeadingAccent size="sm" />
       {cta.subline && (
-        <p className="mt-3 max-w-xl text-text-muted leading-relaxed">{cta.subline}</p>
+        <p className="type-lead mt-3 max-w-xl">{cta.subline}</p>
       )}
       <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
         <Button variant="gold" asChild>

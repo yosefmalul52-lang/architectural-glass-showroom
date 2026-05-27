@@ -3,134 +3,187 @@
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { engineeringPillars } from "@/data/pillars";
-import { processSteps } from "@/data/funnel";
-import { SectionHeader } from "@/components/editorial/SectionHeader";
-import { ChapterDivider } from "@/components/experience/ChapterDivider";
-import { FunnelCta } from "@/components/conversion/FunnelCta";
-import { fadeUpVariants, scrollRevealViewport } from "@/lib/motion";
-import { cn } from "@/lib/utils";
+import { ArchitecturalGrid } from "@/components/editorial/ArchitecturalGrid";
+import { HeadingAccent } from "@/components/editorial/HeadingAccent";
+import {
+  scrollRevealViewport,
+  headingContainerVariant,
+  headingLineVariant,
+  subtextVariant,
+} from "@/lib/motion";
 
-function ProcessTimeline() {
-  const ref = useRef<HTMLOListElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end center"],
-  });
-  const lineScale = useTransform(scrollYProgress, [0.2, 0.85], [0, 1]);
+const E = [0.16, 1, 0.3, 1] as const;
 
+const titleLines = [
+  { text: "הפרטים שמייחדים פרויקט זכוכית", weight: "light" as const },
+  { text: "שנעשה נכון", weight: "semibold" as const },
+];
+
+function PillarsHeader() {
   return (
-    <ol ref={ref} className="relative flex flex-col gap-4 sm:flex-row md:flex-col md:gap-6">
-      <motion.div
-        className="absolute right-[11px] top-2 bottom-2 w-px origin-top bg-brand-gold/30 md:right-auto md:left-3"
-        style={{ scaleY: lineScale }}
-        aria-hidden
-      />
-      {processSteps.map((step) => (
-        <li key={step.step} className="relative flex items-center gap-4">
-          <span className="relative z-10 font-display text-2xl text-brand-gold">
-            {step.step}
-          </span>
-          <span className="text-sm text-text-main">{step.label}</span>
-        </li>
-      ))}
-    </ol>
+    <header className="relative mb-12 text-center md:mb-14">
+      <div className="mx-auto max-w-3xl">
+        <motion.h2
+          variants={headingContainerVariant}
+          initial="hidden"
+          whileInView="visible"
+          viewport={scrollRevealViewport}
+          className="font-display text-display-4xl tracking-tight text-text-main lg:text-display-5xl"
+        >
+          {titleLines.map((line, i) => (
+            <span key={line.text} className="block overflow-hidden">
+              <motion.span
+                className={`block ${line.weight === "semibold" ? "font-semibold" : "font-light"}`}
+                variants={headingLineVariant}
+                transition={{ duration: 0.88, ease: E, delay: i * 0.1 }}
+              >
+                {line.text}
+              </motion.span>
+            </span>
+          ))}
+        </motion.h2>
+        <HeadingAccent align="center" className="mx-auto" />
+        <motion.p
+          initial="hidden"
+          whileInView="visible"
+          viewport={scrollRevealViewport}
+          variants={subtextVariant}
+          className="type-lead mx-auto mt-5 max-w-xl text-center"
+        >
+          כשכל הספקים מבטיחים «איכות», ההבדל האמיתי נמדד בשרטוטי AutoCAD המדויקים,
+          בחומרים עם תעודת יצרן — ובמי שנשאר לצידכם גם לאחר ההתקנה.
+        </motion.p>
+      </div>
+    </header>
   );
 }
 
-function PillarArticle({
+function PillarCard({
   pillar,
-  index,
+  fromRight,
+  dotOnLeft,
+  delay,
 }: {
   pillar: (typeof engineeringPillars)[number];
-  index: number;
+  fromRight: boolean;
+  dotOnLeft: boolean;
+  delay: number;
 }) {
-  const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { margin: "-30% 0px -30% 0px" });
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: false, margin: "-8% 0px -8% 0px" });
 
   return (
     <motion.article
       ref={ref}
-      initial="hidden"
-      whileInView="visible"
-      viewport={scrollRevealViewport}
-      variants={fadeUpVariants}
-      transition={{ delay: index * 0.1 }}
-      className={cn(
-        "relative overflow-hidden frame-gold-hover min-h-[280px] border border-hairline bg-bg-elevated transition-all duration-700",
-        pillar.span,
-        isInView && "ring-1 ring-brand-gold",
-        pillar.variant === "watermark" && "bg-bg-secondary"
-      )}
-      style={{ transitionTimingFunction: "var(--ease-luxury)" }}
+      initial={{ opacity: 0, x: fromRight ? 48 : -48, filter: "blur(4px)" }}
+      animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : { opacity: 0, x: fromRight ? 48 : -48, filter: "blur(4px)" }}
+      transition={{ duration: 0.85, ease: E, delay }}
+      className="card-surface card-surface-interactive group relative overflow-hidden border-s-[3px] border-s-accent-teal/25 hover:border-s-accent-teal/50 transition-[border-color,box-shadow] duration-500"
     >
-      {pillar.variant === "watermark" && (
-        <>
-          <span
-            className="pointer-events-none absolute -left-4 top-1/2 -translate-y-1/2 font-display text-[clamp(8rem,18vw,14rem)] leading-none text-text-main/[0.04] select-none"
-            aria-hidden
-          >
-            {pillar.number}
-          </span>
-          <div className="relative flex flex-col justify-center gap-8 p-8 md:flex-row md:items-center md:pr-32 lg:p-10">
-            <div className="flex-1">
-              <span className="font-display text-sm tracking-[0.2em] text-brand-teal">
-                {pillar.number}
-              </span>
-              <h3 className="mt-4 font-display text-display-xl font-light text-text-main lg:text-display-2xl">
-                {pillar.title}
-              </h3>
-              <p className="mt-4 max-w-md leading-relaxed text-text-muted">
-                {pillar.description}
-              </p>
-            </div>
-            <ProcessTimeline />
-          </div>
-        </>
-      )}
+      {/* Top accent — teal on hover */}
+      <div className="h-px w-full bg-accent-teal/25 transition-all duration-700 group-hover:bg-accent-teal/60" />
 
-      {pillar.variant !== "watermark" && (
-        <div className="relative flex h-full flex-col justify-end p-8 lg:p-10">
-          <span className="mb-4 font-display text-sm tracking-[0.2em] text-brand-gold">
-            {pillar.number}
-          </span>
-          <div>
-            <h3 className="font-display text-display-xl font-light text-text-main lg:text-display-2xl">
-              {pillar.title}
-            </h3>
-            <p className="mt-4 max-w-md leading-relaxed text-text-muted">
-              {pillar.description}
-            </p>
-            <div className="mt-6 h-px w-12 bg-brand-gold" />
-          </div>
-        </div>
-      )}
+      {/* Dot connector toward center line — desktop only */}
+      <div
+        className="absolute top-1/2 hidden h-2 w-2 -translate-y-1/2 bg-accent-teal/40 transition-all duration-500 group-hover:bg-accent-teal md:block"
+        style={{
+          left:  dotOnLeft  ? "calc(-3.5rem - 4px)" : "auto",
+          right: !dotOnLeft ? "calc(-3.5rem - 4px)" : "auto",
+        }}
+        aria-hidden
+      />
+
+      {/* Ghost number watermark — background only */}
+      <span
+        className="pointer-events-none absolute bottom-0 start-1 select-none font-display leading-[0.9] text-text-main/[0.04]"
+        style={{ fontSize: "clamp(4rem, 8vw, 6.5rem)" }}
+        aria-hidden
+      >
+        {pillar.number}
+      </span>
+
+      <div className="relative p-5 lg:p-6">
+        <h3 className="font-display text-lg font-light leading-snug text-text-main lg:text-xl">
+          {pillar.title}
+        </h3>
+
+        <p className="type-lead mt-3 text-sm leading-relaxed">{pillar.description}</p>
+
+        <div className="mt-4 h-px w-full bg-hairline" />
+        <p className="mt-3 text-xs leading-relaxed text-accent-teal/80">{pillar.proof}</p>
+      </div>
     </motion.article>
   );
 }
 
 export function EngineeringPillars() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 65%", "end 25%"],
+  });
+  const lineScaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  const rightCol = engineeringPillars.filter((_, i) => i % 2 === 0);
+  const leftCol  = engineeringPillars.filter((_, i) => i % 2 === 1);
+
   return (
     <section
       id="pillars"
       data-funnel-step="value"
-      className="relative bg-bg-secondary py-section"
+      className="relative bg-bg-primary pt-0 pb-14 lg:pb-20"
     >
-      <ChapterDivider beforeSectionId="pillars" />
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
-        <SectionHeader
-          number="01"
-          label="למה אנחנו"
-          title="למה אדריכלים ובעלי בתים בוחרים בסטודיו בוטיק"
-          description="דיוק הנדסי, בטיחות מלאה וליווי אדריכלי מהשלב הראשון."
-        />
+      <ArchitecturalGrid opacity={0.13} />
+      <div
+        ref={sectionRef}
+        className="relative mx-auto max-w-[1400px] px-6 pt-[clamp(3rem,5.5vw,6rem)] lg:px-10"
+      >
+        <PillarsHeader />
 
-        <div className="grid-12">
-          {engineeringPillars.map((pillar, index) => (
-            <PillarArticle key={pillar.id} pillar={pillar} index={index} />
-          ))}
+        {/* Timeline */}
+        <div className="relative">
+          {/* Center vertical thread */}
+          <div
+            className="absolute inset-y-0 hidden w-px md:block"
+            style={{ left: "50%", transform: "translateX(-50%)" }}
+            aria-hidden
+          >
+            <motion.div
+              className="absolute inset-x-0 top-0 origin-top bg-gradient-to-b from-accent-teal/55 via-brand-gold/30 to-transparent"
+              style={{ scaleY: lineScaleY, height: "100%" }}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-2 md:gap-x-12 lg:gap-x-14">
+            {/* Right column */}
+            <div className="flex flex-col gap-4">
+              {rightCol.map((pillar, i) => (
+                <PillarCard
+                  key={pillar.id}
+                  pillar={pillar}
+                  fromRight
+                  dotOnLeft
+                  delay={0.05 + i * 0.12}
+                />
+              ))}
+            </div>
+
+            {/* Left column — offset downward */}
+            <div className="flex flex-col gap-4 md:mt-16 lg:mt-20">
+              {leftCol.map((pillar, i) => (
+                <PillarCard
+                  key={pillar.id}
+                  pillar={pillar}
+                  fromRight={false}
+                  dotOnLeft={false}
+                  delay={0.05 + i * 0.12}
+                />
+              ))}
+            </div>
+          </div>
         </div>
 
-        <FunnelCta step="pillars" />
       </div>
     </section>
   );

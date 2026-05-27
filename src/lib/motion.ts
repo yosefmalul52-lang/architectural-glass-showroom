@@ -7,17 +7,53 @@ export const luxuryTransition: Transition = {
   ease: MOTION_EASE,
 };
 
+/** Repeatable scroll reveal — fires every time element enters viewport */
 export const scrollRevealViewport = {
+  once: false,
+  margin: "-10% 0px" as const,
+};
+
+/** One-shot reveal for decorative / non-heading elements */
+export const scrollRevealOnce = {
   once: true,
-  margin: "-100px" as const,
+  margin: "-8% 0px" as const,
 };
 
 export const fadeUpVariants: Variants = {
-  hidden: { y: 40, opacity: 0 },
+  hidden: { y: 36, opacity: 0, filter: "blur(4px)" },
   visible: {
     y: 0,
     opacity: 1,
-    transition: luxuryTransition,
+    filter: "blur(0px)",
+    transition: { duration: 0.9, ease: MOTION_EASE },
+  },
+};
+
+/** Standard heading animation — clip + slide per line, re-triggers on every scroll-in */
+export const headingLineVariant: Variants = {
+  hidden: { y: "108%", opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.88, ease: MOTION_EASE },
+  },
+};
+
+/** Stagger wrapper for heading lines */
+export const headingContainerVariant: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1, delayChildren: 0.05 },
+  },
+};
+
+/** Sub-text fade-up with slight delay after heading */
+export const subtextVariant: Variants = {
+  hidden: { y: 24, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.8, ease: MOTION_EASE, delay: 0.15 },
   },
 };
 
