@@ -43,7 +43,6 @@ export function HeroVideo() {
         before React hydrates — eliminating the load delay gap entirely.
       */}
       {!reduced && (
-        // eslint-disable-next-line @next/next/no-head-element
         <link
           rel="preload"
           as="video"
@@ -67,7 +66,7 @@ export function HeroVideo() {
         priority
         quality={95}
         sizes="100vw"
-        className={`absolute inset-0 z-[1] h-full w-full scale-[1.03] object-cover transition-opacity duration-700 ${
+        className={`absolute inset-0 z-[1] h-full w-full object-cover object-center transition-opacity duration-700 ${
           videoStarted && !videoFailed ? "opacity-0" : "opacity-100"
         }`}
       />
@@ -83,7 +82,7 @@ export function HeroVideo() {
         <>
           <video
             ref={videoRef}
-            className={`absolute inset-0 z-[2] h-full w-full scale-[1.03] object-cover transition-opacity duration-700 ${
+            className={`absolute inset-0 z-[2] h-full w-full object-cover object-center transition-opacity duration-700 ${
               videoFailed ? "opacity-0" : "opacity-100"
             }`}
             autoPlay

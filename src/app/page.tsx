@@ -20,13 +20,13 @@ export default function Home() {
         <EngineeringPillars />
         <DynamicShowroom />
         <AtelierReel />
-        <div
-          aria-hidden
-          className="mx-auto w-full max-w-[1400px] px-6 py-8 lg:px-10 lg:py-12"
-        >
-          <div className="h-px w-full bg-hairline" />
+        <div aria-hidden className="mx-auto w-full max-w-[1400px] px-6 lg:px-10">
+          <div className="mx-auto h-px w-full max-w-5xl bg-accent-teal/35" />
         </div>
         <SocialProof />
+        <div aria-hidden className="mx-auto w-full max-w-[1400px] px-6 lg:px-10">
+          <div className="mx-auto h-px w-full max-w-5xl bg-accent-teal/35" />
+        </div>
         <LeadCapture />
       </main>
       <Footer />

@@ -87,25 +87,30 @@ function TrustStrip() {
       aria-label="עמודי אמון"
     >
       <div className="grid grid-cols-2 lg:grid-cols-4">
-        {trustPillars.map(({ Icon, title, sub }, index) => (
+        {trustPillars.map(({ Icon, faClassName, title, sub }, index) => (
           <motion.div
             key={title}
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
+            whileHover={{ y: -4 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.55, ease: LUXURY_EASE, delay: index * 0.08 }}
             className={cn(
               "flex flex-col items-center px-5 py-2 text-center sm:px-7 lg:px-8",
-              index > 0 && "border-s border-hairline",
+              index > 0 && index !== 2 && "border-s border-hairline",
               (index === 2 || index === 3) && "border-t border-hairline lg:border-t-0"
             )}
           >
-            <Icon
-              className="mb-3 text-accent-teal"
-              size={36}
-              strokeWidth={1.25}
-              aria-hidden
-            />
+            {faClassName ? (
+              <i className={`${faClassName} mb-3 text-[34px] text-accent-teal`} aria-hidden />
+            ) : Icon ? (
+              <Icon
+                className="mb-3 text-accent-teal"
+                size={36}
+                strokeWidth={1.25}
+                aria-hidden
+              />
+            ) : null}
             <p className="font-display text-lg font-light leading-snug tracking-tight text-text-main lg:text-xl">
               {title}
             </p>
@@ -180,6 +185,7 @@ function TestimonialCarousel() {
                 initial="enter"
                 animate="center"
                 exit="exit"
+                whileHover={{ y: -3 }}
                 transition={SLIDE_TRANSITION}
                 className="relative flex flex-col items-center text-center"
                 aria-live="polite"
@@ -201,7 +207,7 @@ function TestimonialCarousel() {
                   <p className="font-display text-lg font-semibold text-text-main">
                     {active.author}
                   </p>
-                  <p className="mt-2 font-[family-name:var(--font-assistant)] text-xs tracking-[0.18em] text-text-muted uppercase">
+                  <p className="mt-2 font-[family-name:var(--font-cormorant)] text-sm italic tracking-[0.16em] text-text-muted uppercase">
                     {active.role}
                   </p>
                 </footer>
@@ -250,7 +256,27 @@ function TestimonialCarousel() {
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
-        <div className="relative min-h-[18rem] px-2 py-4">
+        <div className="relative h-[20rem] px-9 py-4">
+          <button
+            type="button"
+            onClick={goNext}
+            aria-label="המלצה הבאה"
+            className="absolute -right-2 top-1/2 z-10 -translate-y-1/2 p-2 text-accent-teal/80 transition-colors duration-300 hover:text-accent-teal"
+          >
+            <svg viewBox="0 0 16 16" width={18} height={18} fill="none" aria-hidden>
+              <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onClick={goPrev}
+            aria-label="המלצה קודמת"
+            className="absolute -left-2 top-1/2 z-10 -translate-y-1/2 p-2 text-accent-teal/80 transition-colors duration-300 hover:text-accent-teal"
+          >
+            <svg viewBox="0 0 16 16" width={18} height={18} fill="none" aria-hidden>
+              <path d="M10 3 5 8l5 5" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
           <AnimatePresence mode="wait" custom={direction}>
             <motion.blockquote
               key={index}
@@ -259,8 +285,9 @@ function TestimonialCarousel() {
               initial="enter"
               animate="center"
               exit="exit"
+              whileHover={{ y: -3 }}
               transition={SLIDE_TRANSITION}
-              className="relative flex flex-col items-center text-center"
+              className="relative flex h-full flex-col items-center justify-center text-center"
               aria-live="polite"
               aria-atomic="true"
             >
@@ -280,7 +307,7 @@ function TestimonialCarousel() {
                 <p className="font-display text-base font-semibold text-text-main">
                   {active.author}
                 </p>
-                <p className="mt-2 font-[family-name:var(--font-assistant)] text-[10px] tracking-[0.16em] text-text-muted uppercase">
+                <p className="mt-2 font-[family-name:var(--font-cormorant)] text-sm italic tracking-[0.16em] text-text-muted uppercase">
                   {active.role}
                 </p>
               </footer>
@@ -288,30 +315,6 @@ function TestimonialCarousel() {
           </AnimatePresence>
         </div>
 
-        <div className="mt-6 flex items-center justify-center gap-5">
-          <button
-            type="button"
-            onClick={goPrev}
-            aria-label="המלצה קודמת"
-            className="min-h-[44px] px-4 font-[family-name:var(--font-assistant)] text-xs tracking-wide text-text-muted underline-offset-4 hover:text-text-main hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
-          >
-            הקודם
-          </button>
-          <span className="font-display text-xs tabular-nums text-text-muted">
-            {index + 1} / {testimonials.length}
-          </span>
-          <button
-            type="button"
-            onClick={goNext}
-            aria-label="המלצה הבאה"
-            className="min-h-[44px] px-4 font-[family-name:var(--font-assistant)] text-xs tracking-wide text-text-muted underline-offset-4 hover:text-text-main hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
-          >
-            הבא
-          </button>
-        </div>
-        <p className="mt-3 text-center font-[family-name:var(--font-assistant)] text-[10px] text-text-muted/70">
-          החליקו לצדדים לניווט
-        </p>
       </div>
     </div>
   );
@@ -322,7 +325,8 @@ export function SocialProof() {
     <section
       id="trust"
       data-funnel-step="trust"
-      className="relative bg-bg-elevated py-section"
+      className="relative py-section"
+      style={{ backgroundColor: "#F3EBE1" }}
     >
       <ArchitecturalGrid opacity={0.1} />
       <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
@@ -330,12 +334,12 @@ export function SocialProof() {
           <div className="flex w-full flex-col items-center text-center">
             <SectionIntro
               align="center"
-              title="מה שנשאר אחרי שהאבק שוקע"
+              title="מה שנשאר — אחרי שהאבק שוקע"
               description="הפרויקט מסתיים — הקשר נשאר. כך נראית עבודה שנעשית בלי קיצורי דרך."
               descriptionClassName="max-w-3xl !text-accent-teal"
-              className="mb-0 [&_h2]:mx-auto [&_h2]:max-w-4xl [&_h2]:text-accent-teal"
+              className="mb-0 [&_h2]:mx-auto [&_h2]:max-w-4xl [&_h2]:text-text-main"
               numberClassName="text-accent-teal"
-              accentColor="#c5a059"
+              accentColor="#2d6b84"
             />
           </div>
 

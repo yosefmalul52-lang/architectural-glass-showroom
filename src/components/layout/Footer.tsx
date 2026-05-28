@@ -19,7 +19,7 @@ export function Footer() {
       <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
 
         {/* Main grid */}
-        <div className="grid gap-12 py-16 md:grid-cols-4 md:py-20">
+        <div className="grid gap-10 py-14 md:grid-cols-4 md:gap-12 md:py-20">
 
           {/* Brand */}
           <div className="md:col-span-1">
@@ -32,10 +32,10 @@ export function Footer() {
 
           {/* Services */}
           <div>
-            <p className="mb-5 text-sm tracking-[0.2em] uppercase" style={{ color: "#C7B299" }}>שירותים</p>
+            <p className="mb-4 font-[family-name:var(--font-cormorant)] text-[13px] italic tracking-[0.16em] uppercase sm:mb-5 sm:text-[14px] sm:tracking-[0.18em]" style={{ color: "#C7B299" }}>שירותים</p>
             <ul className="flex flex-col gap-3">
               {services.map((s) => (
-                <li key={s} className="text-sm text-white/45">
+                <li key={s} className="text-[15px] text-white/45 sm:text-sm">
                   {s}
                 </li>
               ))}
@@ -44,13 +44,13 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <p className="mb-5 text-sm tracking-[0.2em] uppercase" style={{ color: "#C7B299" }}>ניווט</p>
+            <p className="mb-4 font-[family-name:var(--font-cormorant)] text-[13px] italic tracking-[0.16em] uppercase sm:mb-5 sm:text-[14px] sm:tracking-[0.18em]" style={{ color: "#C7B299" }}>ניווט</p>
             <nav className="flex flex-col gap-3" aria-label="ניווט תחתון">
               {navSections.map((link) => (
                 <Link
                   key={link.id}
                   href={`#${link.id}`}
-                  className="text-sm text-white/45 transition-colors duration-300 hover:text-white/80"
+                  className="text-[15px] text-white/45 transition-colors duration-300 hover:text-white/80 sm:text-sm"
                 >
                   {link.label}
                 </Link>
@@ -60,8 +60,8 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="mb-5 text-sm tracking-[0.2em] uppercase" style={{ color: "#C7B299" }}>יצירת קשר</p>
-            <div className="flex flex-col gap-3 text-sm">
+            <p className="mb-4 font-[family-name:var(--font-cormorant)] text-[13px] italic tracking-[0.16em] uppercase sm:mb-5 sm:text-[14px] sm:tracking-[0.18em]" style={{ color: "#C7B299" }}>יצירת קשר</p>
+            <div className="flex flex-col gap-3 text-[15px] sm:text-sm">
               <a href={`tel:${CONTACT.phoneTel}`} className="text-white/55 transition-colors duration-300 hover:text-white/85">
                 {CONTACT.phone}
               </a>

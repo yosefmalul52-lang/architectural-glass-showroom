@@ -80,6 +80,7 @@ export function AtelierReel() {
       id="atelier"
       data-funnel-step="depth"
       className="relative py-section"
+      style={{ backgroundColor: "#F3EBE1" }}
     >
       <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
         <div className="flex flex-col gap-12 md:grid md:grid-cols-[minmax(0,22rem)_1fr] md:gap-x-14 xl:grid-cols-[minmax(0,26rem)_1fr] xl:gap-x-20">
@@ -103,7 +104,7 @@ export function AtelierReel() {
                   initial="hidden"
                   whileInView="visible"
                   viewport={scrollRevealViewport}
-                  className="font-display text-display-3xl font-light leading-[1.15] tracking-tight text-text-main md:text-display-4xl"
+                  className="font-display text-display-4xl leading-[1.12] tracking-tight text-text-main lg:text-display-5xl"
                 >
                   {[
                     { text: "חומרים שנבחרים בקפידה.", weight: "font-light" },
@@ -207,6 +208,9 @@ function MaterialCard({
     <motion.article
       style={motionStyle}
       className={MATERIAL_CARD_BASE}
+      whileHover={{ y: -6 }}
+      whileTap={{ scale: 0.995 }}
+      transition={{ duration: 0.45, ease: E }}
       {...handlers}
     >
       {/* Top teal accent stripe */}
@@ -271,7 +275,7 @@ function DepthStackingCard({
 
 function MobileGlassCard({ item, index }: { item: CraftSpec; index: number }) {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-8% 0px" });
+  const inView = useInView(ref, { once: true, margin: "0px 0px -12% 0px", amount: 0.12 });
 
   return (
     <motion.article
@@ -279,10 +283,13 @@ function MobileGlassCard({ item, index }: { item: CraftSpec; index: number }) {
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
       transition={{ duration: 0.7, ease: E, delay: index * 0.05 }}
-      className={MATERIAL_CARD_BASE}
+      className={cn(MATERIAL_CARD_BASE, "shadow-[0_10px_24px_rgba(24,52,74,0.12)]")}
     >
       <div className="h-px w-full bg-gradient-to-r from-transparent via-accent-teal/40 to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 start-0 w-px bg-gradient-to-b from-transparent via-accent-teal/45 to-transparent" aria-hidden />
+      <div className="pointer-events-none absolute inset-y-0 end-0 w-px bg-gradient-to-b from-transparent via-accent-teal/45 to-transparent" aria-hidden />
       <CardInner item={item} />
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-accent-teal/40 to-transparent" />
     </motion.article>
   );
 }
@@ -291,7 +298,7 @@ function CardInner({ item }: { item: CraftSpec }) {
   return (
     <>
       <span
-        className="pointer-events-none absolute bottom-2 start-3 select-none font-display leading-none text-accent-teal/[0.06]"
+        className="pointer-events-none absolute bottom-2 start-3 select-none font-[family-name:var(--font-cormorant)] font-light italic leading-none text-accent-teal/[0.07]"
         style={{ fontSize: "clamp(3.5rem, 8vw, 5.5rem)" }}
         aria-hidden
       >
@@ -301,11 +308,25 @@ function CardInner({ item }: { item: CraftSpec }) {
       <div className="relative z-[2] p-8 md:p-10">
         <span className="type-spec mb-4 block tabular-nums">{item.code}</span>
 
-        <h3 className="font-display text-xl font-light leading-snug text-text-main md:text-2xl">
+        <motion.h3
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.55 }}
+          transition={{ duration: 0.5, ease: E }}
+          className="font-display text-xl font-light leading-snug text-text-main md:text-2xl"
+        >
           {item.title}
-        </h3>
+        </motion.h3>
 
-        <p className="type-spec mt-2">{item.spec}</p>
+        <motion.p
+          initial={{ opacity: 0, y: 6 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.55 }}
+          transition={{ duration: 0.45, ease: E, delay: 0.05 }}
+          className="type-spec mt-2"
+        >
+          {item.spec}
+        </motion.p>
 
         <div className="mt-4 h-px w-full bg-accent-teal/30" />
 

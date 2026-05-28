@@ -1,7 +1,8 @@
-import { Award, Clock, Handshake, Star, type LucideIcon } from "lucide-react";
+import { type LucideIcon } from "lucide-react";
 
 export type TrustPillar = {
-  Icon: LucideIcon;
+  Icon?: LucideIcon;
+  faClassName?: string;
   title: string;
   sub: string;
 };
@@ -14,23 +15,23 @@ export type Testimonial = {
 
 export const trustPillars: TrustPillar[] = [
   {
-    Icon: Star,
+    faClassName: "fa-regular fa-star",
     title: "לקוחות שחוזרים",
     sub: "פרטיים, אדריכלים, קבלנים ורשתות מלונאות — כולם חוזרים",
   },
   {
-    Icon: Award,
+    faClassName: "fa-solid fa-medal",
     title: "חומרים ללא פשרות",
     sub: "תקן EN12150 · תעודת יצרן לכל רכיב · אחריות כתובה",
   },
   {
-    Icon: Handshake,
+    faClassName: "fa-regular fa-handshake",
     title: "שותפים לאדריכל",
     sub: "מעורבים מהתכנון הראשוני — לא רק מגיעים להתקנה",
   },
   {
-    Icon: Clock,
-    title: "15 שנות מקצועיות",
+    faClassName: "fa-solid fa-scroll",
+    title: "7+ שנות מקצועיות",
     sub: "ניסיון מצטבר בנדל״ן, מלונאות ופרויקטי מגורים יוקרתיים",
   },
 ];

@@ -10,13 +10,16 @@ export const luxuryTransition: Transition = {
 /** Repeatable scroll reveal — fires every time element enters viewport */
 export const scrollRevealViewport = {
   once: false,
-  margin: "-10% 0px" as const,
+  // Mobile-friendly threshold: triggers earlier on first downward scroll.
+  margin: "0px 0px -12% 0px" as const,
+  amount: 0.12,
 };
 
 /** One-shot reveal for decorative / non-heading elements */
 export const scrollRevealOnce = {
   once: true,
-  margin: "-8% 0px" as const,
+  margin: "0px 0px -10% 0px" as const,
+  amount: 0.08,
 };
 
 export const fadeUpVariants: Variants = {

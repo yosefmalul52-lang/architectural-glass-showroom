@@ -113,7 +113,7 @@ export function ProjectLightbox({
                 </button>
 
                 {/* Image stage */}
-                <div className="relative flex flex-1 items-center justify-center overflow-hidden px-4 pt-16 pb-4 lg:px-12 lg:pb-8 lg:pt-16">
+                <div className="relative flex flex-1 items-center justify-center overflow-hidden px-2 pt-14 pb-3 sm:px-4 lg:px-12 lg:pb-8 lg:pt-16">
                   <div className="relative h-full w-full max-w-5xl overflow-hidden">
                     <div
                       className={cn(
@@ -126,27 +126,27 @@ export function ProjectLightbox({
                         alt={project.alt}
                         fill
                         quality={95}
-                        sizes="(max-width: 768px) 100vw, 65vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 92vw, 72vw"
                         className="object-contain"
                       />
                     </div>
                   </div>
 
-                  <div className="absolute inset-y-0 right-4 flex items-center lg:right-6">
+                  <div className="absolute inset-y-0 right-2 flex items-center sm:right-4 lg:right-6">
                     <button
                       type="button"
                       onClick={goNext}
-                      className="flex h-12 w-12 items-center justify-center border border-white/20 text-white transition-colors hover:border-brand-gold hover:text-brand-gold"
+                      className="flex h-11 w-11 items-center justify-center border border-white/20 bg-black/20 text-white transition-colors hover:border-brand-gold hover:text-brand-gold sm:h-12 sm:w-12"
                       aria-label="פרויקט הבא"
                     >
                       <ChevronRight className="h-5 w-5" />
                     </button>
                   </div>
-                  <div className="absolute inset-y-0 left-4 flex items-center lg:left-6">
+                  <div className="absolute inset-y-0 left-2 flex items-center sm:left-4 lg:left-6">
                     <button
                       type="button"
                       onClick={goPrev}
-                      className="flex h-12 w-12 items-center justify-center border border-white/20 text-white transition-colors hover:border-brand-gold hover:text-brand-gold"
+                      className="flex h-11 w-11 items-center justify-center border border-white/20 bg-black/20 text-white transition-colors hover:border-brand-gold hover:text-brand-gold sm:h-12 sm:w-12"
                       aria-label="פרויקט קודם"
                     >
                       <ChevronLeft className="h-5 w-5" />

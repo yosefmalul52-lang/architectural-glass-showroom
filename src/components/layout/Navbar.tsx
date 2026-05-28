@@ -22,7 +22,7 @@ export function Navbar() {
       {/* Glass dark bg */}
       <div className="absolute inset-0 bg-[#18344A]/60 backdrop-blur-md border-b border-white/[0.07]" />
 
-      <div className="relative mx-auto flex h-16 max-w-[1400px] items-center justify-between gap-6 px-6 lg:h-[72px] lg:px-10">
+      <div className="relative mx-auto flex h-[62px] max-w-[1400px] items-center justify-between gap-4 px-4 sm:h-16 sm:gap-6 sm:px-6 lg:h-[72px] lg:px-10">
 
         {/* Brand — right */}
         <Link
@@ -42,7 +42,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, ease: EASE, delay: 0.3 }}
-            className="mt-0.5 font-display text-[10px] tracking-[0.22em] text-white/35 uppercase"
+            className="mt-0.5 font-[family-name:var(--font-cormorant)] text-[10px] italic tracking-[0.2em] text-white/35 uppercase sm:text-[11px] sm:tracking-[0.22em]"
           >
             {BRAND.nameEn}
           </motion.span>
@@ -62,7 +62,7 @@ export function Navbar() {
             >
               <Link
                 href={`#${section.id}`}
-                className="relative py-1 font-display text-[14px] tracking-[0.14em] uppercase text-white/55 transition-colors duration-300 hover:text-white"
+                className="relative py-1 font-display text-[16px] tracking-[0.12em] uppercase text-white/55 transition-colors duration-300 hover:text-white"
               >
                 {section.label}
               </Link>
@@ -77,7 +77,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, ease: EASE, delay: 0.55 }}
-            className="hidden items-center gap-2 border border-white/15 px-4 py-2 font-display text-[14px] tracking-[0.1em] text-white/70 transition-all duration-300 hover:border-white/35 hover:text-white sm:flex"
+            className="hidden items-center gap-2 border border-white/15 px-4 py-2 font-display text-[15px] tracking-[0.09em] text-white/70 transition-all duration-300 hover:border-white/35 hover:text-white sm:flex"
             aria-label={`טלפון: ${CONTACT.phone}`}
           >
             <Phone size={12} strokeWidth={1.5} />
@@ -90,7 +90,7 @@ export function Navbar() {
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? "סגור תפריט" : "פתח תפריט"}
             aria-expanded={mobileOpen}
-            className="flex h-9 w-9 flex-col items-center justify-center gap-[5px] md:hidden"
+            className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden"
           >
             <span className={cn("block h-px w-5 bg-white/70 transition-all duration-300", mobileOpen && "translate-y-[7px] rotate-45")} />
             <span className={cn("block h-px w-5 bg-white/70 transition-all duration-300", mobileOpen && "opacity-0")} />
@@ -113,9 +113,9 @@ export function Navbar() {
               key={section.id}
               href={`#${section.id}`}
               onClick={() => setMobileOpen(false)}
-              className="border-b border-white/6 py-4 font-display text-sm tracking-[0.14em] text-white/60 transition-colors duration-200 hover:text-white"
+            className="border-b border-white/6 py-4 font-display text-[17px] tracking-[0.1em] text-white/65 transition-colors duration-200 hover:text-white"
             >
-              <span className="me-3 font-display text-[9px] tracking-[0.2em] text-white/25 tabular-nums">
+              <span className="me-3 font-display text-[10px] tracking-[0.18em] text-white/25 tabular-nums">
                 {section.number}.
               </span>
               {section.label}
@@ -123,7 +123,7 @@ export function Navbar() {
           ))}
           <a
             href={`tel:${CONTACT.phoneTel}`}
-            className="mt-4 flex items-center gap-2 py-3 text-sm text-white/50 hover:text-white"
+            className="mt-4 flex items-center gap-2 py-3 text-base text-white/50 hover:text-white"
           >
             <Phone size={13} strokeWidth={1.5} />
             {CONTACT.phone}

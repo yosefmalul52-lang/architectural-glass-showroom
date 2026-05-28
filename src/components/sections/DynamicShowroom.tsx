@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionIntro } from "@/components/editorial/SectionIntro";
 import {
@@ -40,6 +40,8 @@ function ShowroomGrid({
   projects: PortfolioProject[];
   onSelect: (p: PortfolioProject) => void;
 }) {
+  const mobileTrackRef = useRef<HTMLDivElement | null>(null);
+
   if (projects.length === 0) {
     return (
       <p className="py-16 text-center text-text-muted">
@@ -52,20 +54,30 @@ function ShowroomGrid({
     sessionStorage.setItem(SHOWROOM_INTEREST_KEY, p.title);
     onSelect(p);
   };
+  const scrollMobileTrack = (direction: "next" | "prev") => {
+    const track = mobileTrackRef.current;
+    if (!track) return;
+    const amount = Math.round(track.clientWidth * 0.86);
+    track.scrollBy({
+      left: direction === "next" ? amount : -amount,
+      behavior: "smooth",
+    });
+  };
 
   const [hero, sec1, sec2, ...tiles] = projects;
 
   return (
     <motion.div
-      className="flex flex-col gap-2"
+      className="flex flex-col gap-1"
       variants={gridStagger}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.05 }}
     >
-      <div className="hidden md:flex min-h-[min(440px,55dvh)] gap-2 lg:min-h-[min(520px,65dvh)]">
+      {/* Desktop hero row */}
+      <div className="hidden md:flex min-h-[min(480px,60dvh)] gap-1 lg:min-h-[min(560px,68dvh)]">
         {hero && (
-          <motion.div variants={cardVariant} className="relative flex-[1.65]">
+          <motion.div variants={cardVariant} className="relative flex-[1.75]">
             <ShowroomCard
               card={hero}
               index={0}
@@ -76,7 +88,7 @@ function ShowroomGrid({
         )}
 
         {(sec1 || sec2) && (
-          <div className="flex-1 flex flex-col gap-2">
+          <div className="flex-1 flex flex-col gap-1">
             {sec1 && (
               <motion.div variants={cardVariant} className="relative flex-1">
                 <ShowroomCard
@@ -101,28 +113,56 @@ function ShowroomGrid({
         )}
       </div>
 
-      <div className="md:hidden flex flex-col gap-2">
-        {hero && (
-          <motion.div variants={cardVariant} className="relative aspect-[4/3]">
-            <ShowroomCard card={hero} index={0} sizes="100vw" onSelect={select} />
-          </motion.div>
-        )}
-        {(sec1 || sec2) && (
-          <div className="grid grid-cols-2 gap-2">
-            {[sec1, sec2].filter(Boolean).map((card, i) =>
-              card ? (
-                <motion.div key={card.id} variants={cardVariant} className="relative aspect-[3/4]">
-                  <ShowroomCard card={card} index={i + 1} sizes="50vw" onSelect={select} />
-                </motion.div>
-              ) : null
-            )}
-          </div>
-        )}
+      {/* Mobile: horizontal touch carousel (desktop grid stays unchanged) */}
+      <div className="relative md:hidden">
+        <button
+          type="button"
+          onClick={() => scrollMobileTrack("next")}
+          aria-label="תמונה קודמת"
+          className="absolute right-1 top-1/2 z-10 -translate-y-1/2 p-2 text-white/85 drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)] transition-colors duration-300 hover:text-white"
+        >
+          <svg viewBox="0 0 16 16" width={14} height={14} fill="none" aria-hidden>
+            <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          onClick={() => scrollMobileTrack("prev")}
+          aria-label="תמונה הבאה"
+          className="absolute left-1 top-1/2 z-10 -translate-y-1/2 p-2 text-white/85 drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)] transition-colors duration-300 hover:text-white"
+        >
+          <svg viewBox="0 0 16 16" width={14} height={14} fill="none" aria-hidden>
+            <path d="M10 3 5 8l5 5" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+
+        <div
+          ref={mobileTrackRef}
+          className="snap-carousel -mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-2 touch-pan-x overscroll-x-contain"
+          data-lenis-prevent
+        >
+          {projects.map((card, i) => (
+            <motion.div
+              key={card.id}
+              variants={cardVariant}
+              className="w-[calc(100vw-3rem)] shrink-0 snap-center"
+            >
+              <div className="relative aspect-[4/3]">
+                <ShowroomCard
+                  card={card}
+                  index={i}
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  onSelect={select}
+                />
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
 
-      {/* Bottom row — fixed 2-col grid (same division as משרדים) */}
+      {/* Bottom tiles */}
       {tiles.length > 0 && (
-        <div className="grid grid-cols-2 gap-2">
+        <div className="hidden gap-1 md:grid md:grid-cols-3">
           {tiles.map((card, i) => (
             <motion.div
               key={card.id}
@@ -147,14 +187,9 @@ export function DynamicShowroom() {
   const [activeTab, setActiveTab] = useState<ProjectCategory>("showers");
   const [lightboxProject, setLightboxProject] = useState<PortfolioProject | null>(null);
 
-  const filteredProjects = useMemo(
-    () => projectsByCategory[activeTab],
-    [activeTab]
-  );
+  const filteredProjects = useMemo(() => projectsByCategory[activeTab], [activeTab]);
 
-  useEffect(() => {
-    setLightboxProject(null);
-  }, [activeTab]);
+  useEffect(() => { setLightboxProject(null); }, [activeTab]);
 
   useEffect(() => {
     const tab = sessionStorage.getItem(SHOWROOM_TAB_KEY);
@@ -170,14 +205,12 @@ export function DynamicShowroom() {
         <SectionIntro
           align="center"
           title="כל פרויקט — גימור ייחודי, תכנון מדויק"
-          description="עיינו בתיק עבודותינו — לחצו על כל פרויקט לפרטי גימור, חומרים ומפרט טכני מלא."
           className="[&_h2]:text-accent-teal"
-          descriptionClassName="!text-accent-teal"
           accentColor="#C7B39A"
         />
 
-        <div className="mb-8 flex flex-col gap-6 border-b border-hairline pb-6 sm:flex-row sm:items-end sm:justify-between">
-          <nav className="flex gap-0" role="tablist" aria-label="קטגוריות תיק עבודות">
+        <div className="mb-8 flex flex-col gap-4 pb-6 sm:flex-row sm:items-end sm:justify-between">
+          <nav className="flex items-end gap-0 border-b border-hairline" role="tablist" aria-label="קטגוריות תיק עבודות">
             {showroomCategories.map((tab) => {
               const isActive = activeTab === tab.value;
               return (
@@ -190,7 +223,7 @@ export function DynamicShowroom() {
                   aria-controls="showroom-panel"
                   onClick={() => setActiveTab(tab.value)}
                   className={cn(
-                    "relative px-5 py-3 font-display text-sm tracking-wide transition-colors duration-300",
+                    "relative px-5 pb-4 pt-2 font-display text-sm tracking-wide transition-colors duration-300",
                     isActive ? "text-text-main" : "text-text-muted hover:text-text-main"
                   )}
                   aria-label={`קטגוריה: ${tab.label}${isActive ? " — נבחר" : ""}`}
@@ -199,7 +232,7 @@ export function DynamicShowroom() {
                   {isActive && (
                     <motion.span
                       layoutId="tab-underline"
-                      className="absolute inset-x-3 -bottom-6 h-px bg-brand-gold"
+                      className="absolute inset-x-0 bottom-0 h-[2px] bg-accent-teal"
                       transition={luxuryTransition}
                     />
                   )}
@@ -207,9 +240,6 @@ export function DynamicShowroom() {
               );
             })}
           </nav>
-          <span className="text-xs tracking-wide text-text-muted">
-            {filteredProjects.length} פרויקטים
-          </span>
         </div>
 
         <AnimatePresence mode="wait">

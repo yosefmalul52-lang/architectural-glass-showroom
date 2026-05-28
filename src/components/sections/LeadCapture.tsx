@@ -34,12 +34,6 @@ const trustSignals: { text: string }[] = [
   { text: "תקן EN12150 · מדידת לייזר בשטח" },
 ];
 
-const benefits = [
-  "אפיון חומר ופרופיל מותאם לאדריכלות החלל",
-  "הצעה מפורטת עם לוח זמנים ואפשרויות גימור",
-  "ליווי הנדסי מלא — משרטוט CNC ועד התקנה נקייה",
-];
-
 function ContactStrip() {
   return (
     <div className="mb-10 flex flex-col gap-4">
@@ -87,17 +81,19 @@ function ContactStrip() {
 export function LeadCapture() {
   const [projectScope, setProjectScope] = useState<ProjectScopeValue | "">("");
   const [message, setMessage] = useState("");
+  const [showroomInterest, setShowroomInterest] = useState<string | undefined>(undefined);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [nameError, setNameError] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [formFocused, setFormFocused] = useState(false);
+  const [agreed, setAgreed] = useState(false);
 
   useEffect(() => {
     const interest = sessionStorage.getItem(SHOWROOM_INTEREST_KEY);
     if (interest) {
-      setMessage(`מתעניין/ת בסגנון: ${interest}`);
+      setShowroomInterest(interest);
       sessionStorage.removeItem(SHOWROOM_INTEREST_KEY);
     }
 
@@ -145,9 +141,7 @@ export function LeadCapture() {
       phone,
       projectScope,
       message: message || undefined,
-      showroomInterest: message.includes("מתעניין/ת בסגנון:")
-        ? message.replace("מתעניין/ת בסגנון: ", "")
-        : undefined,
+      showroomInterest,
     });
 
     setIsSubmitting(true);
@@ -186,22 +180,25 @@ export function LeadCapture() {
             description={consultationIntro.description}
             align="center"
             className="mb-0"
+            descriptionClassName="!text-accent-teal"
           />
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-stretch lg:gap-14">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-stretch lg:gap-14">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={scrollRevealViewport}
             variants={fadeUpVariants}
             className={cn(
-              "flex flex-col justify-between lg:col-span-5 transition-all duration-700",
+              "order-2 flex flex-col justify-between lg:order-1 lg:col-span-5 transition-all duration-700",
               formFocused && "focus-chapter is-focused"
             )}
           >
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-6 lg:gap-8">
               <ContactStrip />
+
+              <div className="h-px w-full bg-hairline" />
 
               <ul className="flex flex-col gap-3">
                 {trustSignals.map(({ text }) => (
@@ -209,21 +206,11 @@ export function LeadCapture() {
                     <svg viewBox="0 0 16 16" width={16} height={16} fill="none" className="shrink-0 text-accent-teal" aria-hidden>
                       <path d="M3 8l3.5 3.5L13 5" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                    <span className="text-sm text-text-muted">{text}</span>
+                    <span className="text-base text-text-muted">{text}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="h-px w-full bg-hairline" />
-
-              <ul className="space-y-4">
-                {benefits.map((benefit) => (
-                  <li key={benefit} className="flex items-start gap-4 text-sm text-text-muted">
-                    <span className="mt-2 h-px w-6 shrink-0 bg-brand-gold" />
-                    {benefit}
-                  </li>
-                ))}
-              </ul>
             </div>
           </motion.div>
 
@@ -232,7 +219,7 @@ export function LeadCapture() {
             whileInView="visible"
             viewport={scrollRevealViewport}
             variants={fadeUpVariants}
-            className="lg:col-span-7"
+            className="order-1 lg:order-2 lg:col-span-7"
           >
             {submitted ? (
               <div className="card-surface border-brand-gold/30 p-10 text-center md:p-14" role="status" aria-live="polite">
@@ -258,6 +245,17 @@ export function LeadCapture() {
                 </p>
               </div>
             ) : (
+              <div
+                className="p-px"
+                style={{
+                  background: [
+                    "linear-gradient(to right, transparent, rgba(45,107,132,0.55), transparent) top / 100% 1px no-repeat",
+                    "linear-gradient(to right, transparent, rgba(45,107,132,0.55), transparent) bottom / 100% 1px no-repeat",
+                    "linear-gradient(to bottom, transparent, rgba(45,107,132,0.55), transparent) left / 1px 100% no-repeat",
+                    "linear-gradient(to bottom, transparent, rgba(45,107,132,0.55), transparent) right / 1px 100% no-repeat",
+                  ].join(", "),
+                }}
+              >
               <form
                 onSubmit={handleSubmit}
                 onFocus={() => setFormFocused(true)}
@@ -267,15 +265,11 @@ export function LeadCapture() {
                   }
                 }}
                 className={cn(
-                  "card-surface space-y-8 p-8 transition-all duration-700 md:p-12",
+                  "card-surface space-y-6 p-5 transition-all duration-700 sm:p-7 md:space-y-8 md:p-12",
                   formFocused && "form-elevated"
                 )}
               >
-                <p className="font-display text-sm tracking-wide text-text-muted">
-                  פרטי קשר לתיאום ייעוץ אישי
-                </p>
-
-                <div className="grid gap-8 sm:grid-cols-2">
+                <div className="grid gap-5 sm:grid-cols-2 md:gap-8">
                   <div>
                     <UnderlineInput
                       label="שם מלא"
@@ -326,13 +320,13 @@ export function LeadCapture() {
                     <SelectTrigger
                       id="project-scope"
                       aria-label="בחרו את היקף הפרויקט"
-                      className="min-h-[48px] border-0 border-none bg-transparent px-0 shadow-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
+                      className="min-h-[48px] border-0 border-none bg-transparent px-0 text-right shadow-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold [&>span]:flex [&>span]:w-full [&>span]:justify-end"
                     >
                       <SelectValue placeholder="בחרו את היקף הפרויקט" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="text-right" dir="rtl">
                       {projectScopes.map((scope) => (
-                        <SelectItem key={scope.value} value={scope.value}>
+                        <SelectItem key={scope.value} value={scope.value} className="justify-end">
                           {scope.label}
                         </SelectItem>
                       ))}
@@ -353,13 +347,38 @@ export function LeadCapture() {
                   </p>
                 )}
 
+                <label className="flex cursor-pointer items-start gap-3 pt-1">
+                  <div className="relative mt-0.5 shrink-0">
+                    <input
+                      type="checkbox"
+                      checked={agreed}
+                      onChange={(e) => setAgreed(e.target.checked)}
+                      className="peer sr-only"
+                    />
+                    <div className="h-4 w-4 border border-accent-teal/40 transition-colors peer-checked:border-accent-teal peer-checked:bg-accent-teal" />
+                    {agreed && (
+                      <svg
+                        className="pointer-events-none absolute inset-0 m-auto h-2.5 w-2.5 text-white"
+                        viewBox="0 0 10 10"
+                        fill="none"
+                        aria-hidden
+                      >
+                        <path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
+                  </div>
+                  <span className="text-right text-[13px] leading-relaxed text-text-muted sm:text-sm">
+                    קראתי ואני מסכים/ה לקבל יצירת קשר חוזרת בנוגע לפרויקט שלי
+                  </span>
+                </label>
+
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                   <Button
                     type="submit"
                     variant="gold"
                     size="lg"
                     className="w-full sm:w-auto"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !agreed}
                   >
                     {isSubmitting ? (
                       <>
@@ -373,11 +392,9 @@ export function LeadCapture() {
                       </>
                     )}
                   </Button>
-                  <p className="text-xs text-text-muted">
-                    ללא ספאם · פרטים שמורים בדיסקרטיות מלאה
-                  </p>
                 </div>
               </form>
+              </div>
             )}
           </motion.div>
         </div>

@@ -70,7 +70,7 @@ function PillarCard({
   delay: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: false, margin: "-8% 0px -8% 0px" });
+  const inView = useInView(ref, { once: false, margin: "0px 0px -14% 0px", amount: 0.12 });
 
   return (
     <motion.article
@@ -101,7 +101,7 @@ function PillarCard({
 
       {/* Ghost number watermark — background only */}
       <span
-        className="pointer-events-none absolute bottom-0 start-1 select-none font-display leading-[0.9] text-text-main/[0.04]"
+        className="pointer-events-none absolute bottom-0 start-1 select-none font-[family-name:var(--font-cormorant)] font-light italic leading-[0.9] text-text-main/[0.05]"
         style={{ fontSize: "clamp(4rem, 8vw, 6.5rem)" }}
         aria-hidden
       >
@@ -116,7 +116,7 @@ function PillarCard({
         <p className="type-lead mt-3 text-sm leading-relaxed">{pillar.description}</p>
 
         <div className="mt-4 h-px w-full bg-hairline" />
-        <p className="mt-3 text-xs leading-relaxed text-accent-teal/80">{pillar.proof}</p>
+        <p className="mt-3 font-[family-name:var(--font-cormorant)] text-sm font-light italic leading-relaxed tracking-wide text-accent-teal/80">{pillar.proof}</p>
       </div>
 
       {/* Bottom gradient stripe */}

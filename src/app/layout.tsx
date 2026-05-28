@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Frank_Ruhl_Libre, Assistant, Heebo } from "next/font/google";
+import { Frank_Ruhl_Libre, Assistant, Cormorant_Garamond } from "next/font/google";
 import { ClientShell } from "@/components/layout/ClientShell";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./globals.css";
 
 const frankRuhlLibre = Frank_Ruhl_Libre({
@@ -10,17 +11,18 @@ const frankRuhlLibre = Frank_Ruhl_Libre({
   display: "swap",
 });
 
+const cormorantGaramond = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
 const assistant = Assistant({
   variable: "--font-assistant",
   subsets: ["hebrew", "latin"],
   weight: ["200", "300", "400", "500", "600", "700"],
-  display: "swap",
-});
-
-const heebo = Heebo({
-  variable: "--font-heebo",
-  subsets: ["hebrew", "latin"],
-  weight: ["300", "400", "500", "700"],
   display: "swap",
 });
 
@@ -56,7 +58,7 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body
-        className={`${frankRuhlLibre.variable} ${assistant.variable} ${heebo.variable} overflow-x-hidden antialiased`}
+        className={`${frankRuhlLibre.variable} ${cormorantGaramond.variable} ${assistant.variable} overflow-x-hidden antialiased`}
       >
         <a
           href="#main-content"

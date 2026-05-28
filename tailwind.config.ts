@@ -15,8 +15,9 @@ const config: Config = {
         hairline: "var(--hairline)",
       },
       fontFamily: {
-        display: ["var(--font-frank-ruhl)", "var(--font-heebo)", "serif"],
+        display: ["var(--font-frank-ruhl)", "Georgia", "serif"],
         body: ["var(--font-assistant)", "system-ui", "sans-serif"],
+        latin: ["var(--font-cormorant)", "Georgia", "serif"],
       },
       spacing: {
         section: "clamp(6rem, 14vw, 16rem)",

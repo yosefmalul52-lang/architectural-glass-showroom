@@ -59,12 +59,12 @@ export function SectionIntro({
           viewport={scrollRevealViewport}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className={cn(
-            "mb-5 flex items-center gap-2 font-display text-[10px] tracking-[0.22em] uppercase",
+            "mb-5 flex items-center gap-2 font-[family-name:var(--font-cormorant)] text-[11px] italic tracking-[0.2em] uppercase",
             align === "center" && "justify-center"
           )}
         >
           {number && (
-            <span className={cn("tabular-nums", numberClassName ?? "text-brand-gold")}>
+            <span className={cn("tabular-nums not-italic font-[family-name:var(--font-cormorant)] text-sm", numberClassName ?? "text-brand-gold")}>
               {number}.
             </span>
           )}
@@ -85,7 +85,7 @@ export function SectionIntro({
             initial="hidden"
             whileInView="visible"
             viewport={scrollRevealViewport}
-            className="font-display text-display-3xl font-light leading-[1.15] tracking-tight text-text-main lg:text-display-4xl"
+            className="font-display text-display-4xl leading-[1.12] tracking-tight text-text-main lg:text-display-5xl"
           >
             {lines.length > 1 ? (
               lines.map((line, i) => (
