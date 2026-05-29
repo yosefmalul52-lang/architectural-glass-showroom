@@ -39,24 +39,20 @@ function ContactStrip() {
     <div className="mb-10 flex flex-col gap-4">
       <a
         href={`tel:${CONTACT.phoneTel}`}
-        className="flex items-center gap-4 group"
+        className="flex items-center gap-3 group"
       >
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-accent-teal/30 text-accent-teal transition-colors group-hover:border-accent-teal group-hover:bg-accent-teal/5">
-          <Phone size={16} strokeWidth={1.5} />
-        </span>
-        <span className="font-display text-base tracking-wide text-text-main group-hover:text-accent-teal transition-colors">
+        <Phone className="shrink-0 text-brand-gold" size={18} strokeWidth={1.5} />
+        <span className="font-display text-base tracking-wide text-text-main transition-colors group-hover:text-text-main/70">
           {CONTACT.phone}
         </span>
       </a>
 
       <a
         href={`mailto:${CONTACT.email}`}
-        className="flex items-center gap-4 group"
+        className="flex items-center gap-3 group"
       >
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-accent-teal/30 text-accent-teal transition-colors group-hover:border-accent-teal group-hover:bg-accent-teal/5">
-          <Mail size={16} strokeWidth={1.5} />
-        </span>
-        <span className="font-display text-base tracking-wide text-text-main group-hover:text-accent-teal transition-colors">
+        <Mail className="shrink-0 text-brand-gold" size={18} strokeWidth={1.5} />
+        <span className="font-display text-base tracking-wide text-text-main transition-colors group-hover:text-text-main/70">
           {CONTACT.email}
         </span>
       </a>
@@ -65,12 +61,10 @@ function ContactStrip() {
         href={WHATSAPP_DEFAULT_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-4 group"
+        className="flex items-center gap-3 group"
       >
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-accent-teal/30 text-accent-teal transition-colors group-hover:border-accent-teal group-hover:bg-accent-teal/5">
-          <MessageCircle size={16} strokeWidth={1.5} />
-        </span>
-        <span className="font-display text-base tracking-wide text-text-main group-hover:text-accent-teal transition-colors">
+        <MessageCircle className="shrink-0 text-brand-gold" size={18} strokeWidth={1.5} />
+        <span className="font-display text-base tracking-wide text-text-main transition-colors group-hover:text-text-main/70">
           וואטסאפ ישיר
         </span>
       </a>
@@ -103,6 +97,7 @@ export function LeadCapture() {
       showers: "custom-showers",
       mirrors: "premium-mirrors",
       offices: "office-cladding",
+      railings: "complex-architectural",
     };
     if (type && scopeMap[type]) {
       setProjectScope(scopeMap[type]);
@@ -159,7 +154,7 @@ export function LeadCapture() {
   }
 
   return (
-    <section id="contact" data-funnel-step="action" className="relative py-section" style={{ background: "#F3EBE1" }}>
+    <section id="contact" data-funnel-step="action" className="relative bg-white py-section">
       <div
         className={cn(
           "mx-auto max-w-[1400px] px-6 transition-all duration-700 lg:px-10",
@@ -180,7 +175,8 @@ export function LeadCapture() {
             description={consultationIntro.description}
             align="center"
             className="mb-0"
-            descriptionClassName="!text-accent-teal"
+            accentColor="#C8B49B"
+            descriptionClassName="!text-text-main"
           />
         </motion.div>
 
@@ -203,10 +199,10 @@ export function LeadCapture() {
               <ul className="flex flex-col gap-3">
                 {trustSignals.map(({ text }) => (
                   <li key={text} className="flex items-center gap-3">
-                    <svg viewBox="0 0 16 16" width={16} height={16} fill="none" className="shrink-0 text-accent-teal" aria-hidden>
+                    <svg viewBox="0 0 16 16" width={16} height={16} fill="none" className="shrink-0 text-brand-gold" aria-hidden>
                       <path d="M3 8l3.5 3.5L13 5" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                    <span className="text-base text-text-muted">{text}</span>
+                    <span className="text-base text-text-main">{text}</span>
                   </li>
                 ))}
               </ul>
@@ -222,7 +218,7 @@ export function LeadCapture() {
             className="order-1 lg:order-2 lg:col-span-7"
           >
             {submitted ? (
-              <div className="card-surface border-brand-gold/30 p-10 text-center md:p-14" role="status" aria-live="polite">
+              <div className="lead-form-panel p-10 text-center md:p-14" role="status" aria-live="polite">
                 <SuccessCheck />
                 <p className="font-display text-display-2xl font-light tracking-tight text-text-main">
                   הבקשה התקבלה
@@ -245,17 +241,6 @@ export function LeadCapture() {
                 </p>
               </div>
             ) : (
-              <div
-                className="p-px"
-                style={{
-                  background: [
-                    "linear-gradient(to right, transparent, rgba(45,107,132,0.55), transparent) top / 100% 1px no-repeat",
-                    "linear-gradient(to right, transparent, rgba(45,107,132,0.55), transparent) bottom / 100% 1px no-repeat",
-                    "linear-gradient(to bottom, transparent, rgba(45,107,132,0.55), transparent) left / 1px 100% no-repeat",
-                    "linear-gradient(to bottom, transparent, rgba(45,107,132,0.55), transparent) right / 1px 100% no-repeat",
-                  ].join(", "),
-                }}
-              >
               <form
                 onSubmit={handleSubmit}
                 onFocus={() => setFormFocused(true)}
@@ -265,7 +250,7 @@ export function LeadCapture() {
                   }
                 }}
                 className={cn(
-                  "card-surface space-y-6 p-5 transition-all duration-700 sm:p-7 md:space-y-8 md:p-12",
+                  "lead-form-panel space-y-6 p-5 sm:p-7 md:space-y-8 md:p-12",
                   formFocused && "form-elevated"
                 )}
               >
@@ -394,7 +379,6 @@ export function LeadCapture() {
                   </Button>
                 </div>
               </form>
-              </div>
             )}
           </motion.div>
         </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { navSections } from "@/data/funnel";
 import { BRAND, CONTACT } from "@/data/site";
 
@@ -10,32 +11,47 @@ const services = [
   "בריכות ואזורי חוץ",
 ];
 
+const headingTitleClass =
+  "text-lg font-medium uppercase tracking-widest text-text-main";
+
+function FooterHeading({ children }: { children: string }) {
+  return (
+    <div className="mb-6 flex flex-col items-start">
+      <p className={headingTitleClass}>{children}</p>
+      <span className="mt-3 block h-px w-8 bg-text-main/40" aria-hidden />
+    </div>
+  );
+}
+
+const linkClass =
+  "text-sm font-light tracking-wide text-text-main/75 transition-colors duration-300 hover:text-text-main md:text-base";
+
 export function Footer() {
   return (
-    <footer
-      className="bg-[#18344A]"
-      style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
-    >
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
-
+    <footer className="border-t border-black bg-[#F2E9DF]">
+      <div className="mx-auto max-w-[1400px] px-6 text-right lg:px-10">
         {/* Main grid */}
-        <div className="grid gap-10 py-14 md:grid-cols-4 md:gap-12 md:py-20">
-
+        <div className="grid items-start gap-12 py-14 md:grid-cols-4 md:py-20 lg:gap-24">
           {/* Brand */}
           <div className="md:col-span-1">
-            <p className="font-display text-xl text-white/90">{BRAND.name}</p>
-            <p className="mt-4 text-sm leading-relaxed text-white/38">
+            <Image
+              src="/logo-tzameret-v3-transparent.png"
+              alt={BRAND.name}
+              width={320}
+              height={110}
+              className="mb-6 h-24 w-auto origin-right scale-150 object-contain opacity-95 mix-blend-multiply lg:h-32"
+            />
+            <p className="mt-2 text-sm font-light leading-relaxed tracking-wide text-text-main/75 md:text-base">
               {BRAND.tagline} — מ-{BRAND.founded}.
             </p>
-            <div className="mt-6 h-px w-8 bg-brand-gold" />
           </div>
 
           {/* Services */}
-          <div>
-            <p className="mb-4 font-[family-name:var(--font-cormorant)] text-[13px] italic tracking-[0.16em] uppercase sm:mb-5 sm:text-[14px] sm:tracking-[0.18em]" style={{ color: "#C7B299" }}>שירותים</p>
-            <ul className="flex flex-col gap-3">
+          <div className="text-right">
+            <FooterHeading>שירותים</FooterHeading>
+            <ul className="space-y-4">
               {services.map((s) => (
-                <li key={s} className="text-[15px] text-white/45 sm:text-sm">
+                <li key={s} className={linkClass}>
                   {s}
                 </li>
               ))}
@@ -43,15 +59,11 @@ export function Footer() {
           </div>
 
           {/* Navigation */}
-          <div>
-            <p className="mb-4 font-[family-name:var(--font-cormorant)] text-[13px] italic tracking-[0.16em] uppercase sm:mb-5 sm:text-[14px] sm:tracking-[0.18em]" style={{ color: "#C7B299" }}>ניווט</p>
-            <nav className="flex flex-col gap-3" aria-label="ניווט תחתון">
+          <div className="text-right">
+            <FooterHeading>ניווט</FooterHeading>
+            <nav className="flex flex-col gap-4" aria-label="ניווט תחתון">
               {navSections.map((link) => (
-                <Link
-                  key={link.id}
-                  href={`#${link.id}`}
-                  className="text-[15px] text-white/45 transition-colors duration-300 hover:text-white/80 sm:text-sm"
-                >
+                <Link key={link.id} href={`#${link.id}`} className={linkClass}>
                   {link.label}
                 </Link>
               ))}
@@ -59,30 +71,35 @@ export function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
-            <p className="mb-4 font-[family-name:var(--font-cormorant)] text-[13px] italic tracking-[0.16em] uppercase sm:mb-5 sm:text-[14px] sm:tracking-[0.18em]" style={{ color: "#C7B299" }}>יצירת קשר</p>
-            <div className="flex flex-col gap-3 text-[15px] sm:text-sm">
-              <a href={`tel:${CONTACT.phoneTel}`} className="text-white/55 transition-colors duration-300 hover:text-white/85">
+          <div className="text-right">
+            <FooterHeading>יצירת קשר</FooterHeading>
+            <div className="flex flex-col gap-4">
+              <a
+                href={`tel:${CONTACT.phoneTel}`}
+                className="text-base font-light tracking-wide text-text-main transition-colors duration-300 hover:text-text-main/70 md:text-lg"
+              >
                 {CONTACT.phone}
               </a>
-              <a href={`mailto:${CONTACT.email}`} className="text-white/55 transition-colors duration-300 hover:text-white/85">
+              <a
+                href={`mailto:${CONTACT.email}`}
+                className="text-base font-light tracking-wide text-text-main transition-colors duration-300 hover:text-text-main/70 md:text-lg"
+              >
                 {CONTACT.email}
               </a>
-              <p className="mt-2 text-white/75">{CONTACT.address}</p>
-              <p className="text-xs text-white/30">{CONTACT.hours}</p>
+              <p className="mt-2 text-sm font-light tracking-wide text-text-main/75 md:text-base">
+                {CONTACT.address}
+              </p>
+              <p className="text-sm font-light text-text-main/60">{CONTACT.hours}</p>
             </div>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div
-          className="flex flex-col items-start gap-3 py-6 sm:flex-row sm:items-center sm:justify-between"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
-        >
-          <p className="text-xs text-white/25">
+        <div className="flex flex-col items-end gap-3 border-t border-text-main/15 pt-6 pb-8 text-right sm:flex-row-reverse sm:items-center sm:justify-between">
+          <p className="text-xs font-light tracking-wide text-text-main/60">
             © {new Date().getFullYear()} {BRAND.name} — כל הזכויות שמורות
           </p>
-          <p className="text-xs text-white/25">
+          <p className="text-xs font-light tracking-wide text-text-main/60">
             זכוכית אדריכלית · תכנון וביצוע · ישראל
           </p>
         </div>

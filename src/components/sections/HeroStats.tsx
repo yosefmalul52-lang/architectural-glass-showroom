@@ -6,9 +6,9 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { MOTION_EASE } from "@/lib/motion";
 
 const STATS = [
-  { label: "דיוק במפרט הנדסי", target: 100, suffix: "%" },
-  { label: "פרויקטים ייחודיים", target: 50, suffix: "+" },
-  { label: "שנות ניסיון ומומחיות", target: 7, suffix: "+" },
+  { lines: ["דיוק במפרט", "הנדסי"], target: 100, suffix: "%" },
+  { lines: ["פרויקטים", "ייחודיים"], target: 50, suffix: "+" },
+  { lines: ["שנות ניסיון", "ומומחיות"], target: 7, suffix: "+" },
 ] as const;
 
 const START_DELAY_MS = 2100;
@@ -16,13 +16,13 @@ const START_DELAY_MS = 2100;
 function StatPillar({
   target,
   suffix,
-  label,
+  lines,
   runId,
   index,
 }: {
   target: number;
   suffix: string;
-  label: string;
+  lines: readonly [string, string];
   runId: number;
   index: number;
 }) {
@@ -49,16 +49,13 @@ function StatPillar({
   });
 
   return (
-    <div className="flex w-[4.6rem] flex-col items-center text-center sm:w-[5rem] md:w-[5.5rem]">
-      <span className="block w-full font-[family-name:var(--font-cormorant)] text-[2rem] font-light tabular-nums tracking-tight text-black sm:text-4xl lg:text-5xl">
+    <div className="flex min-w-0 flex-col items-start text-right">
+      <span className="block w-full text-right font-[family-name:var(--font-playfair)] text-[1.5rem] font-bold tabular-nums tracking-tight text-brand-gold sm:text-3xl lg:text-4xl">
         {display}
       </span>
-      <span
-        className={`mt-1.5 block w-full text-balance font-[family-name:var(--font-assistant)] text-xs font-light leading-tight tracking-wide text-[#C7B29A] lg:text-sm ${
-          suffix === "%" ? "mx-auto max-w-[6.25rem]" : "max-w-[8.5rem] lg:max-w-[9.5rem]"
-        }`}
-      >
-        {label}
+      <span className="relative mt-1.5 block w-full text-right font-[family-name:var(--font-assistant)] text-xs font-light leading-snug tracking-wide text-white lg:text-sm">
+        <span className="block">{lines[0]}</span>
+        <span className="block">{lines[1]}</span>
       </span>
     </div>
   );
@@ -86,19 +83,25 @@ export function HeroStats() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 2.0, duration: 0.8, ease: MOTION_EASE }}
-      className="flex w-full max-w-[20.5rem] flex-row-reverse items-center justify-between sm:max-w-[23rem] md:w-auto md:max-w-none md:justify-end md:gap-9 lg:gap-12"
+      className="relative inline-flex w-fit max-w-full flex-col items-start pt-3 lg:pt-4"
       aria-label="נתוני חברה"
     >
-      {STATS.map((stat, index) => (
-        <StatPillar
-          key={stat.label}
-          target={stat.target}
-          suffix={stat.suffix}
-          label={stat.label}
-          runId={runId}
-          index={index}
-        />
-      ))}
+      <div
+        className="absolute top-0 right-0 -left-2 h-px bg-[#c5a059]/20 sm:-left-2.5"
+        aria-hidden
+      />
+      <div className="flex flex-row flex-wrap items-start justify-start gap-x-8 gap-y-4 sm:gap-x-9 lg:gap-x-12">
+        {STATS.map((stat, index) => (
+          <StatPillar
+            key={stat.lines.join("-")}
+            target={stat.target}
+            suffix={stat.suffix}
+            lines={stat.lines}
+            runId={runId}
+            index={index}
+          />
+        ))}
+      </div>
     </motion.div>
   );
 }

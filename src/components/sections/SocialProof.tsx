@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArchitecturalGrid } from "@/components/editorial/ArchitecturalGrid";
 import { SectionIntro } from "@/components/editorial/SectionIntro";
 import { ClientLogos } from "@/components/sections/ClientLogos";
-import { testimonials, trustPillars } from "@/data/social-proof";
+import { testimonials } from "@/data/social-proof";
 import { MOTION_EASE } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -73,54 +73,6 @@ function NavArrow({
         )}
       </svg>
     </button>
-  );
-}
-
-function TrustStrip() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, ease: LUXURY_EASE }}
-      className="w-full py-2"
-      aria-label="עמודי אמון"
-    >
-      <div className="grid grid-cols-2 lg:grid-cols-4">
-        {trustPillars.map(({ Icon, faClassName, title, sub }, index) => (
-          <motion.div
-            key={title}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -4 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.55, ease: LUXURY_EASE, delay: index * 0.08 }}
-            className={cn(
-              "flex flex-col items-center px-5 py-2 text-center sm:px-7 lg:px-8",
-              index > 0 && index !== 2 && "border-s border-hairline",
-              (index === 2 || index === 3) && "border-t border-hairline lg:border-t-0"
-            )}
-          >
-            {faClassName ? (
-              <i className={`${faClassName} mb-3 text-[34px] text-accent-teal`} aria-hidden />
-            ) : Icon ? (
-              <Icon
-                className="mb-3 text-accent-teal"
-                size={36}
-                strokeWidth={1.25}
-                aria-hidden
-              />
-            ) : null}
-            <p className="font-display text-lg font-light leading-snug tracking-tight text-text-main lg:text-xl">
-              {title}
-            </p>
-            <p className="type-lead mt-3 leading-relaxed">
-              {sub}
-            </p>
-          </motion.div>
-        ))}
-      </div>
-    </motion.div>
   );
 }
 
@@ -344,13 +296,13 @@ export function SocialProof() {
           </div>
 
           <div className="w-full">
-            <div className="relative border border-accent-teal/30 border-t-2 border-t-accent-teal/60 border-b-2 border-b-accent-teal/60 bg-white/90 px-6 py-8 shadow-[0_2px_20px_rgba(45,107,132,0.07)] md:px-12 md:py-10 lg:px-16 lg:py-12">
+            <div className="relative border border-accent-teal/30 border-t-2 border-t-accent-teal/60 border-b-2 border-b-accent-teal/60 bg-white/90 px-6 py-8 shadow-[0_2px_20px_rgba(21,21,21,0.09)] md:px-12 md:py-10 lg:px-16 lg:py-12">
               <TestimonialCarousel />
             </div>
           </div>
 
           <div className="w-full pt-2 lg:pt-4">
-            <ClientLogos trustStrip={<TrustStrip />} />
+            <ClientLogos />
           </div>
         </div>
       </div>

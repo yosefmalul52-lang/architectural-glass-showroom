@@ -70,7 +70,7 @@ function LogoTrack({ ariaHidden }: { ariaHidden?: boolean }) {
 
 export function ClientLogos({ trustStrip }: { trustStrip?: ReactNode }) {
   return (
-    <div className="w-full overflow-hidden border border-accent-teal/30 border-t-2 border-t-accent-teal/60 border-b-2 border-b-accent-teal/60 bg-white/90 px-4 py-10 shadow-[0_2px_20px_rgba(45,107,132,0.07)] sm:px-6 lg:py-12">
+    <div className="w-full overflow-hidden border border-accent-teal/30 border-t-2 border-t-accent-teal/60 border-b-2 border-b-accent-teal/60 bg-white/90 px-4 py-10 shadow-[0_2px_20px_rgba(21,21,21,0.09)] sm:px-6 lg:py-12">
       <div className="mb-10 text-center lg:mb-12">
         <h2 className="font-display text-display-3xl tracking-tight text-accent-teal lg:text-display-4xl">
           <span className="block font-light">חלק מהלקוחות</span>

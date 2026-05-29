@@ -5,8 +5,8 @@
   ║  BRAND PALETTE                       ║
   ║  #E7DBC3  warm cream   (bg warm)     ║
   ║  #C8B49B  taupe        (accent warm) ║
-  ║  #CBDDE4  steel blue   (accent cool) ║
-  ║  #18344A  navy         (dark/text)   ║
+  ║  #ECEBEA  stone mist   (neutral wash)║
+  ║  #151515  ink black    (dark/text)   ║
   ╚══════════════════════════════════════╝
 */
 :root {
@@ -14,12 +14,12 @@
   --bg-primary:    #f5ede3;           /* ivory derived from E7DBC3 */
   --bg-secondary:  #E7DBC3;           /* warm cream — given */
   --bg-elevated:   #ffffff;
-  --bg-teal-wash:  #e4eff4;           /* lighter than CBDDE4 */
+  --bg-teal-wash:  #f1f0ee;           /* neutral stone wash */
   --bg-gold-wash:  #ede3d4;           /* derived from E7DBC3 */
 
   /* ── Text ── */
-  --text-main:     #18344A;           /* navy — given */
-  --text-muted:    #4e6a7e;           /* lighter navy */
+  --text-main:     #151515;           /* ink black */
+  --text-muted:    #4d4d4d;           /* softened charcoal */
 
   /* ── Taupe accent (warm — replaces gold) ── */
   --brand-gold:    #C8B49B;           /* taupe — given */
@@ -27,42 +27,42 @@
   --gold-deep:     #9a7d66;           /* darker taupe */
   --brand-gold-light: rgba(200, 180, 155, 0.18);
 
-  /* ── Steel blue accent (cool — replaces teal) ── */
-  --brand-teal:    #2d6b84;           /* deeper steel blue */
+  /* ── Steel blue accent (cool channel for lines/icons) ── */
+  --brand-teal:    #2d6b84;
   --accent-teal:   #2d6b84;
-  --accent-teal-bg: #CBDDE4;          /* steel blue — given */
+  --accent-teal-bg: #CBDDE4;
   --accent-teal-mid: rgba(45, 107, 132, 0.45);
   --accent-teal-light: rgba(45, 107, 132, 0.12);
 
   /* ── Misc ── */
-  --brand-smoke:   rgba(24, 52, 74, 0.5);
+  --brand-smoke:   rgba(21, 21, 21, 0.5);
   --halo-warm:     rgba(200, 180, 155, 0.28);
-  --hairline:      rgba(24, 52, 74, 0.08);
+  --hairline:      rgba(21, 21, 21, 0.1);
   --hairline-gold: rgba(200, 180, 155, 0.25);
   --hairline-teal: rgba(45, 107, 132, 0.18);
   --glass-panel-bg: rgba(255, 255, 255, 0.78);
   --glass-panel-border: rgba(255, 255, 255, 0.5);
-  --glass-panel-shadow: 0 12px 48px 0 rgba(24, 52, 74, 0.07);
-  --card-border:       rgba(24, 52, 74, 0.1);
-  --card-shadow:       0 1px 2px rgba(24, 52, 74, 0.04), 0 6px 22px rgba(24, 52, 74, 0.06);
-  --card-shadow-hover: 0 2px 8px rgba(24, 52, 74, 0.05), 0 14px 38px rgba(24, 52, 74, 0.09);
-  --shadow-elevated: 0 24px 64px rgba(24, 52, 74, 0.12);
-  --shadow-focus:    0 32px 80px rgba(24, 52, 74, 0.16);
+  --glass-panel-shadow: 0 12px 48px 0 rgba(21, 21, 21, 0.08);
+  --card-border:       rgba(21, 21, 21, 0.12);
+  --card-shadow:       0 1px 2px rgba(21, 21, 21, 0.04), 0 6px 22px rgba(21, 21, 21, 0.07);
+  --card-shadow-hover: 0 2px 8px rgba(21, 21, 21, 0.06), 0 14px 38px rgba(21, 21, 21, 0.1);
+  --shadow-elevated: 0 24px 64px rgba(21, 21, 21, 0.14);
+  --shadow-focus:    0 32px 80px rgba(21, 21, 21, 0.18);
   --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
   --motion-slow: 1.2s;
   --motion-medium: 0.7s;
 
   --text-xs: clamp(0.75rem, 0.7rem + 0.15vw, 0.8125rem);
   --text-sm: clamp(0.875rem, 0.82rem + 0.2vw, 0.9375rem);
-  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  --text-lg: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
-  --text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.625rem);
-  --text-2xl: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem);
-  --text-3xl: clamp(1.875rem, 1.5rem + 1.875vw, 3rem);
-  --text-4xl: clamp(2.25rem, 1.75rem + 2.5vw, 3.75rem);
-  --text-5xl: clamp(2.75rem, 2rem + 3.75vw, 4.75rem);
-  --text-hero: clamp(3rem, 8vw, 6.5rem);
-  --text-quote: clamp(2rem, 5vw, 4rem);
+  --text-base: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+  --text-lg: clamp(1.0625rem, 0.975rem + 0.4vw, 1.25rem);
+  --text-xl: clamp(1.125rem, 1rem + 0.6vw, 1.4375rem);
+  --text-2xl: clamp(1.25rem, 1.1rem + 0.9vw, 1.875rem);
+  --text-3xl: clamp(1.5rem, 1.25rem + 1.4vw, 2.25rem);
+  --text-4xl: clamp(1.75rem, 1.4rem + 1.9vw, 2.75rem);
+  --text-5xl: clamp(2rem, 1.6rem + 2.5vw, 3.25rem);
+  --text-hero: clamp(2.25rem, 5vw, 4rem);
+  --text-quote: clamp(1.5rem, 3.5vw, 2.75rem);
 }
 
 @theme inline {
@@ -185,6 +185,22 @@ body {
   transition:
     border-color 0.45s var(--ease-luxury),
     box-shadow 0.45s var(--ease-luxury);
+}
+
+/* Lead capture — gold border (card-surface gray border must not override) */
+.lead-form-panel {
+  background: var(--bg-elevated);
+  border: 1px solid var(--brand-gold);
+  box-shadow: var(--card-shadow);
+  transition:
+    border-color var(--motion-medium) var(--ease-luxury),
+    box-shadow var(--motion-medium) var(--ease-luxury);
+}
+
+.lead-form-panel.form-elevated,
+.lead-form-panel:focus-within {
+  border-color: var(--brand-gold);
+  box-shadow: var(--shadow-focus);
 }
 
 @media (hover: hover) {
@@ -537,11 +553,7 @@ p,
 }
 
 .form-elevated {
-  border-color: var(--hairline-teal);
   box-shadow: var(--shadow-focus);
-  transition:
-    border-color var(--motion-medium) var(--ease-luxury),
-    box-shadow var(--motion-medium) var(--ease-luxury);
 }
 
 .horizontal-gallery-track {

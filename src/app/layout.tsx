@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Frank_Ruhl_Libre, Assistant, Cormorant_Garamond } from "next/font/google";
+import { Rubik, Assistant, Cormorant_Garamond, Playfair_Display } from "next/font/google";
 import { ClientShell } from "@/components/layout/ClientShell";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./globals.css";
 
-const frankRuhlLibre = Frank_Ruhl_Libre({
+const rubik = Rubik({
   variable: "--font-frank-ruhl",
   subsets: ["hebrew", "latin"],
-  weight: ["300", "400", "500", "700", "900"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
@@ -19,6 +19,13 @@ const cormorantGaramond = Cormorant_Garamond({
   display: "swap",
 });
 
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
+});
+
 const assistant = Assistant({
   variable: "--font-assistant",
   subsets: ["hebrew", "latin"],
@@ -27,9 +34,9 @@ const assistant = Assistant({
 });
 
 export const metadata: Metadata = {
-  title: "זכוכית הפסגה | זכוכית אדריכלית — תכנון, הנדסה וביצוע",
+  title: "צמרת הזכוכית | זכוכית אדריכלית — תכנון, הנדסה וביצוע",
   description:
-    "זכוכית הפסגה — תכנון וביצוע פרויקטי זכוכית אדריכלית בתקן EN12150. ייצור CNC, Triplex מחוסמת, מדידת לייזר ממוחשבת. מקלחונים, מחיצות משרד, מראות מותאמות.",
+    "צמרת הזכוכית — תכנון וביצוע פרויקטי זכוכית אדריכלית בתקן EN12150. ייצור CNC, Triplex מחוסמת, מדידת לייזר ממוחשבת. מקלחונים, מחיצות משרד, מראות מותאמות.",
   keywords: [
     "זכוכית אדריכלית",
     "מקלחונים",
@@ -38,11 +45,11 @@ export const metadata: Metadata = {
     "EN12150",
     "Triplex",
     "CNC",
-    "זכוכית הפסגה",
+    "צמרת הזכוכית",
     "קיסריה",
   ],
   openGraph: {
-    title: "זכוכית הפסגה | זכוכית אדריכלית — תכנון, הנדסה וביצוע",
+    title: "צמרת הזכוכית | זכוכית אדריכלית — תכנון, הנדסה וביצוע",
     description:
       "פרויקטי זכוכית אדריכלית בתקן EN12150 — ייצור CNC, Triplex מחוסמת, מדידת לייזר ממוחשבת. ייעוץ ראשוני ללא עלות.",
     locale: "he_IL",
@@ -58,7 +65,7 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body
-        className={`${frankRuhlLibre.variable} ${cormorantGaramond.variable} ${assistant.variable} overflow-x-hidden antialiased`}
+        className={`${rubik.variable} ${cormorantGaramond.variable} ${assistant.variable} ${playfair.variable} overflow-x-hidden antialiased`}
       >
         <a
           href="#main-content"

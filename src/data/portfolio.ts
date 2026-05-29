@@ -1,5 +1,5 @@
 export type MaterialTag = "gold" | "black" | "fluted" | "backlit" | "smoked" | "clear";
-export type ProjectCategory = "mirrors" | "showers" | "offices";
+export type ProjectCategory = "mirrors" | "showers" | "offices" | "railings";
 export type AspectRatio = "landscape" | "portrait" | "square";
 
 export type PortfolioProject = {
@@ -195,19 +195,59 @@ export const officeProjects: PortfolioProject[] = [
   },
 ];
 
+export const railingProjects: PortfolioProject[] = [
+  {
+    id: "railing-stair-gold",
+    slug: "stair-glass-railing-gold",
+    title: "מעקה זכוכית במדרגות — פרופיל זהב",
+    description:
+      "מעקה Triplex 10 מ״מ, פרופיל זהב מברש, עיגון מוסתר וגימור ללא קצוות חשופים.",
+    alt: "מעקה זכוכית במדרגות עם פרופיל זהב",
+    image: img("office-black-profile-charcoal"),
+    category: "railings",
+    materials: ["gold", "clear"],
+    featured: true,
+    aspect: "landscape",
+  },
+  {
+    id: "railing-balcony-frameless",
+    slug: "balcony-frameless-railing",
+    title: "מעקה מרפסת frameless",
+    description: "זכוכית שקופה ללא מסגרת נראית, עמודי נירוסטה מינימליים וסגירה בטיחותית.",
+    alt: "מעקה זכוכית שקופה במרפסת",
+    image: img("office-slat-ceiling-corridor"),
+    category: "railings",
+    materials: ["clear"],
+    aspect: "landscape",
+  },
+  {
+    id: "railing-landing-smoked",
+    slug: "landing-smoked-glass-railing",
+    title: "מעקה מעושן בקומה",
+    description: "זכוכית מעושנת 8 מ״מ, מעקה רציף לאורך מעקה פנים ופרופיל שחור מאט.",
+    alt: "מעקה זכוכית מעושנת בחלל פנים",
+    image: img("spa-smoked-gold-shower"),
+    category: "railings",
+    materials: ["smoked", "black"],
+    aspect: "landscape",
+  },
+];
+
 export const showroomCategories = [
-  { value: "mirrors" as const, label: "מראות" },
-  { value: "showers" as const, label: "מקלחונים" },
-  { value: "offices" as const, label: "משרדים" },
+  { value: "mirrors" as const,  label: "מראות LED מוארות",   cover: mirrorProjects[0] ?? null },
+  { value: "showers" as const,  label: "מקלחונים ייחודיים",  cover: showerProjects[0] ?? null },
+  { value: "offices" as const,  label: "מחיצות משרד",        cover: officeProjects[0] ?? null },
+  { value: "railings" as const, label: "מעקים",               cover: railingProjects[0] ?? null },
 ];
 
 export const projectsByCategory: Record<ProjectCategory, PortfolioProject[]> = {
-  mirrors: mirrorProjects,
-  showers: showerProjects,
-  offices: officeProjects,
+  mirrors:  mirrorProjects,
+  showers:  showerProjects,
+  offices:  officeProjects,
+  railings: railingProjects,
 };
 
-export const allProjects = [...mirrorProjects, ...showerProjects, ...officeProjects];
+export const allProjects = [...mirrorProjects, ...showerProjects, ...officeProjects, ...railingProjects];
 
 /** @deprecated Use showerProjects / mirrorProjects / officeProjects */
 export const spaProjects = [...showerProjects, ...mirrorProjects];

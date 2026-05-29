@@ -86,6 +86,7 @@ export const audienceTags = [
   { label: "מקלחונים ייחודיים", href: "#showroom", tab: "showers" },
   { label: "מראות LED מוארות", href: "#showroom", tab: "mirrors" },
   { label: "מחיצות משרד", href: "#showroom", tab: "offices" },
+  { label: "מעקים", href: "#showroom", tab: "railings" },
 ] as const;
 
 export const processSteps = [

@@ -1,4 +1,4 @@
-import { type LucideIcon } from "lucide-react";
+import { Award, Handshake, ScrollText, Star, type LucideIcon } from "lucide-react";
 
 export type TrustPillar = {
   Icon?: LucideIcon;
@@ -15,22 +15,22 @@ export type Testimonial = {
 
 export const trustPillars: TrustPillar[] = [
   {
-    faClassName: "fa-regular fa-star",
+    Icon: Star,
     title: "לקוחות שחוזרים",
     sub: "פרטיים, אדריכלים, קבלנים ורשתות מלונאות — כולם חוזרים",
   },
   {
-    faClassName: "fa-solid fa-medal",
+    Icon: Award,
     title: "חומרים ללא פשרות",
     sub: "תקן EN12150 · תעודת יצרן לכל רכיב · אחריות כתובה",
   },
   {
-    faClassName: "fa-regular fa-handshake",
+    Icon: Handshake,
     title: "שותפים לאדריכל",
     sub: "מעורבים מהתכנון הראשוני — לא רק מגיעים להתקנה",
   },
   {
-    faClassName: "fa-solid fa-scroll",
+    Icon: ScrollText,
     title: "7+ שנות מקצועיות",
     sub: "ניסיון מצטבר בנדל״ן, מלונאות ופרויקטי מגורים יוקרתיים",
   },
@@ -39,7 +39,7 @@ export const trustPillars: TrustPillar[] = [
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "ביצוע המחיצות בקומות 12–15 דרש דיוק מיקרוני — מרווח של פחות מ-0.2 מ״מ בין לוחות שחייבים לעמוד בדרישות בידוד אקוסטי. זכוכית הפסגה הגיעה עם שרטוטי AutoCAD מעודכנים לכל שינוי, וכל חלק הותקן בפעם הראשונה. זה לא דבר של מה בכך בפרויקט בסדר גודל כזה.",
+      "ביצוע המחיצות בקומות 12–15 דרש דיוק מיקרוני — מרווח של פחות מ-0.2 מ״מ בין לוחות שחייבים לעמוד בדרישות בידוד אקוסטי. צמרת הזכוכית הגיעה עם שרטוטי AutoCAD מעודכנים לכל שינוי, וכל חלק הותקן בפעם הראשונה. זה לא דבר של מה בכך בפרויקט בסדר גודל כזה.",
     author: "א. ורד",
     role: "מנהל פרויקטים · חיפוי ומחיצות · מגדלי העסקים, תל אביב",
   },

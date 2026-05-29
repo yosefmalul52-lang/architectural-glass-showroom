@@ -1,6 +1,6 @@
 export const BRAND = {
-  name: "זכוכית הפסגה",
-  nameEn: "Pisga Glass",
+  name: "צמרת הזכוכית",
+  nameEn: "Tzameret Glass",
   tagline: "זכוכית אדריכלית — תכנון, הנדסה וביצוע",
   founded: "2010",
 } as const;

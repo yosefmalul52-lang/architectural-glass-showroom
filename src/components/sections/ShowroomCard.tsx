@@ -35,9 +35,9 @@ export function ShowroomCard({ card, index, sizes, active, onSelect }: ShowroomC
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
       aria-label={`צפייה בפרויקט: ${card.title}`}
       className={cn(
-        "group relative h-full w-full cursor-pointer select-none overflow-hidden border border-white/18 bg-bg-secondary shadow-[0_8px_24px_rgba(24,52,74,0.16)]",
+        "group relative h-full w-full cursor-pointer select-none overflow-hidden border border-white/18 bg-bg-secondary shadow-[0_8px_24px_rgba(21,21,21,0.2)]",
         "transition-[box-shadow,border-color,transform] duration-700",
-        "hover:border-white/30 hover:shadow-[0_14px_34px_rgba(24,52,74,0.22)]",
+        "hover:border-white/30 hover:shadow-[0_14px_34px_rgba(21,21,21,0.28)]",
         active && "ring-1 ring-brand-gold ring-offset-1 ring-offset-bg-elevated"
       )}
     >
@@ -68,7 +68,7 @@ export function ShowroomCard({ card, index, sizes, active, onSelect }: ShowroomC
 
       {/* Top-left: category tag — appears on hover */}
       <span className="absolute left-4 top-4 translate-y-2 font-[family-name:var(--font-cormorant)] text-[11px] italic tracking-[0.18em] uppercase text-white/0 transition-all duration-500 group-hover:translate-y-0 group-hover:text-white/70">
-        {{ showers: "מקלחונים", mirrors: "מראות", offices: "מחיצות משרד" }[card.category]}
+        {{ showers: "מקלחונים ייחודיים", mirrors: "מראות LED מוארות", offices: "מחיצות משרד", railings: "מעקים" }[card.category]}
       </span>
 
       {/* Bottom info panel */}

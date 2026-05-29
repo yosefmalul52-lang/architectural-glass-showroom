@@ -283,7 +283,7 @@ function MobileGlassCard({ item, index }: { item: CraftSpec; index: number }) {
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
       transition={{ duration: 0.7, ease: E, delay: index * 0.05 }}
-      className={cn(MATERIAL_CARD_BASE, "shadow-[0_10px_24px_rgba(24,52,74,0.12)]")}
+      className={cn(MATERIAL_CARD_BASE, "shadow-[0_10px_24px_rgba(21,21,21,0.14)]")}
     >
       <div className="h-px w-full bg-gradient-to-r from-transparent via-accent-teal/40 to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 start-0 w-px bg-gradient-to-b from-transparent via-accent-teal/45 to-transparent" aria-hidden />

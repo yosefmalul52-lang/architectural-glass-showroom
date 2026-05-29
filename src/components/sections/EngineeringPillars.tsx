@@ -48,7 +48,7 @@ function PillarsHeader() {
           whileInView="visible"
           viewport={scrollRevealViewport}
           variants={subtextVariant}
-          className="type-lead mx-auto mt-5 max-w-xl text-center"
+          className="type-lead mx-auto mt-5 max-w-xl text-center !text-accent-teal"
         >
           כשכל הספקים מבטיחים «איכות», ההבדל האמיתי נמדד בשרטוטי AutoCAD המדויקים,
           בחומרים עם תעודת יצרן — ובמי שנשאר לצידכם גם לאחר ההתקנה.
@@ -78,16 +78,16 @@ function PillarCard({
       initial={{ opacity: 0, x: fromRight ? 48 : -48, filter: "blur(4px)" }}
       animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : { opacity: 0, x: fromRight ? 48 : -48, filter: "blur(4px)" }}
       transition={{ duration: 0.85, ease: E, delay }}
-      className="card-surface card-surface-interactive group relative overflow-hidden border border-accent-teal/30 transition-[border-color,box-shadow] duration-500 hover:border-accent-teal/60"
+      className="card-surface card-surface-interactive group relative overflow-hidden border border-black/25 transition-[border-color,box-shadow] duration-500 hover:border-black/50"
     >
       {/* Top gradient stripe */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-accent-teal/50 to-transparent transition-all duration-500 group-hover:via-accent-teal/80" />
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-black/35 to-transparent transition-all duration-500 group-hover:via-black/55" />
 
       {/* Left gradient stripe */}
-      <div className="pointer-events-none absolute inset-y-0 start-0 w-px bg-gradient-to-b from-transparent via-accent-teal/50 to-transparent transition-all duration-500 group-hover:via-accent-teal/80" aria-hidden />
+      <div className="pointer-events-none absolute inset-y-0 start-0 w-px bg-gradient-to-b from-transparent via-black/35 to-transparent transition-all duration-500 group-hover:via-black/55" aria-hidden />
 
       {/* Right gradient stripe */}
-      <div className="pointer-events-none absolute inset-y-0 end-0 w-px bg-gradient-to-b from-transparent via-accent-teal/50 to-transparent transition-all duration-500 group-hover:via-accent-teal/80" aria-hidden />
+      <div className="pointer-events-none absolute inset-y-0 end-0 w-px bg-gradient-to-b from-transparent via-black/35 to-transparent transition-all duration-500 group-hover:via-black/55" aria-hidden />
 
       {/* Dot connector toward center line — desktop only */}
       <div
@@ -120,7 +120,7 @@ function PillarCard({
       </div>
 
       {/* Bottom gradient stripe */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-accent-teal/50 to-transparent transition-all duration-500 group-hover:via-accent-teal/80" />
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-black/35 to-transparent transition-all duration-500 group-hover:via-black/55" />
     </motion.article>
   );
 }

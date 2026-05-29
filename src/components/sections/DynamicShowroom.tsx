@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import { SectionIntro } from "@/components/editorial/SectionIntro";
 import {
   projectsByCategory,
@@ -9,195 +10,77 @@ import {
   type PortfolioProject,
   type ProjectCategory,
 } from "@/data/portfolio";
-import { luxuryTransition, MOTION_EASE } from "@/lib/motion";
+import { MOTION_EASE, scrollRevealOnce } from "@/lib/motion";
 import { ProjectLightbox } from "./ProjectLightbox";
-import { ShowroomCard } from "./ShowroomCard";
-import { cn } from "@/lib/utils";
-
-const SHOWROOM_INTEREST_KEY = "showroom-interest";
-const SHOWROOM_TAB_KEY = "showroom-tab";
-
-const cardVariant = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: MOTION_EASE },
-  },
-};
 
 const gridStagger = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.08, delayChildren: 0.05 },
+    transition: { staggerChildren: 0.14, delayChildren: 0.15 },
   },
 };
 
-function ShowroomGrid({
-  projects,
-  onSelect,
-}: {
-  projects: PortfolioProject[];
-  onSelect: (p: PortfolioProject) => void;
-}) {
-  const mobileTrackRef = useRef<HTMLDivElement | null>(null);
+/** Whole card (image + frame) reveals as one unit — no empty black box */
+const cardVariant = {
+  hidden: {
+    opacity: 0,
+    y: 36,
+    clipPath: "inset(100% 0% 0% 0%)",
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    clipPath: "inset(0% 0% 0% 0%)",
+    transition: {
+      duration: 0.95,
+      ease: MOTION_EASE,
+      clipPath: { duration: 1.05, ease: MOTION_EASE },
+      staggerChildren: 0.1,
+      delayChildren: 0.5,
+    },
+  },
+};
 
-  if (projects.length === 0) {
-    return (
-      <p className="py-16 text-center text-text-muted">
-        אין פרויקטים בתצוגה לפי הפילטר הנבחר.
-      </p>
-    );
-  }
+const labelReveal = {
+  hidden: { opacity: 0, y: 14 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: MOTION_EASE,
+      staggerChildren: 0.1,
+      delayChildren: 0.04,
+    },
+  },
+};
 
-  const select = (p: PortfolioProject) => {
-    sessionStorage.setItem(SHOWROOM_INTEREST_KEY, p.title);
-    onSelect(p);
-  };
-  const scrollMobileTrack = (direction: "next" | "prev") => {
-    const track = mobileTrackRef.current;
-    if (!track) return;
-    const amount = Math.round(track.clientWidth * 0.86);
-    track.scrollBy({
-      left: direction === "next" ? amount : -amount,
-      behavior: "smooth",
-    });
-  };
-
-  const [hero, sec1, sec2, ...tiles] = projects;
-
-  return (
-    <motion.div
-      className="flex flex-col gap-1"
-      variants={gridStagger}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.05 }}
-    >
-      {/* Desktop hero row */}
-      <div className="hidden md:flex min-h-[min(480px,60dvh)] gap-1 lg:min-h-[min(560px,68dvh)]">
-        {hero && (
-          <motion.div variants={cardVariant} className="relative flex-[1.75]">
-            <ShowroomCard
-              card={hero}
-              index={0}
-              sizes="(max-width: 768px) 100vw, 62vw"
-              onSelect={select}
-            />
-          </motion.div>
-        )}
-
-        {(sec1 || sec2) && (
-          <div className="flex-1 flex flex-col gap-1">
-            {sec1 && (
-              <motion.div variants={cardVariant} className="relative flex-1">
-                <ShowroomCard
-                  card={sec1}
-                  index={1}
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                  onSelect={select}
-                />
-              </motion.div>
-            )}
-            {sec2 && (
-              <motion.div variants={cardVariant} className="relative flex-1">
-                <ShowroomCard
-                  card={sec2}
-                  index={2}
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                  onSelect={select}
-                />
-              </motion.div>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Mobile: horizontal touch carousel (desktop grid stays unchanged) */}
-      <div className="relative md:hidden">
-        <button
-          type="button"
-          onClick={() => scrollMobileTrack("next")}
-          aria-label="תמונה קודמת"
-          className="absolute right-1 top-1/2 z-10 -translate-y-1/2 p-2 text-white/85 drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)] transition-colors duration-300 hover:text-white"
-        >
-          <svg viewBox="0 0 16 16" width={14} height={14} fill="none" aria-hidden>
-            <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-        <button
-          type="button"
-          onClick={() => scrollMobileTrack("prev")}
-          aria-label="תמונה הבאה"
-          className="absolute left-1 top-1/2 z-10 -translate-y-1/2 p-2 text-white/85 drop-shadow-[0_1px_4px_rgba(0,0,0,0.45)] transition-colors duration-300 hover:text-white"
-        >
-          <svg viewBox="0 0 16 16" width={14} height={14} fill="none" aria-hidden>
-            <path d="M10 3 5 8l5 5" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-
-        <div
-          ref={mobileTrackRef}
-          className="snap-carousel -mx-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-6 pb-2 touch-pan-x overscroll-x-contain"
-          data-lenis-prevent
-        >
-          {projects.map((card, i) => (
-            <motion.div
-              key={card.id}
-              variants={cardVariant}
-              className="w-[calc(100vw-3rem)] shrink-0 snap-center"
-            >
-              <div className="relative aspect-[4/3]">
-                <ShowroomCard
-                  card={card}
-                  index={i}
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  onSelect={select}
-                />
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Bottom tiles */}
-      {tiles.length > 0 && (
-        <div className="hidden gap-1 md:grid md:grid-cols-3">
-          {tiles.map((card, i) => (
-            <motion.div
-              key={card.id}
-              variants={cardVariant}
-              className="relative aspect-[4/3]"
-            >
-              <ShowroomCard
-                card={card}
-                index={i + 3}
-                sizes="(max-width: 768px) 50vw, 25vw"
-                onSelect={select}
-              />
-            </motion.div>
-          ))}
-        </div>
-      )}
-    </motion.div>
-  );
-}
+const accentLineReveal = {
+  hidden: { scaleX: 0, opacity: 0 },
+  visible: {
+    scaleX: 1,
+    opacity: 1,
+    transition: { duration: 0.45, ease: MOTION_EASE },
+  },
+};
 
 export function DynamicShowroom() {
-  const [activeTab, setActiveTab] = useState<ProjectCategory>("showers");
+  const [lightboxCategory, setLightboxCategory] = useState<ProjectCategory | null>(null);
   const [lightboxProject, setLightboxProject] = useState<PortfolioProject | null>(null);
 
-  const filteredProjects = useMemo(() => projectsByCategory[activeTab], [activeTab]);
+  const lightboxProjects = lightboxCategory ? projectsByCategory[lightboxCategory] : [];
 
-  useEffect(() => { setLightboxProject(null); }, [activeTab]);
+  function openCategory(category: ProjectCategory) {
+    const projects = projectsByCategory[category];
+    if (projects.length === 0) return;
+    setLightboxCategory(category);
+    setLightboxProject(projects[0]);
+  }
 
-  useEffect(() => {
-    const tab = sessionStorage.getItem(SHOWROOM_TAB_KEY);
-    if (tab === "mirrors" || tab === "showers" || tab === "offices") {
-      setActiveTab(tab as ProjectCategory);
-      sessionStorage.removeItem(SHOWROOM_TAB_KEY);
-    }
-  }, []);
+  function handleClose() {
+    setLightboxCategory(null);
+    setLightboxProject(null);
+  }
 
   return (
     <section id="showroom" data-funnel-step="desire" className="py-section bg-bg-elevated">
@@ -205,63 +88,90 @@ export function DynamicShowroom() {
         <SectionIntro
           align="center"
           title="כל פרויקט — גימור ייחודי, תכנון מדויק"
-          className="[&_h2]:text-accent-teal"
-          accentColor="#C7B39A"
+          className="[&_h2]:!text-text-main"
+          accentColor="#C8B49B"
         />
 
-        <div className="mb-8 flex flex-col gap-4 pb-6 sm:flex-row sm:items-end sm:justify-between">
-          <nav className="flex items-end gap-0 border-b border-hairline" role="tablist" aria-label="קטגוריות תיק עבודות">
-            {showroomCategories.map((tab) => {
-              const isActive = activeTab === tab.value;
-              return (
+        <motion.div
+          className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:gap-6"
+          variants={gridStagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={scrollRevealOnce}
+        >
+          {showroomCategories.map((cat, index) => {
+            const projects = projectsByCategory[cat.value];
+            const isEmpty = projects.length === 0;
+
+            return (
+              <motion.div
+                key={cat.value}
+                variants={cardVariant}
+                className="overflow-hidden rounded-sm will-change-[clip-path,opacity,transform]"
+              >
                 <button
-                  key={tab.value}
                   type="button"
-                  role="tab"
-                  id={`showroom-tab-${tab.value}`}
-                  aria-selected={isActive}
-                  aria-controls="showroom-panel"
-                  onClick={() => setActiveTab(tab.value)}
-                  className={cn(
-                    "relative px-5 pb-4 pt-2 font-display text-sm tracking-wide transition-colors duration-300",
-                    isActive ? "text-text-main" : "text-text-muted hover:text-text-main"
-                  )}
-                  aria-label={`קטגוריה: ${tab.label}${isActive ? " — נבחר" : ""}`}
+                  onClick={() => openCategory(cat.value)}
+                  disabled={isEmpty}
+                  className="group relative w-full overflow-hidden rounded-sm ring-1 ring-[#C8B49B]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+                  aria-label={`${cat.label}${isEmpty ? " — בקרוב" : ` — ${projects.length} פרויקטים`}`}
                 >
-                  {tab.label}
-                  {isActive && (
-                    <motion.span
-                      layoutId="tab-underline"
-                      className="absolute inset-x-0 bottom-0 h-[2px] bg-accent-teal"
-                      transition={luxuryTransition}
-                    />
+                  <div className="aspect-[4/3] w-full sm:aspect-[16/10]">
+                    {cat.cover ? (
+                      <div className="relative h-full w-full overflow-hidden">
+                        <Image
+                          src={cat.cover.image}
+                          alt={cat.cover.alt}
+                          fill
+                          unoptimized
+                          priority={index < 4}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent transition-opacity duration-300 group-hover:from-black/75" />
+                      </div>
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-stone-200">
+                        <span className="font-[family-name:var(--font-cormorant)] text-base italic tracking-widest text-stone-500">
+                          בקרוב
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <motion.div
+                    className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-6 pt-12 text-center"
+                    variants={labelReveal}
+                  >
+                    <div className="inline-flex flex-col items-center">
+                      <p className="font-display text-xl font-light tracking-wide text-brand-gold lg:text-2xl">
+                        {cat.label}
+                      </p>
+                      <motion.div
+                        className="mt-2 h-px w-full min-w-[2.5rem] origin-center bg-brand-gold"
+                        variants={accentLineReveal}
+                      />
+                    </div>
+                  </motion.div>
+
+                  {!isEmpty && (
+                    <div className="absolute left-5 top-5 flex h-9 w-9 items-center justify-center border border-white/0 bg-black/0 text-white/0 transition-all duration-300 group-hover:border-white/30 group-hover:bg-black/25 group-hover:text-white/80">
+                      <svg viewBox="0 0 14 14" width={13} height={13} fill="none" aria-hidden>
+                        <path d="M11 7H3M7 3l4 4-4 4" stroke="currentColor" strokeWidth={1.25} strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </div>
                   )}
                 </button>
-              );
-            })}
-          </nav>
-        </div>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            id="showroom-panel"
-            role="tabpanel"
-            aria-labelledby={`showroom-tab-${activeTab}`}
-            key={activeTab}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.4, ease: MOTION_EASE }}
-          >
-            <ShowroomGrid projects={filteredProjects} onSelect={setLightboxProject} />
-          </motion.div>
-        </AnimatePresence>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
 
       <ProjectLightbox
         project={lightboxProject}
-        projects={filteredProjects}
-        onClose={() => setLightboxProject(null)}
+        projects={lightboxProjects}
+        onClose={handleClose}
         onNavigate={setLightboxProject}
       />
     </section>
