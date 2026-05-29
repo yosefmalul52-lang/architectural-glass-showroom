@@ -29,8 +29,8 @@ export function Hero() {
       <Navbar />
 
       {/* Right-aligned block, vertically centered */}
-      <div className="relative z-10 flex h-full min-h-0 w-full flex-col items-start justify-center px-4 pb-[calc(env(safe-area-inset-bottom)+4rem)] pt-[calc(env(safe-area-inset-top)+4rem)] sm:px-6 lg:px-16">
-        <div className="relative z-10 flex w-full flex-col items-start">
+      <div className="relative z-10 flex h-full min-h-0 w-full flex-col items-start justify-center px-4 pb-[calc(env(safe-area-inset-bottom)+4rem)] pt-[calc(env(safe-area-inset-top)+5rem)] sm:px-6 sm:pt-[calc(env(safe-area-inset-top)+5.5rem)] lg:px-16 lg:pt-[calc(env(safe-area-inset-top)+6rem)]">
+        <div className="relative z-10 mt-8 flex w-full flex-col items-start sm:mt-10 lg:mt-12">
           {/* Scoped gradient — behind text */}
           <motion.div
             className="pointer-events-none absolute -inset-x-6 -inset-y-8 z-0 bg-stone-950/40 blur-2xl lg:-inset-x-10 lg:-inset-y-10"
@@ -47,10 +47,10 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           >
-            <h1 className="max-w-[320px] text-balance text-right font-display text-[2.15rem] font-light leading-tight text-white md:max-w-xl md:text-[2.65rem] lg:max-w-2xl lg:text-[3.35rem] [text-shadow:0_2px_24px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.4)]">
+            <h1 className="max-w-[360px] text-balance text-right font-display text-[2.65rem] font-bold leading-tight text-white md:max-w-xl md:text-[3.25rem] lg:max-w-2xl lg:text-[4.1rem] [text-shadow:0_2px_24px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.4)]">
               <span className="block overflow-hidden">
                 <motion.span
-                  className="block font-light"
+                  className="block font-bold"
                   variants={wordRevealVariants}
                   initial="hidden"
                   animate="visible"
@@ -65,7 +65,7 @@ export function Hero() {
               </span>
               <span className="block overflow-hidden">
                 <motion.span
-                  className="block font-light text-[#C7B29A]"
+                  className="block font-bold text-[#C7B29A]"
                   variants={wordRevealVariants}
                   initial="hidden"
                   animate="visible"
@@ -75,7 +75,7 @@ export function Hero() {
                     ease: heroEase,
                   }}
                 >
-                  לצמרת.
+                  שלך לצמרת.
                 </motion.span>
               </span>
             </h1>
@@ -84,7 +84,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.35, duration: 0.9, ease: heroEase }}
-              className="max-w-[22rem] text-balance text-right text-[1.05rem] leading-relaxed tracking-[0.01em] text-white/90 sm:max-w-xl md:text-[1.15rem] [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]"
+              className="max-w-[22rem] text-balance text-right text-[1.15rem] leading-relaxed tracking-[0.01em] text-white/90 sm:max-w-xl md:text-[1.3rem] [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]"
             >
               קו נקי, חומרים בתקן המחמיר ביותר וגימור סופי מושלם. הסטנדרט החדש
               של עבודות הפרימיום.
@@ -107,7 +107,7 @@ export function Hero() {
               <MagneticButton>
                 <Button variant="gold" size="lg" asChild className="w-full sm:w-auto">
                   <Link href="#contact" aria-label="תיאום פגישת ייעוץ חינם">
-                    ייעוץ ראשוני — ללא עלות
+                    בואו נתכנן יחד
                     <ArrowLeft className="h-4 w-4" />
                   </Link>
                 </Button>

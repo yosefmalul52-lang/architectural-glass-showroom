@@ -13,6 +13,8 @@ interface HeadingAccentProps {
   tone?: "default" | "light";
   /** override accent color (hex/css color) */
   color?: string;
+  /** override diamond color; defaults to `color` */
+  diamondColor?: string;
   className?: string;
   animated?: boolean;
 }
@@ -32,12 +34,20 @@ export function HeadingAccent({
   align = "start",
   tone = "default",
   color,
+  diamondColor,
   className,
   animated = true,
 }: HeadingAccentProps) {
   const lineColor  = color ?? (tone === "light" ? WHITE : GOLD);
-  const lineOpacity = 0.3;
-  const glowColor  = color ? `${color}66` : (tone === "light" ? "rgba(255,255,255,0.25)" : GOLD_RGBA);
+  const markerColor = diamondColor ?? color ?? GOLD;
+  const lineOpacity = color && diamondColor ? 0.55 : 0.3;
+  const glowColor  = diamondColor
+    ? `${diamondColor}66`
+    : color
+      ? `${color}66`
+      : tone === "light"
+        ? "rgba(255,255,255,0.25)"
+        : GOLD_RGBA;
 
   const lineMotion = animated
     ? {
@@ -46,7 +56,7 @@ export function HeadingAccent({
         viewport:   { once: true },
         transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] as [number,number,number,number] },
       }
-    : {};
+    : { style: { width: "40px", opacity: lineOpacity } };
 
   const diamondMotion = animated
     ? {
@@ -75,7 +85,7 @@ export function HeadingAccent({
         {...diamondMotion}
         className="h-2 w-2 shrink-0"
         style={{
-          backgroundColor: color ?? GOLD,
+          backgroundColor: markerColor,
           boxShadow: `0 0 8px ${glowColor}`,
           ...(animated ? {} : { transform: "rotate(45deg)" }),
         }}

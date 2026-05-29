@@ -83,7 +83,7 @@ export function DynamicShowroom() {
   }
 
   return (
-    <section id="showroom" data-funnel-step="desire" className="py-section bg-bg-elevated">
+    <section id="showroom" data-funnel-step="desire" className="border-b border-black py-section bg-bg-elevated">
       <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
         <SectionIntro
           align="center"
@@ -107,61 +107,57 @@ export function DynamicShowroom() {
               <motion.div
                 key={cat.value}
                 variants={cardVariant}
-                className="overflow-hidden rounded-sm will-change-[clip-path,opacity,transform]"
+                className="group relative aspect-[4/3] w-full overflow-hidden rounded-sm border-2 border-[#C8B49B] will-change-[clip-path,opacity,transform] sm:aspect-[16/10]"
               >
                 <button
                   type="button"
                   onClick={() => openCategory(cat.value)}
                   disabled={isEmpty}
-                  className="group relative w-full overflow-hidden rounded-sm ring-1 ring-[#C8B49B]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+                  className="absolute inset-0 z-[5] cursor-pointer border-0 bg-transparent p-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
                   aria-label={`${cat.label}${isEmpty ? " — בקרוב" : ` — ${projects.length} פרויקטים`}`}
-                >
-                  <div className="aspect-[4/3] w-full sm:aspect-[16/10]">
-                    {cat.cover ? (
-                      <div className="relative h-full w-full overflow-hidden">
-                        <Image
-                          src={cat.cover.image}
-                          alt={cat.cover.alt}
-                          fill
-                          unoptimized
-                          priority={index < 4}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent transition-opacity duration-300 group-hover:from-black/75" />
-                      </div>
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center bg-stone-200">
-                        <span className="font-[family-name:var(--font-cormorant)] text-base italic tracking-widest text-stone-500">
-                          בקרוב
-                        </span>
-                      </div>
-                    )}
+                />
+                {cat.cover ? (
+                  <div className="relative h-full w-full overflow-hidden">
+                    <Image
+                      src={cat.cover.image}
+                      alt={cat.cover.alt}
+                      fill
+                      priority={index < 2}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 700px"
+                      className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                   </div>
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center bg-stone-200">
+                    <span className="font-[family-name:var(--font-cormorant)] text-base italic tracking-widest text-stone-500">
+                      בקרוב
+                    </span>
+                  </div>
+                )}
 
-                  <motion.div
-                    className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col items-center px-6 pb-6 pt-12 text-center"
-                    variants={labelReveal}
-                  >
-                    <div className="inline-flex flex-col items-center">
-                      <p className="font-display text-xl font-light tracking-wide text-brand-gold lg:text-2xl">
-                        {cat.label}
-                      </p>
-                      <motion.div
-                        className="mt-2 h-px w-full min-w-[2.5rem] origin-center bg-brand-gold"
-                        variants={accentLineReveal}
-                      />
-                    </div>
-                  </motion.div>
+                <motion.div
+                  className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex flex-col items-start px-6 pb-6 pt-16 text-right"
+                  variants={labelReveal}
+                >
+                  <div className="inline-flex flex-col items-start">
+                    <p className="font-display text-xl font-light tracking-wide text-brand-gold drop-shadow-[0_1px_8px_rgba(0,0,0,0.45)] lg:text-2xl">
+                      {cat.label}
+                    </p>
+                    <motion.div
+                      className="mt-2 h-px w-full min-w-[2.5rem] origin-right bg-brand-gold"
+                      variants={accentLineReveal}
+                    />
+                  </div>
+                </motion.div>
 
-                  {!isEmpty && (
-                    <div className="absolute left-5 top-5 flex h-9 w-9 items-center justify-center border border-white/0 bg-black/0 text-white/0 transition-all duration-300 group-hover:border-white/30 group-hover:bg-black/25 group-hover:text-white/80">
-                      <svg viewBox="0 0 14 14" width={13} height={13} fill="none" aria-hidden>
-                        <path d="M11 7H3M7 3l4 4-4 4" stroke="currentColor" strokeWidth={1.25} strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </div>
-                  )}
-                </button>
+                {!isEmpty && (
+                  <div className="pointer-events-none absolute left-5 top-5 z-10 flex h-9 w-9 items-center justify-center border border-white/30 bg-black/25 text-white/80">
+                    <svg viewBox="0 0 14 14" width={13} height={13} fill="none" aria-hidden>
+                      <path d="M11 7H3M7 3l4 4-4 4" stroke="currentColor" strokeWidth={1.25} strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </div>
+                )}
               </motion.div>
             );
           })}

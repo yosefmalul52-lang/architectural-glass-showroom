@@ -49,11 +49,11 @@ function StatPillar({
   });
 
   return (
-    <div className="flex min-w-0 flex-col items-start text-right">
-      <span className="block w-full text-right font-[family-name:var(--font-playfair)] text-[1.5rem] font-bold tabular-nums tracking-tight text-brand-gold sm:text-3xl lg:text-4xl">
+    <div className="flex min-w-0 flex-col items-center text-center">
+      <span className="block w-full text-center font-[family-name:var(--font-playfair)] text-[1.5rem] font-bold tabular-nums tracking-tight text-white sm:text-3xl lg:text-4xl">
         {display}
       </span>
-      <span className="relative mt-1.5 block w-full text-right font-[family-name:var(--font-assistant)] text-xs font-light leading-snug tracking-wide text-white lg:text-sm">
+      <span className="relative mt-1.5 block w-full text-center font-[family-name:var(--font-assistant)] text-xs font-light leading-snug tracking-wide text-brand-gold lg:text-sm">
         <span className="block">{lines[0]}</span>
         <span className="block">{lines[1]}</span>
       </span>
@@ -83,13 +83,9 @@ export function HeroStats() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 2.0, duration: 0.8, ease: MOTION_EASE }}
-      className="relative inline-flex w-fit max-w-full flex-col items-start pt-3 lg:pt-4"
+      className="relative inline-flex w-fit max-w-full flex-col items-start pt-1 lg:pt-2"
       aria-label="נתוני חברה"
     >
-      <div
-        className="absolute top-0 right-0 -left-2 h-px bg-[#c5a059]/20 sm:-left-2.5"
-        aria-hidden
-      />
       <div className="flex flex-row flex-wrap items-start justify-start gap-x-8 gap-y-4 sm:gap-x-9 lg:gap-x-12">
         {STATS.map((stat, index) => (
           <StatPillar

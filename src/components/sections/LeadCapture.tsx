@@ -154,7 +154,7 @@ export function LeadCapture() {
   }
 
   return (
-    <section id="contact" data-funnel-step="action" className="relative bg-white py-section">
+    <section id="contact" data-funnel-step="action" className="relative border-t border-black bg-white py-section">
       <div
         className={cn(
           "mx-auto max-w-[1400px] px-6 transition-all duration-700 lg:px-10",
@@ -176,7 +176,7 @@ export function LeadCapture() {
             align="center"
             className="mb-0"
             accentColor="#C8B49B"
-            descriptionClassName="!text-text-main"
+            descriptionClassName="!text-brand-gold"
           />
         </motion.div>
 

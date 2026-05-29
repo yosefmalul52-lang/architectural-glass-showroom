@@ -18,7 +18,7 @@ function FooterHeading({ children }: { children: string }) {
   return (
     <div className="mb-6 flex flex-col items-start">
       <p className={headingTitleClass}>{children}</p>
-      <span className="mt-3 block h-px w-8 bg-text-main/40" aria-hidden />
+      <span className="mt-3 block h-px w-8 bg-[#C8B49B]/80" aria-hidden />
     </div>
   );
 }
@@ -34,13 +34,16 @@ export function Footer() {
         <div className="grid items-start gap-12 py-14 md:grid-cols-4 md:py-20 lg:gap-24">
           {/* Brand */}
           <div className="md:col-span-1">
-            <Image
-              src="/logo-tzameret-v3-transparent.png"
-              alt={BRAND.name}
-              width={320}
-              height={110}
-              className="mb-6 h-24 w-auto origin-right scale-150 object-contain opacity-95 mix-blend-multiply lg:h-32"
-            />
+            <div className="mb-6 flex justify-center">
+              <Image
+                src="/logo-tzameret-latest-transparent.png"
+                alt={BRAND.name}
+                width={320}
+                height={320}
+                unoptimized
+                className="h-28 w-auto object-contain object-center lg:h-32"
+              />
+            </div>
             <p className="mt-2 text-sm font-light leading-relaxed tracking-wide text-text-main/75 md:text-base">
               {BRAND.tagline} — מ-{BRAND.founded}.
             </p>

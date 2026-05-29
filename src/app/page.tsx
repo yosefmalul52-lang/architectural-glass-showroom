@@ -23,9 +23,6 @@ export default function Home() {
         <AtelierReel />
         <CraftBridge />
         <SocialProof />
-        <div aria-hidden className="mx-auto w-full max-w-[1400px] px-6 lg:px-10">
-          <div className="mx-auto h-px w-full max-w-5xl bg-accent-teal/35" />
-        </div>
         <LeadCapture />
       </main>
       <Footer />

@@ -1,12 +1,25 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { showerProjects } from "@/data/portfolio";
 
-const HERO_VIDEO_SRC = "/hero/gemini_generated_video_BA8DA8AD.MP4";
+const HERO_VIDEO_SRC = "/hero/tzameret-hero.mp4";
 const posterImage = showerProjects[0];
+
+/** Returns true if we should skip video (mobile viewport or slow connection). */
+function shouldSkipVideo(): boolean {
+  if (typeof window === "undefined") return true;
+  // Skip on small screens — poster image looks great, saves 48MB download
+  if (window.innerWidth < 768) return true;
+  // Skip on save-data or slow connections
+  const nav = navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } };
+  const conn = nav.connection;
+  if (conn?.saveData) return true;
+  if (conn?.effectiveType && ["slow-2g", "2g", "3g"].includes(conn.effectiveType)) return true;
+  return false;
+}
 
 export function HeroVideo() {
   const reduced = usePrefersReducedMotion();
@@ -14,6 +27,14 @@ export function HeroVideo() {
   const [videoStarted, setVideoStarted] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
   const [videoPaused, setVideoPaused] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
+
+  useEffect(() => {
+    // Decide after hydration whether to load the video
+    if (!reduced && !shouldSkipVideo()) {
+      setShowVideo(true);
+    }
+  }, [reduced]);
 
   function handlePlaying() {
     setVideoStarted(true);
@@ -37,48 +58,24 @@ export function HeroVideo() {
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
-      {/*
-        Preload hint rendered into <head> by Next.js App Router.
-        The browser starts fetching the video file at HTML parse time,
-        before React hydrates — eliminating the load delay gap entirely.
-      */}
-      {!reduced && (
-        <link
-          rel="preload"
-          as="video"
-          href={HERO_VIDEO_SRC}
-          type="video/mp4"
-        />
-      )}
-
       {/* Solid base — prevents transparent flash on very slow connections */}
       <div className="absolute inset-0 z-0 bg-[#1a2a35]" aria-hidden />
 
-      {/*
-        Fallback image — always rendered, priority loaded, sits at z-[1].
-        Fades out once the video is producing frames (onPlaying fired).
-        Stays visible indefinitely if the video errors out.
-      */}
+      {/* Fallback/poster image — always rendered, priority loaded */}
       <Image
         src={posterImage.image}
         alt={posterImage.alt}
         fill
         priority
-        quality={95}
+        quality={90}
         sizes="100vw"
         className={`absolute inset-0 z-[1] h-full w-full object-cover object-center transition-opacity duration-700 ${
           videoStarted && !videoFailed ? "opacity-0" : "opacity-100"
         }`}
       />
 
-      {/*
-        Video sits at z-[2] and is rendered in the initial SSR HTML —
-        no `mounted` guard so the browser can begin loading it immediately.
-        Before any frames are decoded the video element is visually transparent,
-        so the fallback image shows through naturally with zero flicker.
-        The moment real pixels are produced (onPlaying), the image fades out.
-      */}
-      {!reduced && (
+      {/* Video — only on desktop with good connection */}
+      {showVideo && (
         <>
           <video
             ref={videoRef}
@@ -89,12 +86,13 @@ export function HeroVideo() {
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
+            disablePictureInPicture
             onPlaying={handlePlaying}
             onError={handleError}
             aria-hidden
           >
-            <source src={HERO_VIDEO_SRC} type="video/mp4" />
+            <source src={HERO_VIDEO_SRC} type="video/mp4; codecs=avc1.42E01E, mp4a.40.2" />
           </video>
 
           {videoStarted && (

@@ -14,7 +14,7 @@ export function CraftBridge() {
     <section
       id="process"
       data-funnel-step="process"
-      className="relative border-y border-stone-200/90 bg-white py-section"
+      className="relative bg-white py-section"
       aria-label="תהליך העבודה"
     >
       <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
@@ -27,9 +27,9 @@ export function CraftBridge() {
         >
           <h2 className="font-display text-display-3xl font-light leading-tight tracking-tight text-text-main lg:text-display-4xl">
             כל שלב נבנה בדיוק —{" "}
-            <span className="font-semibold text-text-main">בלי קיצורי דרך</span>
+            <span className="font-semibold text-[#C8B49B]">בלי קיצורי דרך</span>
           </h2>
-          <HeadingAccent align="center" className="mx-auto" color="#C8B49B" />
+          <HeadingAccent align="center" className="mx-auto" color="#000000" diamondColor="#C8B49B" />
         </motion.div>
 
         <motion.div
@@ -73,7 +73,7 @@ export function CraftBridge() {
           whileInView="visible"
           viewport={scrollRevealViewport}
           variants={fadeUpVariants}
-          className="mx-auto mt-14 max-w-3xl border-t border-stone-200/90 pt-14 text-center lg:mt-16 lg:pt-16"
+          className="mx-auto mt-14 max-w-3xl border-t border-[#C8B49B] pt-14 text-center lg:mt-16 lg:pt-16"
         >
           <p className="type-lead mx-auto max-w-[42rem] leading-[1.85] text-text-main">
             {BRAND.name} מלווה אתכם לאורך כל הדרך — מתכנון ומדידה בשטח, דרך ייצור מדויק
@@ -83,7 +83,8 @@ export function CraftBridge() {
           </p>
           <p className="type-lead mx-auto mt-6 max-w-[42rem] leading-[1.85] text-text-muted">
             אנחנו עובדים לצד אדריכלים, קבלנים ובעלי בתים פרטיים, ומספקים זכוכית
-            אדריכלית מותאמת אישית — תכנון, הנדסה וביצוע תחת קורת גג אחת.
+            אדריכלית מותאמת אישית —{" "}
+            <span className="!text-brand-gold">תכנון, הנדסה וביצוע תחת קורת גג אחת</span>.
           </p>
         </motion.div>
       </div>

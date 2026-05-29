@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import { Rubik, Assistant, Cormorant_Garamond, Playfair_Display } from "next/font/google";
 import { ClientShell } from "@/components/layout/ClientShell";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./globals.css";
 
 const rubik = Rubik({
   variable: "--font-frank-ruhl",
   subsets: ["hebrew", "latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700", "900"],
   display: "swap",
 });
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400", "600"],
   style: ["normal", "italic"],
   display: "swap",
 });
@@ -22,14 +21,14 @@ const cormorantGaramond = Cormorant_Garamond({
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "700"],
   display: "swap",
 });
 
 const assistant = Assistant({
   variable: "--font-assistant",
   subsets: ["hebrew", "latin"],
-  weight: ["200", "300", "400", "500", "600", "700"],
+  weight: ["300", "400", "600"],
   display: "swap",
 });
 

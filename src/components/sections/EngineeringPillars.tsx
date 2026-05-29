@@ -9,7 +9,6 @@ import {
   scrollRevealViewport,
   headingContainerVariant,
   headingLineVariant,
-  subtextVariant,
 } from "@/lib/motion";
 
 const E = [0.16, 1, 0.3, 1] as const;
@@ -42,17 +41,7 @@ function PillarsHeader() {
             </span>
           ))}
         </motion.h2>
-        <HeadingAccent align="center" className="mx-auto" color="#2d6b84" />
-        <motion.p
-          initial="hidden"
-          whileInView="visible"
-          viewport={scrollRevealViewport}
-          variants={subtextVariant}
-          className="type-lead mx-auto mt-5 max-w-xl text-center !text-accent-teal"
-        >
-          כשכל הספקים מבטיחים «איכות», ההבדל האמיתי נמדד בשרטוטי AutoCAD המדויקים,
-          בחומרים עם תעודת יצרן — ובמי שנשאר לצידכם גם לאחר ההתקנה.
-        </motion.p>
+        <HeadingAccent align="center" className="mx-auto" color="#000000" diamondColor="#2d6b84" />
       </div>
     </header>
   );
@@ -70,14 +59,14 @@ function PillarCard({
   delay: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: false, margin: "0px 0px -14% 0px", amount: 0.12 });
+  const inView = useInView(ref, { once: true, margin: "0px 0px -10% 0px", amount: 0.1 });
 
   return (
     <motion.article
       ref={ref}
-      initial={{ opacity: 0, x: fromRight ? 48 : -48, filter: "blur(4px)" }}
-      animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : { opacity: 0, x: fromRight ? 48 : -48, filter: "blur(4px)" }}
-      transition={{ duration: 0.85, ease: E, delay }}
+      initial={{ opacity: 0, x: fromRight ? 40 : -40 }}
+      animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: fromRight ? 40 : -40 }}
+      transition={{ duration: 0.75, ease: E, delay }}
       className="card-surface card-surface-interactive group relative overflow-hidden border border-black/25 transition-[border-color,box-shadow] duration-500 hover:border-black/50"
     >
       {/* Top gradient stripe */}
@@ -115,7 +104,7 @@ function PillarCard({
 
         <p className="type-lead mt-3 text-sm leading-relaxed">{pillar.description}</p>
 
-        <div className="mt-4 h-px w-full bg-hairline" />
+        <div className="mt-4 h-px w-full bg-[#C8B49B]/40" />
         <p className="mt-3 font-[family-name:var(--font-cormorant)] text-sm font-light italic leading-relaxed tracking-wide text-accent-teal/80">{pillar.proof}</p>
       </div>
 

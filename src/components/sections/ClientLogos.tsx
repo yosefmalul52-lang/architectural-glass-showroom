@@ -59,7 +59,7 @@ function LogoTrack({ ariaHidden }: { ariaHidden?: boolean }) {
             "shrink-0 whitespace-nowrap opacity-80 transition-opacity duration-500 hover:opacity-100",
             brand.className
           )}
-          style={{ color: "#C7B39A" }}
+          style={{ color: "#1a1a1a" }}
         >
           {brand.name}
         </span>
@@ -72,11 +72,11 @@ export function ClientLogos({ trustStrip }: { trustStrip?: ReactNode }) {
   return (
     <div className="w-full overflow-hidden border border-accent-teal/30 border-t-2 border-t-accent-teal/60 border-b-2 border-b-accent-teal/60 bg-white/90 px-4 py-10 shadow-[0_2px_20px_rgba(21,21,21,0.09)] sm:px-6 lg:py-12">
       <div className="mb-10 text-center lg:mb-12">
-        <h2 className="font-display text-display-3xl tracking-tight text-accent-teal lg:text-display-4xl">
+        <h2 className="font-display text-display-3xl tracking-tight text-text-main lg:text-display-4xl">
           <span className="block font-light">חלק מהלקוחות</span>
-          <span className="block font-semibold">שעובדים איתנו</span>
+          <span className="block font-semibold text-[#C8B49B]">שעובדים איתנו</span>
         </h2>
-        <HeadingAccent align="center" className="mx-auto" />
+        <HeadingAccent align="center" className="mx-auto" color="#000000" diamondColor="#C8B49B" />
       </div>
 
       <div className="relative">

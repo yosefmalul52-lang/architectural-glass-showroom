@@ -277,7 +277,7 @@ export function SocialProof() {
     <section
       id="trust"
       data-funnel-step="trust"
-      className="relative py-section"
+      className="relative border-t border-black py-section"
       style={{ backgroundColor: "#F3EBE1" }}
     >
       <ArchitecturalGrid opacity={0.1} />
@@ -286,13 +286,17 @@ export function SocialProof() {
           <div className="flex w-full flex-col items-center text-center">
             <SectionIntro
               align="center"
-              title="מה שנשאר — אחרי שהאבק שוקע"
               description="הפרויקט מסתיים — הקשר נשאר. כך נראית עבודה שנעשית בלי קיצורי דרך."
               descriptionClassName="max-w-3xl !text-accent-teal"
-              className="mb-0 [&_h2]:mx-auto [&_h2]:max-w-4xl [&_h2]:text-text-main"
+              className="mb-0"
               numberClassName="text-accent-teal"
               accentColor="#2d6b84"
-            />
+            >
+              <h2 className="mx-auto max-w-4xl font-display text-display-4xl leading-[1.12] tracking-tight lg:text-display-5xl">
+                <span className="block font-light text-text-main">מה שנשאר —</span>
+                <span className="block font-semibold text-[#2d6b84]">אחרי שהאבק שוקע</span>
+              </h2>
+            </SectionIntro>
           </div>
 
           <div className="w-full">

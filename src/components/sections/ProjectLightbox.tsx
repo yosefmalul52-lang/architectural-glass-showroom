@@ -76,7 +76,7 @@ export function ProjectLightbox({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[70] backdrop-blur-2xl" style={{ background: "rgba(245, 237, 227, 0.82)" }}
+                className="fixed inset-0 z-[70]" style={{ background: "rgba(245, 237, 227, 0.93)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
               />
             </DialogPrimitive.Overlay>
             <DialogPrimitive.Content asChild forceMount>
@@ -118,7 +118,7 @@ export function ProjectLightbox({
                         src={project.image}
                         alt={project.alt}
                         fill
-                        quality={95}
+                        quality={85}
                         sizes="(max-width: 640px) 100vw, 95vw"
                         className="object-contain"
                       />

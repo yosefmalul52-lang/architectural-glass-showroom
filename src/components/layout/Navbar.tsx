@@ -27,22 +27,23 @@ export function Navbar() {
 
         <Link
           href="#hero"
-          className="flex shrink-0 items-center justify-end bg-transparent"
+          className="flex shrink-0 items-center justify-center bg-transparent"
           aria-label="דף הבית"
         >
           <motion.div
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
-            className="flex items-center bg-transparent"
+            className="flex items-center justify-center bg-transparent"
           >
             <Image
-              src="/logo-tzameret-v3-transparent.png"
+              src="/logo-tzameret-latest-transparent.png"
               alt={BRAND.name}
-              width={640}
-              height={220}
+              width={320}
+              height={320}
               priority
-              className="h-24 w-auto translate-y-2 object-contain object-center bg-transparent sm:h-28 lg:h-32"
+              unoptimized
+              className="h-[5rem] w-auto object-contain object-center bg-transparent sm:h-[5.25rem] lg:h-[5.75rem]"
             />
           </motion.div>
         </Link>
@@ -77,7 +78,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, ease: EASE, delay: 0.55 }}
-            className="hidden items-center gap-2 border border-white/25 px-4 py-2 font-display text-[15px] tracking-[0.09em] text-white transition-all duration-300 hover:border-[#C8B49B]/60 hover:text-[#C8B49B] sm:flex"
+            className="hidden items-center gap-2 border border-[#C8B49B] px-4 py-2 font-display text-[15px] tracking-[0.09em] text-white transition-all duration-300 hover:bg-[#C8B49B]/10 hover:text-[#C8B49B] sm:flex"
             aria-label={`טלפון: ${CONTACT.phone}`}
           >
             <Phone size={12} strokeWidth={1.5} />
@@ -123,7 +124,7 @@ export function Navbar() {
           ))}
           <a
             href={`tel:${CONTACT.phoneTel}`}
-            className="mt-4 flex items-center gap-2 py-3 text-base text-white/50 hover:text-white"
+            className="mt-4 inline-flex items-center gap-2 border border-[#C8B49B] px-4 py-2.5 font-display text-base text-white transition-colors duration-200 hover:bg-[#C8B49B]/10 hover:text-[#C8B49B]"
           >
             <Phone size={13} strokeWidth={1.5} />
             {CONTACT.phone}
