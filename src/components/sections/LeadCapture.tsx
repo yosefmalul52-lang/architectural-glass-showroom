@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowLeft, Loader2, Mail, MessageCircle, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -180,7 +181,9 @@ export function LeadCapture() {
           />
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-stretch lg:gap-14">
+        <div className="grid grid-cols-1 gap-0 lg:grid-cols-[1fr_minmax(0,420px)] lg:items-stretch border border-stone-200 overflow-hidden shadow-sm">
+          {/* Form + contact side */}
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-stretch lg:gap-14 p-6 sm:p-10 lg:p-14">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -381,6 +384,24 @@ export function LeadCapture() {
               </form>
             )}
           </motion.div>
+          </div>{/* end inner grid */}
+
+          {/* Image panel — desktop only */}
+          <div className="relative hidden lg:block min-h-[600px] bg-stone-900">
+            <Image
+              src="/portfolio/spa-backlit-mirror-fluted.png"
+              alt="עבודות זכוכית אדריכליות — צמרת הזכוכית"
+              fill
+              sizes="420px"
+              className="object-cover object-center"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+            <div className="absolute bottom-8 inset-x-0 px-8 text-right">
+              <p className="font-[family-name:var(--font-cormorant)] text-sm italic tracking-[0.18em] text-white/70 uppercase">
+                כל פרויקט — גימור ייחודי
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

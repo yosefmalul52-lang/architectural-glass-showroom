@@ -128,7 +128,12 @@ export function DynamicShowroom() {
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                   </div>
-                ) : (
+                ) : null}
+
+                {/* Dedicated bottom gradient — ensures text legibility on any image */}
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-1/2 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                {!cat.cover && (
                   <div className="flex h-full w-full items-center justify-center bg-stone-200">
                     <span className="font-[family-name:var(--font-cormorant)] text-base italic tracking-widest text-stone-500">
                       בקרוב
@@ -137,11 +142,11 @@ export function DynamicShowroom() {
                 )}
 
                 <motion.div
-                  className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex flex-col items-start px-6 pb-6 pt-16 text-right"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex flex-col items-start px-6 pb-6 pt-16 text-right"
                   variants={labelReveal}
                 >
                   <div className="inline-flex flex-col items-start">
-                    <p className="font-display text-xl font-light tracking-wide text-brand-gold drop-shadow-[0_1px_8px_rgba(0,0,0,0.45)] lg:text-2xl">
+                    <p className="font-display text-xl font-light tracking-wide text-brand-gold drop-shadow-md lg:text-2xl">
                       {cat.label}
                     </p>
                     <motion.div

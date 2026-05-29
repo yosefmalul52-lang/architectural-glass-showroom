@@ -4,7 +4,6 @@ import { useCallback, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArchitecturalGrid } from "@/components/editorial/ArchitecturalGrid";
 import { SectionIntro } from "@/components/editorial/SectionIntro";
-import { ClientLogos } from "@/components/sections/ClientLogos";
 import { testimonials } from "@/data/social-proof";
 import { MOTION_EASE } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -305,9 +304,6 @@ export function SocialProof() {
             </div>
           </div>
 
-          <div className="w-full pt-2 lg:pt-4">
-            <ClientLogos />
-          </div>
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   headingContainerVariant,
@@ -58,68 +59,80 @@ export function AtelierReel() {
       className="relative border-t border-black border-b border-[#C8B49B] bg-white py-section"
     >
       <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
-        <div className="flex flex-col gap-12 lg:grid lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-x-14 xl:grid-cols-[minmax(0,26rem)_1fr] xl:gap-x-20">
-          {/* Sticky intro — anchors on the right while cards scroll */}
-          <aside className="text-center lg:sticky lg:top-32 lg:self-start lg:text-start">
-            <div className="flex flex-col items-center gap-6 lg:flex-row lg:items-stretch lg:gap-5">
-              <div
-                className="relative hidden h-44 w-px shrink-0 bg-[#C8B49B]/60 lg:block"
-                aria-hidden
-              />
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20 items-start">
 
-              <div className="min-w-0 flex-1">
-                <motion.h2
-                  variants={headingContainerVariant}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={scrollRevealViewport}
-                  className="font-display text-display-4xl leading-[1.12] tracking-tight text-text-main lg:text-display-5xl"
-                >
-                  {[
-                    { text: "חומרים שנבחרים בקפידה.", weight: "font-light" },
-                    { text: "גימור שמדבר בעד עצמו.", weight: "font-semibold" },
-                  ].map(({ text, weight }, i) => (
-                    <span key={i} className="block overflow-hidden">
-                      <motion.span
-                        className={`block ${weight} ${i > 0 ? "mt-1" : ""}`}
-                        variants={headingLineVariant}
-                        transition={{
-                          duration: 0.88,
-                          ease: [0.16, 1, 0.3, 1],
-                          delay: i * 0.1,
-                        }}
-                      >
-                        {text}
-                      </motion.span>
-                    </span>
-                  ))}
-                </motion.h2>
+          {/* Content column — intro + spec cards */}
+          <div className="flex flex-col gap-10">
+            {/* Intro */}
+            <aside className="text-center lg:text-start">
+              <div className="flex flex-col items-center gap-6 lg:flex-row lg:items-stretch lg:gap-5">
+                <div
+                  className="relative hidden h-44 w-px shrink-0 bg-[#C8B49B]/60 lg:block"
+                  aria-hidden
+                />
+                <div className="min-w-0 flex-1">
+                  <motion.h2
+                    variants={headingContainerVariant}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={scrollRevealViewport}
+                    className="font-display text-display-4xl leading-[1.12] tracking-tight text-text-main lg:text-display-5xl"
+                  >
+                    {[
+                      { text: "חומרים שנבחרים בקפידה.", weight: "font-light" },
+                      { text: "גימור שמדבר בעד עצמו.", weight: "font-semibold" },
+                    ].map(({ text, weight }, i) => (
+                      <span key={i} className="block overflow-hidden">
+                        <motion.span
+                          className={`block ${weight} ${i > 0 ? "mt-1" : ""}`}
+                          variants={headingLineVariant}
+                          transition={{ duration: 0.88, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
+                        >
+                          {text}
+                        </motion.span>
+                      </span>
+                    ))}
+                  </motion.h2>
 
-                <div className="flex justify-center lg:justify-start">
-                  <HeadingAccent align="start" color="#000000" diamondColor="#C8B49B" />
+                  <div className="flex justify-center lg:justify-start">
+                    <HeadingAccent align="start" color="#000000" diamondColor="#C8B49B" />
+                  </div>
+
+                  <motion.p
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={scrollRevealViewport}
+                    variants={subtextVariant}
+                    className="type-lead mx-auto mt-6 max-w-md font-[family-name:var(--font-assistant)] leading-relaxed !text-text-main lg:mx-0 lg:max-w-none"
+                  >
+                    כל רכיב — פרופיל, זכוכית, ציר וחיבור — נבחר לפי ביצועים, אסתטיקה ועמידות
+                    לאורך שנים.{" "}
+                    <span className="text-brand-gold">מגיע עם תעודת יצרן ואחריות כתובה.</span>
+                  </motion.p>
                 </div>
-
-                <motion.p
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={scrollRevealViewport}
-                  variants={subtextVariant}
-                  className="type-lead mx-auto mt-6 max-w-md font-[family-name:var(--font-assistant)] leading-relaxed !text-text-main lg:mx-0 lg:max-w-none"
-                >
-                  כל רכיב — פרופיל, זכוכית, ציר וחיבור — נבחר לפי ביצועים, אסתטיקה ועמידות
-                  לאורך שנים.{" "}
-                  <span className="text-brand-gold">מגיע עם תעודת יצרן ואחריות כתובה.</span>
-                </motion.p>
               </div>
-            </div>
-          </aside>
+            </aside>
 
-          {/* Spec plates — full list, no overlap */}
-          <div className="flex flex-col gap-6 lg:gap-8" aria-label="מפרט חומרים">
-            {craftSpecs.map((item, index) => (
-              <MaterialSpecCard key={item.code} item={item} index={index} />
-            ))}
+            {/* Spec plates */}
+            <div className="flex flex-col gap-6 lg:gap-8" aria-label="מפרט חומרים">
+              {craftSpecs.map((item, index) => (
+                <MaterialSpecCard key={item.code} item={item} index={index} />
+              ))}
+            </div>
           </div>
+
+          {/* Image column — sticky showcase */}
+          <div className="relative h-[400px] w-full overflow-hidden lg:sticky lg:top-32 lg:h-[620px]">
+            <Image
+              src="/portfolio/spa-fluted-gold.png"
+              alt="מפרט חומרים — צמרת הזכוכית"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover object-center"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+          </div>
+
         </div>
       </div>
     </section>

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { HeadingAccent } from "@/components/editorial/HeadingAccent";
+import { ClientLogos } from "@/components/sections/ClientLogos";
 import { trustPillars } from "@/data/social-proof";
 import { BRAND } from "@/data/site";
 import {
@@ -87,6 +88,10 @@ export function CraftBridge() {
             <span className="!text-brand-gold">תכנון, הנדסה וביצוע תחת קורת גג אחת</span>.
           </p>
         </motion.div>
+
+        <div className="mt-14 lg:mt-16">
+          <ClientLogos />
+        </div>
       </div>
     </section>
   );

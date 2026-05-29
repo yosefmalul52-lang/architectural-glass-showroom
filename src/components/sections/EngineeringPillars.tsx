@@ -98,11 +98,11 @@ function PillarCard({
       </span>
 
       <div className="relative p-5 lg:p-6">
-        <h3 className="font-display text-lg font-light leading-snug text-text-main lg:text-xl">
+        <h3 className="font-display text-lg font-semibold leading-snug text-stone-900 lg:text-xl">
           {pillar.title}
         </h3>
 
-        <p className="type-lead mt-3 text-sm leading-relaxed">{pillar.description}</p>
+        <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-stone-700">{pillar.description}</p>
 
         <div className="mt-4 h-px w-full bg-[#C8B49B]/40" />
         <p className="mt-3 font-[family-name:var(--font-cormorant)] text-sm font-light italic leading-relaxed tracking-wide text-accent-teal/80">{pillar.proof}</p>
