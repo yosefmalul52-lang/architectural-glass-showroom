@@ -8,16 +8,14 @@ import { showerProjects } from "@/data/portfolio";
 const HERO_VIDEO_SRC = "/hero/tzameret-hero.mp4";
 const posterImage = showerProjects[0];
 
-/** Returns true if we should skip video (mobile viewport or slow connection). */
+/** Returns true if we should skip video (save-data or very slow connection). */
 function shouldSkipVideo(): boolean {
   if (typeof window === "undefined") return true;
-  // Skip on small screens — poster image looks great, saves 48MB download
-  if (window.innerWidth < 768) return true;
-  // Skip on save-data or slow connections
+  // Skip only on save-data or very slow connections
   const nav = navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } };
   const conn = nav.connection;
   if (conn?.saveData) return true;
-  if (conn?.effectiveType && ["slow-2g", "2g", "3g"].includes(conn.effectiveType)) return true;
+  if (conn?.effectiveType && ["slow-2g", "2g"].includes(conn.effectiveType)) return true;
   return false;
 }
 
