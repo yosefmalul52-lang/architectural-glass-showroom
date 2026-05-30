@@ -234,10 +234,28 @@ export const railingProjects: PortfolioProject[] = [
 ];
 
 export const showroomCategories = [
-  { value: "mirrors" as const,  label: "מראות LED מוארות",   cover: { ...mirrorProjects[0], image: "/portfolio/mirror-cover.png", alt: "מראה LED מוארת — צמרת הזכוכית" } ?? null },
-  { value: "showers" as const,  label: "מקלחונים ייחודיים",  cover: { ...showerProjects[0], image: "/portfolio/shower-cover-v2.png", alt: "מקלחון זכוכית שקופה עם אבן טבעית — צמרת הזכוכית" } ?? null },
-  { value: "offices" as const,  label: "מחיצות משרד",        cover: officeProjects[3] ?? null },
-  { value: "railings" as const, label: "מעקים",               cover: { ...railingProjects[0], image: "/portfolio/railing-cover.png", alt: "מעקה זכוכית עם נוף פנורמי — צמרת הזכוכית" } ?? null },
+  {
+    value: "mirrors" as const,
+    label: "מראות LED מוארות",
+    cover: mirrorProjects[0]
+      ? { ...mirrorProjects[0], image: "/portfolio/mirror-cover.png", alt: "מראה LED מוארת — צמרת הזכוכית" }
+      : null,
+  },
+  {
+    value: "showers" as const,
+    label: "מקלחונים ייחודיים",
+    cover: showerProjects[0]
+      ? { ...showerProjects[0], image: "/portfolio/shower-cover-v2.png", alt: "מקלחון זכוכית שקופה עם אבן טבעית — צמרת הזכוכית" }
+      : null,
+  },
+  { value: "offices" as const, label: "מחיצות משרד", cover: officeProjects[3] ?? null },
+  {
+    value: "railings" as const,
+    label: "מעקים",
+    cover: railingProjects[0]
+      ? { ...railingProjects[0], image: "/portfolio/railing-cover.png", alt: "מעקה זכוכית עם נוף פנורמי — צמרת הזכוכית" }
+      : null,
+  },
 ];
 
 export const projectsByCategory: Record<ProjectCategory, PortfolioProject[]> = {

@@ -21,7 +21,7 @@ export function Navbar() {
       style={{ direction: "rtl" }}
     >
       {/* Glass blue bg */}
-      <div className="absolute inset-0 bg-transparent border-b border-white/15" />
+      <div className="absolute inset-0 bg-transparent border-b border-brand-gold/60" />
 
       <div className="relative mx-auto flex h-[62px] max-w-[1400px] items-center justify-between gap-4 px-4 sm:h-16 sm:gap-6 sm:px-6 lg:h-[72px] lg:px-10">
 

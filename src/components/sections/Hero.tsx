@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
@@ -19,6 +20,20 @@ import { HeroStats } from "./HeroStats";
 const heroEase = MOTION_EASE;
 
 export function Hero() {
+  const [introDone, setIntroDone] = useState(false);
+
+  useEffect(() => {
+    const w = window as Window & { __introLoaderDone?: boolean };
+    if (w.__introLoaderDone) {
+      setIntroDone(true);
+      return;
+    }
+
+    const onIntroDone = () => setIntroDone(true);
+    window.addEventListener("intro-loader:done", onIntroDone);
+    return () => window.removeEventListener("intro-loader:done", onIntroDone);
+  }, []);
+
   return (
     <section
       id="hero"
@@ -35,7 +50,7 @@ export function Hero() {
           <motion.div
             className="pointer-events-none absolute -inset-x-6 -inset-y-8 z-0 bg-text-main/40 blur-2xl lg:-inset-x-10 lg:-inset-y-10"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={introDone ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             aria-hidden
           />
@@ -44,16 +59,16 @@ export function Hero() {
           <motion.div
             className="relative z-20 flex w-full max-w-2xl flex-col items-start gap-y-2.5 text-right md:gap-y-3 lg:gap-y-4"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           >
-            <h1 className="max-w-[360px] text-balance text-right font-latin text-display-hero font-bold leading-tight text-white md:max-w-xl lg:max-w-2xl [text-shadow:0_2px_24px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.4)]" style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", letterSpacing: "-0.02em" }}>
+            <h1 className="max-w-[360px] text-balance text-right font-display text-display-hero font-semibold leading-[1.05] tracking-tight text-white md:max-w-xl lg:max-w-2xl [text-shadow:0_2px_24px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.4)]">
               <span className="block overflow-hidden">
                 <motion.span
-                  className="block font-bold"
+                  className="block font-semibold"
                   variants={wordRevealVariants}
                   initial="hidden"
-                  animate="visible"
+                  animate={introDone ? "visible" : "hidden"}
                   transition={{
                     delay: 0.85,
                     duration: 0.85,
@@ -65,10 +80,10 @@ export function Hero() {
               </span>
               <span className="block overflow-hidden">
                 <motion.span
-                  className="block font-bold text-[#C8B49B]"
+                  className="block font-semibold text-[#C8B49B]"
                   variants={wordRevealVariants}
                   initial="hidden"
-                  animate="visible"
+                  animate={introDone ? "visible" : "hidden"}
                   transition={{
                     delay: 1.05,
                     duration: 0.85,
@@ -82,7 +97,7 @@ export function Hero() {
 
             <motion.p
               initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
               transition={{ delay: 1.35, duration: 0.9, ease: heroEase }}
               className="max-w-[22rem] text-balance text-right text-[1.15rem] leading-relaxed tracking-[0.01em] text-white/90 sm:max-w-xl md:text-[1.3rem] [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]"
             >
@@ -93,14 +108,14 @@ export function Hero() {
             <motion.div
               variants={lineExpandVariants}
               initial="hidden"
-              animate="visible"
+              animate={introDone ? "visible" : "hidden"}
               transition={{ delay: 1.5, duration: 1, ease: heroEase }}
               className="mt-1.5 h-px w-full max-w-[20.5rem] origin-right bg-brand-gold/70 sm:max-w-xs"
             />
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ delay: 1.6, duration: 0.75, ease: heroEase }}
               className="mt-0.5 w-full sm:mt-1 sm:w-auto sm:self-start"
             >
@@ -122,7 +137,7 @@ export function Hero() {
       <motion.div
         className="absolute bottom-4 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-1 md:flex"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={introDone ? { opacity: 1 } : { opacity: 0 }}
         transition={{ delay: 2.1, ...luxuryTransition }}
         aria-hidden
       >

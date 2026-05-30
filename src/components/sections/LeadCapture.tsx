@@ -29,50 +29,6 @@ import { cn } from "@/lib/utils";
 
 const SHOWROOM_INTEREST_KEY = "showroom-interest";
 
-const trustSignals: { text: string }[] = [
-  { text: "מענה תוך 24 שעות לתיאום פגישה" },
-  { text: "ייעוץ תכנוני ראשוני ללא עלות" },
-  { text: "תקן EN12150 · מדידת לייזר בשטח" },
-];
-
-function ContactStrip() {
-  return (
-    <div className="mb-10 flex flex-col gap-4">
-      <a
-        href={`tel:${CONTACT.phoneTel}`}
-        className="flex items-center gap-3 group"
-      >
-        <Phone className="shrink-0 text-brand-gold" size={18} strokeWidth={1.5} />
-        <span className="font-display text-base tracking-wide text-text-main transition-colors group-hover:text-text-main/70">
-          {CONTACT.phone}
-        </span>
-      </a>
-
-      <a
-        href={`mailto:${CONTACT.email}`}
-        className="flex items-center gap-3 group"
-      >
-        <Mail className="shrink-0 text-brand-gold" size={18} strokeWidth={1.5} />
-        <span className="font-display text-base tracking-wide text-text-main transition-colors group-hover:text-text-main/70">
-          {CONTACT.email}
-        </span>
-      </a>
-
-      <a
-        href={WHATSAPP_DEFAULT_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center gap-3 group"
-      >
-        <MessageCircle className="shrink-0 text-brand-gold" size={18} strokeWidth={1.5} />
-        <span className="font-display text-base tracking-wide text-text-main transition-colors group-hover:text-text-main/70">
-          וואטסאפ ישיר
-        </span>
-      </a>
-    </div>
-  );
-}
-
 export function LeadCapture() {
   const [projectScope, setProjectScope] = useState<ProjectScopeValue | "">("");
   const [message, setMessage] = useState("");

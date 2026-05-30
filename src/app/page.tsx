@@ -1,3 +1,4 @@
+import { IntroLoader } from "@/components/IntroLoader";
 import { Footer } from "@/components/layout/Footer";
 import { GrainOverlay } from "@/components/editorial/GrainOverlay";
 import { ScrollProgress } from "@/components/editorial/ScrollProgress";
@@ -13,6 +14,7 @@ import { WhatsAppFAB } from "@/components/sections/WhatsAppFAB";
 export default function Home() {
   return (
     <>
+      <IntroLoader />
       <GrainOverlay />
       <ScrollProgress />
       <main id="main-content" className="m-0 p-0 pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0">

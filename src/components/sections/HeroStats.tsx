@@ -50,7 +50,7 @@ function StatPillar({
 
   return (
     <div className="flex min-w-0 flex-col items-center text-center">
-      <span className="block w-full text-center font-display text-[1.5rem] font-bold tabular-nums tracking-tight text-white sm:text-3xl lg:text-4xl">
+      <span className="block w-full text-center font-latin text-[1.75rem] font-normal tabular-nums tracking-[0.01em] text-black sm:text-[2.3rem] lg:text-[2.9rem]">
         {display}
       </span>
       <span className="relative mt-1.5 block w-full text-center font-body text-xs font-light leading-snug tracking-wide text-brand-gold lg:text-sm">
@@ -64,18 +64,25 @@ function StatPillar({
 export function HeroStats() {
   const [runId, setRunId] = useState(0);
   const [startedOnce, setStartedOnce] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
   const statsRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(statsRef, { amount: 0.2, margin: "0px 0px -10% 0px" });
 
   useEffect(() => {
-    if (!isInView) return;
+    const onIntroDone = () => setIntroDone(true);
+    window.addEventListener("intro-loader:done", onIntroDone);
+    return () => window.removeEventListener("intro-loader:done", onIntroDone);
+  }, []);
+
+  useEffect(() => {
+    if (!introDone || !isInView) return;
     const delay = startedOnce ? 120 : START_DELAY_MS;
     const t = window.setTimeout(() => {
       setRunId((id) => id + 1);
       setStartedOnce(true);
     }, delay);
     return () => window.clearTimeout(t);
-  }, [isInView, startedOnce]);
+  }, [introDone, isInView, startedOnce]);
 
   return (
     <motion.div
