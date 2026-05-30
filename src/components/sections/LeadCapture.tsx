@@ -186,10 +186,11 @@ export function LeadCapture() {
           {/* Image panel — right (desktop only) */}
           <div className="relative hidden min-h-[600px] bg-text-main lg:block">
             <Image
-              src="/portfolio/spa-marble-gold-shower.png"
+              src="/portfolio/contact-panel-2.png"
               alt="עבודות זכוכית אדריכליות — צמרת הזכוכית"
               fill
-              sizes="320px"
+              quality={95}
+              sizes="(max-width: 1400px) 25vw, 350px"
               className="object-cover object-center"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -373,10 +374,11 @@ export function LeadCapture() {
           {/* Image panel — left (desktop only) */}
           <div className="relative hidden min-h-[600px] bg-text-main lg:block">
             <Image
-              src="/portfolio/spa-backlit-mirror-fluted.png"
+              src="/portfolio/contact-panel.png"
               alt="עבודות זכוכית אדריכליות — צמרת הזכוכית"
               fill
-              sizes="320px"
+              quality={95}
+              sizes="(max-width: 1400px) 25vw, 350px"
               className="object-cover object-center"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />

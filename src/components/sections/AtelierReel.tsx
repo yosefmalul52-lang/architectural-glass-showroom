@@ -127,7 +127,7 @@ export function AtelierReel() {
             style={{ boxShadow: "0 20px 60px rgba(200,180,155,0.2)" }}
           >
             <Image
-              src="/portfolio/spa-fluted-gold.png"
+              src="/portfolio/atelier-showcase.png"
               alt="מפרט חומרים — צמרת הזכוכית"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"

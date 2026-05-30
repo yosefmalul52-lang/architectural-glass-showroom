@@ -125,15 +125,16 @@ export function DynamicShowroom() {
                       alt={cat.cover.alt}
                       fill
                       priority={index < 2}
+                      quality={90}
                       sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 700px"
                       className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-transparent" />
                   </div>
                 ) : null}
 
                 {/* Dedicated bottom gradient — ensures text legibility on any image */}
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-1/2 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-1/3 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
 
                 {!cat.cover && (
                   <div className="flex h-full w-full items-center justify-center bg-bg-secondary">
