@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Rubik, Assistant, Cormorant_Garamond, Playfair_Display } from "next/font/google";
+import { Rubik, Assistant, Cormorant_Garamond } from "next/font/google";
 import { ClientShell } from "@/components/layout/ClientShell";
 import "./globals.css";
 
 const rubik = Rubik({
-  variable: "--font-frank-ruhl",
+  variable: "--font-rubik",
   subsets: ["hebrew", "latin"],
   weight: ["300", "400", "500", "600", "700", "900"],
   display: "swap",
@@ -15,13 +15,6 @@ const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400", "600"],
   style: ["normal", "italic"],
-  display: "swap",
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -64,7 +57,7 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body
-        className={`${rubik.variable} ${cormorantGaramond.variable} ${assistant.variable} ${playfair.variable} overflow-x-hidden antialiased`}
+        className={`${rubik.variable} ${cormorantGaramond.variable} ${assistant.variable} overflow-x-hidden antialiased`}
       >
         <a
           href="#main-content"

@@ -56,7 +56,7 @@ export function AtelierReel() {
     <section
       id="atelier"
       data-funnel-step="depth"
-      className="relative border-t border-black border-b border-[#C8B49B] bg-white py-section"
+      className="relative border-t border-black border-b border-brand-gold bg-white py-section"
     >
       <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20 items-start">
@@ -67,7 +67,7 @@ export function AtelierReel() {
             <aside className="text-center lg:text-start">
               <div className="flex flex-col items-center gap-6 lg:flex-row lg:items-stretch lg:gap-5">
                 <div
-                  className="relative hidden h-44 w-px shrink-0 bg-[#C8B49B]/60 lg:block"
+                  className="relative hidden h-44 w-px shrink-0 bg-brand-gold/60 lg:block"
                   aria-hidden
                 />
                 <div className="min-w-0 flex-1">
@@ -95,7 +95,7 @@ export function AtelierReel() {
                   </motion.h2>
 
                   <div className="flex justify-center lg:justify-start">
-                    <HeadingAccent align="start" color="#000000" diamondColor="#C8B49B" />
+                    <HeadingAccent align="start" color="#000000" diamondColor="var(--brand-gold)" />
                   </div>
 
                   <motion.p
@@ -103,7 +103,7 @@ export function AtelierReel() {
                     whileInView="visible"
                     viewport={scrollRevealViewport}
                     variants={subtextVariant}
-                    className="type-lead mx-auto mt-6 max-w-md font-[family-name:var(--font-assistant)] leading-relaxed !text-text-main lg:mx-0 lg:max-w-none"
+                    className="type-lead mx-auto mt-6 max-w-md font-body leading-relaxed !text-text-main lg:mx-0 lg:max-w-none"
                   >
                     כל רכיב — פרופיל, זכוכית, ציר וחיבור — נבחר לפי ביצועים, אסתטיקה ועמידות
                     לאורך שנים.{" "}
@@ -122,7 +122,10 @@ export function AtelierReel() {
           </div>
 
           {/* Image column — sticky showcase */}
-          <div className="relative h-[400px] w-full overflow-hidden lg:sticky lg:top-32 lg:h-[620px]">
+          <div
+            className="relative h-[400px] w-full overflow-hidden border-2 border-brand-gold lg:sticky lg:top-32 lg:h-[620px]"
+            style={{ boxShadow: "0 20px 60px rgba(200,180,155,0.2)" }}
+          >
             <Image
               src="/portfolio/spa-fluted-gold.png"
               alt="מפרט חומרים — צמרת הזכוכית"
@@ -146,10 +149,10 @@ function MaterialSpecCard({ item, index }: { item: CraftSpec; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.55, delay: Math.min(index * 0.07, 0.28) }}
-      className="relative overflow-hidden rounded-sm border border-[#C8B49B]/45 bg-white"
+      className="relative overflow-hidden border border-brand-gold/45 bg-white rounded-sm"
     >
       <span
-        className="pointer-events-none absolute bottom-2 start-4 select-none font-[family-name:var(--font-cormorant)] font-light italic leading-none text-accent-teal/[0.06]"
+        className="pointer-events-none absolute bottom-2 start-4 select-none font-latin font-light italic leading-none text-accent-teal/[0.06]"
         style={{ fontSize: "clamp(3.5rem, 8vw, 5.5rem)" }}
         aria-hidden
       >
@@ -163,9 +166,9 @@ function MaterialSpecCard({ item, index }: { item: CraftSpec; index: number }) {
 
         <p className="type-spec-teal mt-2">{item.spec}</p>
 
-        <div className="mt-4 h-px w-full bg-[#C8B49B]/45" />
+        <div className="mt-4 h-px w-full bg-brand-gold/45" />
 
-        <p className="type-lead mt-4 max-w-prose font-[family-name:var(--font-assistant)] text-base leading-[1.75] !text-text-main">
+        <p className="type-lead mt-4 max-w-prose font-body text-base leading-[1.75] !text-text-main">
           {item.detail}
         </p>
       </div>

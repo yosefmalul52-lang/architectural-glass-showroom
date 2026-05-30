@@ -14,8 +14,8 @@ import {
 const E = [0.16, 1, 0.3, 1] as const;
 
 const titleLines = [
-  { text: "הפרטים שמייחדים פרויקט זכוכית", weight: "light" as const },
-  { text: "שנעשה נכון", weight: "semibold" as const },
+  { text: "הפרטים שמייחדים פרויקט זכוכית", weight: "light" as const, color: "text-text-main" },
+  { text: "שנעשה נכון", weight: "semibold" as const, color: "text-accent-teal" },
 ];
 
 function PillarsHeader() {
@@ -27,12 +27,12 @@ function PillarsHeader() {
           initial="hidden"
           whileInView="visible"
           viewport={scrollRevealViewport}
-          className="font-display text-display-4xl tracking-tight text-text-main lg:text-display-5xl"
+          className="font-display text-display-4xl tracking-tight lg:text-display-5xl"
         >
           {titleLines.map((line, i) => (
             <span key={line.text} className="block overflow-hidden">
               <motion.span
-                className={`block ${line.weight === "semibold" ? "font-semibold" : "font-light"}`}
+                className={`block ${line.weight === "semibold" ? "font-semibold" : "font-light"} ${line.color}`}
                 variants={headingLineVariant}
                 transition={{ duration: 0.88, ease: E, delay: i * 0.1 }}
               >
@@ -41,7 +41,7 @@ function PillarsHeader() {
             </span>
           ))}
         </motion.h2>
-        <HeadingAccent align="center" className="mx-auto" color="#000000" diamondColor="#2d6b84" />
+        <HeadingAccent align="center" className="mx-auto" color="#000000" diamondColor="var(--accent-teal)" />
       </div>
     </header>
   );
@@ -90,7 +90,7 @@ function PillarCard({
 
       {/* Ghost number watermark — background only */}
       <span
-        className="pointer-events-none absolute bottom-0 start-1 select-none font-[family-name:var(--font-cormorant)] font-light italic leading-[0.9] text-text-main/[0.05]"
+        className="pointer-events-none absolute bottom-0 start-1 select-none font-latin font-light italic leading-[0.9] text-text-main/[0.05]"
         style={{ fontSize: "clamp(4rem, 8vw, 6.5rem)" }}
         aria-hidden
       >
@@ -98,14 +98,14 @@ function PillarCard({
       </span>
 
       <div className="relative p-5 lg:p-6">
-        <h3 className="font-display text-lg font-semibold leading-snug text-stone-900 lg:text-xl">
+        <h3 className="font-display text-lg font-semibold leading-snug text-text-main lg:text-xl">
           {pillar.title}
         </h3>
 
-        <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-stone-700">{pillar.description}</p>
+        <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-text-muted">{pillar.description}</p>
 
-        <div className="mt-4 h-px w-full bg-[#C8B49B]/40" />
-        <p className="mt-3 font-[family-name:var(--font-cormorant)] text-sm font-light italic leading-relaxed tracking-wide text-accent-teal/80">{pillar.proof}</p>
+        <div className="mt-4 h-px w-full bg-brand-gold/40" />
+        <p className="mt-3 font-latin text-sm font-light italic leading-relaxed tracking-wide text-accent-teal/80">{pillar.proof}</p>
       </div>
 
       {/* Bottom gradient stripe */}
@@ -130,7 +130,7 @@ export function EngineeringPillars() {
     <section
       id="pillars"
       data-funnel-step="value"
-      className="relative bg-bg-primary pt-0 pb-14 lg:pb-20"
+      className="relative border-b border-black bg-bg-primary pt-0 pb-14 lg:pb-20"
     >
       <ArchitecturalGrid opacity={0.13} />
       <div

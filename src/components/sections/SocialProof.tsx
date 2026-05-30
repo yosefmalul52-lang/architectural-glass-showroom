@@ -158,7 +158,7 @@ function TestimonialCarousel() {
                   <p className="font-display text-lg font-semibold text-text-main">
                     {active.author}
                   </p>
-                  <p className="mt-2 font-[family-name:var(--font-cormorant)] text-sm italic tracking-[0.16em] text-text-muted uppercase">
+                  <p className="mt-2 font-latin text-sm italic tracking-[0.16em] text-text-muted uppercase">
                     {active.role}
                   </p>
                 </footer>
@@ -258,7 +258,7 @@ function TestimonialCarousel() {
                 <p className="font-display text-base font-semibold text-text-main">
                   {active.author}
                 </p>
-                <p className="mt-2 font-[family-name:var(--font-cormorant)] text-sm italic tracking-[0.16em] text-text-muted uppercase">
+                <p className="mt-2 font-latin text-sm italic tracking-[0.16em] text-text-muted uppercase">
                   {active.role}
                 </p>
               </footer>
@@ -277,7 +277,7 @@ export function SocialProof() {
       id="trust"
       data-funnel-step="trust"
       className="relative border-t border-black py-section"
-      style={{ backgroundColor: "#F3EBE1" }}
+      style={{ backgroundColor: "var(--bg-primary)" }}
     >
       <ArchitecturalGrid opacity={0.1} />
       <div className="relative mx-auto max-w-[1400px] px-6 lg:px-10">
@@ -289,11 +289,11 @@ export function SocialProof() {
               descriptionClassName="max-w-3xl !text-accent-teal"
               className="mb-0"
               numberClassName="text-accent-teal"
-              accentColor="#2d6b84"
+              accentColor="var(--accent-teal)"
             >
               <h2 className="mx-auto max-w-4xl font-display text-display-4xl leading-[1.12] tracking-tight lg:text-display-5xl">
                 <span className="block font-light text-text-main">מה שנשאר —</span>
-                <span className="block font-semibold text-[#2d6b84]">אחרי שהאבק שוקע</span>
+                <span className="block font-semibold text-accent-teal">אחרי שהאבק שוקע</span>
               </h2>
             </SectionIntro>
           </div>

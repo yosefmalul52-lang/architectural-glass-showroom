@@ -15,7 +15,7 @@ export function WhatsAppFAB() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#2d6b84",
+          color: "var(--accent-teal)",
         }}
       >
         <svg

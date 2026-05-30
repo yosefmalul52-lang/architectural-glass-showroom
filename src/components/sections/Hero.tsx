@@ -33,7 +33,7 @@ export function Hero() {
         <div className="relative z-10 mt-8 flex w-full flex-col items-start sm:mt-10 lg:mt-12">
           {/* Scoped gradient — behind text */}
           <motion.div
-            className="pointer-events-none absolute -inset-x-6 -inset-y-8 z-0 bg-stone-950/40 blur-2xl lg:-inset-x-10 lg:-inset-y-10"
+            className="pointer-events-none absolute -inset-x-6 -inset-y-8 z-0 bg-text-main/40 blur-2xl lg:-inset-x-10 lg:-inset-y-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
@@ -47,7 +47,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           >
-            <h1 className="max-w-[360px] text-balance text-right font-display text-[2.65rem] font-bold leading-tight text-white md:max-w-xl md:text-[3.25rem] lg:max-w-2xl lg:text-[4.1rem] [text-shadow:0_2px_24px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.4)]">
+            <h1 className="max-w-[360px] text-balance text-right font-latin text-display-hero font-bold leading-tight text-white md:max-w-xl lg:max-w-2xl [text-shadow:0_2px_24px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.4)]" style={{ fontSize: "clamp(2.8rem, 6vw, 5rem)", letterSpacing: "-0.02em" }}>
               <span className="block overflow-hidden">
                 <motion.span
                   className="block font-bold"
@@ -65,7 +65,7 @@ export function Hero() {
               </span>
               <span className="block overflow-hidden">
                 <motion.span
-                  className="block font-bold text-[#C7B29A]"
+                  className="block font-bold text-[#C8B49B]"
                   variants={wordRevealVariants}
                   initial="hidden"
                   animate="visible"

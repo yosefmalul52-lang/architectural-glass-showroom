@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeft, Loader2, Mail, MessageCircle, Phone } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { UnderlineInput } from "@/components/ui/underline-input";
 import {
@@ -23,7 +23,7 @@ import {
   submitLeadToWebhook,
   type ProjectScopeValue,
 } from "@/data/funnel";
-import { CONTACT, WHATSAPP_DEFAULT_URL } from "@/data/site";
+import { WHATSAPP_DEFAULT_URL } from "@/data/site";
 import { fadeUpVariants, scrollRevealViewport } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -176,49 +176,33 @@ export function LeadCapture() {
             description={consultationIntro.description}
             align="center"
             className="mb-0"
-            accentColor="#C8B49B"
+              accentColor="var(--brand-gold)"
             descriptionClassName="!text-brand-gold"
           />
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-0 lg:grid-cols-[1fr_minmax(0,420px)] lg:items-stretch border border-stone-200 overflow-hidden shadow-sm">
-          {/* Form + contact side */}
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-stretch lg:gap-14 p-6 sm:p-10 lg:p-14">
+        <div className="grid grid-cols-1 overflow-hidden border border-brand-gold/50 shadow-sm lg:grid-cols-[1fr_minmax(0,560px)_1fr]">
+
+          {/* Image panel — right (desktop only) */}
+          <div className="relative hidden min-h-[600px] bg-text-main lg:block">
+            <Image
+              src="/portfolio/spa-marble-gold-shower.png"
+              alt="עבודות זכוכית אדריכליות — צמרת הזכוכית"
+              fill
+              sizes="320px"
+              className="object-cover object-center"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          </div>
+
+          {/* Form — center */}
+          <div className="p-6 sm:p-10 lg:p-14">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={scrollRevealViewport}
             variants={fadeUpVariants}
-            className={cn(
-              "order-2 flex flex-col justify-between lg:order-1 lg:col-span-5 transition-all duration-700",
-              formFocused && "focus-chapter is-focused"
-            )}
-          >
-            <div className="flex flex-col gap-6 lg:gap-8">
-              <ContactStrip />
-
-              <div className="h-px w-full bg-hairline" />
-
-              <ul className="flex flex-col gap-3">
-                {trustSignals.map(({ text }) => (
-                  <li key={text} className="flex items-center gap-3">
-                    <svg viewBox="0 0 16 16" width={16} height={16} fill="none" className="shrink-0 text-brand-gold" aria-hidden>
-                      <path d="M3 8l3.5 3.5L13 5" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    <span className="text-base text-text-main">{text}</span>
-                  </li>
-                ))}
-              </ul>
-
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={scrollRevealViewport}
-            variants={fadeUpVariants}
-            className="order-1 lg:order-2 lg:col-span-7"
+            className="w-full"
           >
             {submitted ? (
               <div className="lead-form-panel p-10 text-center md:p-14" role="status" aria-live="polite">
@@ -384,24 +368,20 @@ export function LeadCapture() {
               </form>
             )}
           </motion.div>
-          </div>{/* end inner grid */}
+          </div>
 
-          {/* Image panel — desktop only */}
-          <div className="relative hidden lg:block min-h-[600px] bg-stone-900">
+          {/* Image panel — left (desktop only) */}
+          <div className="relative hidden min-h-[600px] bg-text-main lg:block">
             <Image
               src="/portfolio/spa-backlit-mirror-fluted.png"
               alt="עבודות זכוכית אדריכליות — צמרת הזכוכית"
               fill
-              sizes="420px"
+              sizes="320px"
               className="object-cover object-center"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-            <div className="absolute bottom-8 inset-x-0 px-8 text-right">
-              <p className="font-[family-name:var(--font-cormorant)] text-sm italic tracking-[0.18em] text-white/70 uppercase">
-                כל פרויקט — גימור ייחודי
-              </p>
-            </div>
           </div>
+
         </div>
       </div>
     </section>

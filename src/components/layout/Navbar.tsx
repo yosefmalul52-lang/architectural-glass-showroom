@@ -62,10 +62,10 @@ export function Navbar() {
             >
               <Link
                 href={`#${section.id}`}
-                className="group relative py-1 font-display text-[16px] tracking-[0.12em] uppercase text-white transition-colors duration-300 hover:text-[#C8B49B]"
+                className="group relative py-1 font-display text-[16px] tracking-[0.12em] uppercase text-white transition-colors duration-300 hover:text-brand-gold"
               >
                 {section.label}
-                <span className="absolute inset-x-0 -bottom-0.5 h-px origin-right scale-x-0 bg-[#C8B49B] transition-transform duration-300 group-hover:origin-left group-hover:scale-x-100" />
+                <span className="absolute inset-x-0 -bottom-0.5 h-px origin-right scale-x-0 bg-brand-gold transition-transform duration-300 group-hover:origin-left group-hover:scale-x-100" />
               </Link>
             </motion.div>
           ))}
@@ -78,7 +78,7 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, ease: EASE, delay: 0.55 }}
-            className="hidden items-center gap-2 border border-[#C8B49B] px-4 py-2 font-display text-[15px] tracking-[0.09em] text-white transition-all duration-300 hover:bg-[#C8B49B]/10 hover:text-[#C8B49B] sm:flex"
+            className="hidden items-center gap-2 border border-brand-gold px-4 py-2 font-display text-[15px] tracking-[0.09em] text-white transition-all duration-300 hover:bg-brand-gold/10 hover:text-brand-gold sm:flex"
             aria-label={`טלפון: ${CONTACT.phone}`}
           >
             <Phone size={12} strokeWidth={1.5} />
@@ -106,7 +106,7 @@ export function Navbar() {
         initial={false}
         animate={mobileOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
         transition={{ duration: 0.35, ease: EASE }}
-        className="overflow-hidden bg-[#18344A]/80 backdrop-blur-lg md:hidden"
+        className="overflow-hidden bg-text-main/80 backdrop-blur-lg md:hidden"
       >
         <nav className="flex flex-col px-6 py-4" aria-label="תפריט ניווט מובייל">
           {navSections.map((section) => (
@@ -124,7 +124,7 @@ export function Navbar() {
           ))}
           <a
             href={`tel:${CONTACT.phoneTel}`}
-            className="mt-4 inline-flex items-center gap-2 border border-[#C8B49B] px-4 py-2.5 font-display text-base text-white transition-colors duration-200 hover:bg-[#C8B49B]/10 hover:text-[#C8B49B]"
+            className="mt-4 inline-flex items-center gap-2 border border-brand-gold px-4 py-2.5 font-display text-base text-white transition-colors duration-200 hover:bg-brand-gold/10 hover:text-brand-gold"
           >
             <Phone size={13} strokeWidth={1.5} />
             {CONTACT.phone}

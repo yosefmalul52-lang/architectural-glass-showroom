@@ -25,8 +25,8 @@ const containerAlign: Record<HeadingAccentAlign, string> = {
   end:    "justify-end",
 };
 
-const GOLD      = "#c5a059";
-const GOLD_RGBA = "rgba(197,160,89,0.4)";
+const GOLD      = "#C8B49B";
+const GOLD_RGBA = "rgba(200,180,155,0.4)";
 const WHITE     = "rgba(255,255,255,0.45)";
 
 /** Diamond + flanking hairlines architectural divider */

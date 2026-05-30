@@ -59,7 +59,7 @@ function LogoTrack({ ariaHidden }: { ariaHidden?: boolean }) {
             "shrink-0 whitespace-nowrap opacity-80 transition-opacity duration-500 hover:opacity-100",
             brand.className
           )}
-          style={{ color: "#1a1a1a" }}
+          style={{ color: "var(--text-main)" }}
         >
           {brand.name}
         </span>
@@ -70,24 +70,16 @@ function LogoTrack({ ariaHidden }: { ariaHidden?: boolean }) {
 
 export function ClientLogos({ trustStrip }: { trustStrip?: ReactNode }) {
   return (
-    <div className="w-full overflow-hidden border border-accent-teal/30 border-t-2 border-t-accent-teal/60 border-b-2 border-b-accent-teal/60 bg-white/90 px-4 py-10 shadow-[0_2px_20px_rgba(21,21,21,0.09)] sm:px-6 lg:py-12">
+    <div className="w-full overflow-hidden px-4 py-10 sm:px-6 lg:py-12">
       <div className="mb-10 text-center lg:mb-12">
         <h2 className="font-display text-display-3xl tracking-tight text-text-main lg:text-display-4xl">
           <span className="block font-light">חלק מהלקוחות</span>
-          <span className="block font-semibold text-[#C8B49B]">שעובדים איתנו</span>
+          <span className="block font-semibold text-accent-teal">שעובדים איתנו</span>
         </h2>
-        <HeadingAccent align="center" className="mx-auto" color="#000000" diamondColor="#C8B49B" />
+        <HeadingAccent align="center" className="mx-auto" color="#000000" diamondColor="var(--accent-teal)" />
       </div>
 
       <div className="relative">
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-bg-elevated to-transparent md:w-28"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-bg-elevated to-transparent md:w-28"
-          aria-hidden
-        />
 
         <div className="flex w-full overflow-hidden py-2">
           <div className="flex w-max animate-marquee-rtl hover:[animation-play-state:paused]">

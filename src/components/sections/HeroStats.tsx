@@ -50,10 +50,10 @@ function StatPillar({
 
   return (
     <div className="flex min-w-0 flex-col items-center text-center">
-      <span className="block w-full text-center font-[family-name:var(--font-playfair)] text-[1.5rem] font-bold tabular-nums tracking-tight text-white sm:text-3xl lg:text-4xl">
+      <span className="block w-full text-center font-display text-[1.5rem] font-bold tabular-nums tracking-tight text-white sm:text-3xl lg:text-4xl">
         {display}
       </span>
-      <span className="relative mt-1.5 block w-full text-center font-[family-name:var(--font-assistant)] text-xs font-light leading-snug tracking-wide text-brand-gold lg:text-sm">
+      <span className="relative mt-1.5 block w-full text-center font-body text-xs font-light leading-snug tracking-wide text-brand-gold lg:text-sm">
         <span className="block">{lines[0]}</span>
         <span className="block">{lines[1]}</span>
       </span>

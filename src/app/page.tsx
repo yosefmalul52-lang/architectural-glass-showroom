@@ -7,7 +7,6 @@ import { EngineeringPillars } from "@/components/sections/EngineeringPillars";
 import { DynamicShowroom } from "@/components/sections/DynamicShowroom";
 import { AtelierReel } from "@/components/sections/AtelierReel";
 import { CraftBridge } from "@/components/sections/CraftBridge";
-import { SocialProof } from "@/components/sections/SocialProof";
 import { LeadCapture } from "@/components/sections/LeadCapture";
 import { WhatsAppFAB } from "@/components/sections/WhatsAppFAB";
 
@@ -22,7 +21,6 @@ export default function Home() {
         <EngineeringPillars />
         <AtelierReel />
         <CraftBridge />
-        <SocialProof />
         <LeadCapture />
       </main>
       <Footer />

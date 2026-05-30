@@ -88,8 +88,10 @@ export function DynamicShowroom() {
         <SectionIntro
           align="center"
           title="כל פרויקט — גימור ייחודי, תכנון מדויק"
+          description="חלק מהפרויקטים האחרונים שלנו:"
           className="[&_h2]:!text-text-main"
-          accentColor="#C8B49B"
+          accentColor="var(--brand-gold)"
+          descriptionClassName="!text-brand-gold"
         />
 
         <motion.div
@@ -107,7 +109,7 @@ export function DynamicShowroom() {
               <motion.div
                 key={cat.value}
                 variants={cardVariant}
-                className="group relative aspect-[4/3] w-full overflow-hidden rounded-sm border-2 border-[#C8B49B] will-change-[clip-path,opacity,transform] sm:aspect-[16/10]"
+                className="group relative aspect-[4/3] w-full overflow-hidden rounded-sm border-2 border-brand-gold will-change-[clip-path,opacity,transform] sm:aspect-[16/10]"
               >
                 <button
                   type="button"
@@ -134,8 +136,8 @@ export function DynamicShowroom() {
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-1/2 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
                 {!cat.cover && (
-                  <div className="flex h-full w-full items-center justify-center bg-stone-200">
-                    <span className="font-[family-name:var(--font-cormorant)] text-base italic tracking-widest text-stone-500">
+                  <div className="flex h-full w-full items-center justify-center bg-bg-secondary">
+                    <span className="font-latin text-base italic tracking-widest text-text-muted">
                       בקרוב
                     </span>
                   </div>
@@ -146,7 +148,7 @@ export function DynamicShowroom() {
                   variants={labelReveal}
                 >
                   <div className="inline-flex flex-col items-start">
-                    <p className="font-display text-xl font-light tracking-wide text-brand-gold drop-shadow-md lg:text-2xl">
+                    <p className="font-display text-xl font-light tracking-wide text-white drop-shadow-md lg:text-2xl">
                       {cat.label}
                     </p>
                     <motion.div
