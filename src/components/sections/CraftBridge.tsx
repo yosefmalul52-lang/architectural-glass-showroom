@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { HeadingAccent } from "@/components/editorial/HeadingAccent";
-import { ClientLogos } from "@/components/sections/ClientLogos";
 import { trustPillars } from "@/data/social-proof";
 import { BRAND } from "@/data/site";
 import {
@@ -42,7 +41,7 @@ export function CraftBridge() {
           className="mt-14 lg:mt-16"
           aria-label="עמודי אמון"
         >
-          <div className="grid grid-cols-2 gap-px bg-accent-teal/45 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-px bg-accent-teal/45 sm:grid-cols-3">
             {trustPillars.map(({ Icon, title, sub }, index) => (
               <motion.div
                 key={title}
@@ -69,10 +68,6 @@ export function CraftBridge() {
             ))}
           </div>
         </motion.div>
-
-        <div className="mt-14 border-t border-accent-teal pt-14 lg:mt-16 lg:pt-16">
-          <ClientLogos />
-        </div>
 
         <motion.div
           initial="hidden"

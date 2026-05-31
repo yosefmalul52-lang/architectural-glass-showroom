@@ -5,7 +5,6 @@ export type FunnelSectionId =
   | "pillars"
   | "showroom"
   | "atelier"
-  | "trust"
   | "contact";
 
 export type FunnelSection = {
@@ -20,13 +19,12 @@ export const funnelSections: FunnelSection[] = [
   { id: "pillars", label: "למה אנחנו", number: "01", showInNav: true },
   { id: "showroom", label: "תיק עבודות", number: "02", showInNav: true },
   { id: "atelier", label: "אמנות החומר", number: "03", showInNav: true },
-  { id: "trust", label: "לקוחות", number: "04", showInNav: true },
-  { id: "contact", label: "צור קשר", number: "05", showInNav: true },
+  { id: "contact", label: "צור קשר", number: "04", showInNav: true },
 ];
 
 export const navSections = funnelSections.filter((s) => s.showInNav);
 
-export type FunnelCtaKey = "pillars" | "showroom" | "atelier" | "trust";
+export type FunnelCtaKey = "pillars" | "showroom" | "atelier";
 
 export const funnelCtas: Record<
   FunnelCtaKey,
@@ -62,15 +60,6 @@ export const funnelCtas: Record<
     headline: "רוצים את אותה רמת גימור בפרויקט שלכם?",
     subline: "מהשרטוט הראשון ועד הניקוי הסופי — אנחנו לצדכם",
     primaryLabel: "קבעו שיחת היכרות",
-    primaryHref: "#contact",
-    secondaryLabel: "וואטסאפ ישיר",
-    secondaryHref: buildWhatsAppUrl("שלום, אשמח לפרטים על פרויקט זכוכית"),
-    variant: "soft",
-  },
-  trust: {
-    headline: "מוכנים להתחיל לתכנן?",
-    subline: "ייעוץ ראשוני ללא עלות — מענה תוך 24 שעות",
-    primaryLabel: "לתיאום ייעוץ",
     primaryHref: "#contact",
     secondaryLabel: "וואטסאפ ישיר",
     secondaryHref: buildWhatsAppUrl("שלום, אשמח לפרטים על פרויקט זכוכית"),
