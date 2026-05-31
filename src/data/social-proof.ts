@@ -1,4 +1,4 @@
-import { Award, Handshake, ScrollText, type LucideIcon } from "lucide-react";
+import { Award, Handshake, ScrollText, Star, type LucideIcon } from "lucide-react";
 
 export type TrustPillar = {
   Icon?: LucideIcon;
@@ -7,7 +7,18 @@ export type TrustPillar = {
   sub: string;
 };
 
+export type Testimonial = {
+  quote: string;
+  author: string;
+  role: string;
+};
+
 export const trustPillars: TrustPillar[] = [
+  {
+    Icon: Star,
+    title: "לקוחות שחוזרים",
+    sub: "פרטיים, אדריכלים, קבלנים ורשתות מלונאות — כולם חוזרים",
+  },
   {
     Icon: Award,
     title: "חומרים ללא פשרות",
@@ -22,5 +33,26 @@ export const trustPillars: TrustPillar[] = [
     Icon: ScrollText,
     title: "7+ שנות מקצועיות",
     sub: "ניסיון מצטבר בנדל״ן, מלונאות ופרויקטי מגורים יוקרתיים",
+  },
+];
+
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      "ביצוע המחיצות בקומות 12–15 דרש דיוק מיקרוני — מרווח של פחות מ-0.2 מ״מ בין לוחות שחייבים לעמוד בדרישות בידוד אקוסטי. צמרת הזכוכית הגיעה עם שרטוטי AutoCAD מעודכנים לכל שינוי, וכל חלק הותקן בפעם הראשונה. זה לא דבר של מה בכך בפרויקט בסדר גודל כזה.",
+    author: "א. ורד",
+    role: "מנהל פרויקטים · חיפוי ומחיצות · מגדלי העסקים, תל אביב",
+  },
+  {
+    quote:
+      "ביקשנו Triplex 10 מ״מ Extra Clear בגוון שאינו מחוסם ישראלי סטנדרטי. הם הסבירו את כל אפשרויות הייבוא, המליצו על PVB ספציפי שמתאים לאחוזי האור של החלל, ובסוף התוצאה הייתה בדיוק כפי שעוצבה — אפס קצוות גלויים, קו פרופיל שנעלם בקיר.",
+    author: "ד. אלוני",
+    role: "אדריכלית פנים · וילה פרטית · סביון",
+  },
+  {
+    quote:
+      "68 מראות מותאמות-אישית לחדרים בקומות 3–9, לוח זמנים של שישה שבועות ושינוי מפרט ברגע האחרון מצד הרשת. הם ספגו את השינוי, עדכנו את שרטוטי ה-CNC ועמדו בתאריך. בעולם המלונאות, זה מה שמייחד ספק מספק.",
+    author: "י. שרון",
+    role: "מנהל בנייה · פרויקט מלונאות · ירושלים",
   },
 ];
