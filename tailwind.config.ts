@@ -18,6 +18,7 @@ const config: Config = {
         display: ["var(--font-rubik)", "Georgia", "serif"],
         body: ["var(--font-assistant)", "system-ui", "sans-serif"],
         latin: ["var(--font-cormorant)", "Georgia", "serif"],
+        "hero-stat": ["var(--font-mea-culpa)", "cursive"],
       },
       spacing: {
         section: "clamp(6rem, 14vw, 16rem)",

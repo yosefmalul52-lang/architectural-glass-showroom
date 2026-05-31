@@ -44,8 +44,8 @@ export function Hero() {
       <Navbar />
 
       {/* Right-aligned block, vertically centered */}
-      <div className="relative z-10 flex h-full min-h-0 w-full flex-col items-start justify-center px-4 pb-[calc(env(safe-area-inset-bottom)+4rem)] pt-[calc(env(safe-area-inset-top)+5rem)] sm:px-6 sm:pt-[calc(env(safe-area-inset-top)+5.5rem)] lg:px-16 lg:pt-[calc(env(safe-area-inset-top)+6rem)]">
-        <div className="relative z-10 mt-8 flex w-full flex-col items-start sm:mt-10 lg:mt-12">
+      <div className="relative z-10 flex h-full min-h-0 w-full flex-col items-center justify-center px-4 pb-[calc(env(safe-area-inset-bottom)+4rem)] pt-[calc(env(safe-area-inset-top)+5rem)] sm:items-start sm:px-6 sm:pt-[calc(env(safe-area-inset-top)+5.5rem)] lg:px-16 lg:pt-[calc(env(safe-area-inset-top)+6rem)]">
+        <div className="relative z-10 mt-8 flex w-full flex-col items-center sm:mt-10 sm:items-start lg:mt-12">
           {/* Scoped gradient — behind text */}
           <motion.div
             className="pointer-events-none absolute -inset-x-6 -inset-y-8 z-0 bg-text-main/40 blur-2xl lg:-inset-x-10 lg:-inset-y-10"
@@ -57,12 +57,12 @@ export function Hero() {
 
           {/* Content */}
           <motion.div
-            className="relative z-20 flex w-full max-w-2xl flex-col items-start gap-y-2.5 text-right md:gap-y-3 lg:gap-y-4"
+            className="relative z-20 flex w-full max-w-2xl flex-col items-center gap-y-2.5 text-center sm:items-start sm:text-right md:gap-y-3 lg:gap-y-4"
             initial={{ opacity: 0, y: 20 }}
             animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           >
-            <h1 className="max-w-[360px] text-balance text-right font-display text-display-hero font-semibold leading-[1.05] tracking-tight text-white md:max-w-xl lg:max-w-2xl [text-shadow:0_2px_24px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.4)]">
+            <h1 className="mx-auto max-w-[360px] text-balance text-center font-display text-display-hero font-semibold leading-[1.05] tracking-tight text-white sm:mx-0 sm:text-right md:max-w-xl lg:max-w-2xl [text-shadow:0_2px_24px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.4)]">
               <span className="block overflow-hidden">
                 <motion.span
                   className="block font-semibold"
@@ -99,7 +99,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
               transition={{ delay: 1.35, duration: 0.9, ease: heroEase }}
-              className="max-w-[22rem] text-balance text-right text-[1.15rem] leading-relaxed tracking-[0.01em] text-white/90 sm:max-w-xl md:text-[1.3rem] [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]"
+              className="mx-auto max-w-[22rem] text-balance text-center text-[1.15rem] leading-relaxed tracking-[0.01em] text-white/90 sm:mx-0 sm:max-w-xl sm:text-right md:text-[1.3rem] [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]"
             >
               קו נקי, חומרים בתקן המחמיר ביותר וגימור סופי מושלם. הסטנדרט החדש
               של עבודות הפרימיום.
@@ -110,7 +110,7 @@ export function Hero() {
               initial="hidden"
               animate={introDone ? "visible" : "hidden"}
               transition={{ delay: 1.5, duration: 1, ease: heroEase }}
-              className="mt-1.5 h-px w-full max-w-[20.5rem] origin-right bg-brand-gold/70 sm:max-w-xs"
+              className="mx-auto mt-1.5 h-px w-full max-w-[20.5rem] origin-center bg-brand-gold/70 sm:mx-0 sm:max-w-xs sm:origin-right"
             />
 
             <motion.div
@@ -120,7 +120,7 @@ export function Hero() {
               className="mt-0.5 w-full sm:mt-1 sm:w-auto sm:self-start"
             >
               <MagneticButton>
-                <Button variant="gold" size="lg" asChild className="w-full sm:w-auto">
+                <Button variant="teal" size="lg" asChild className="w-full sm:w-auto">
                   <Link href="#contact" aria-label="תיאום פגישת ייעוץ חינם">
                     בואו נתכנן יחד
                     <ArrowLeft className="h-4 w-4" />

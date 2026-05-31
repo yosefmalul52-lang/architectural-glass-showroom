@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Rubik, Assistant, Cormorant_Garamond } from "next/font/google";
+import { Rubik, Assistant, Cormorant_Garamond, Mea_Culpa } from "next/font/google";
 import { ClientShell } from "@/components/layout/ClientShell";
 import "./globals.css";
 
@@ -25,23 +25,29 @@ const assistant = Assistant({
   display: "swap",
 });
 
+const meaCulpa = Mea_Culpa({
+  variable: "--font-mea-culpa",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "צמרת הזכוכית | זכוכית אדריכלית — תכנון, הנדסה וביצוע",
+  title: "צמרת הזכוכית — תכנון, הנדסה וביצוע",
   description:
     "צמרת הזכוכית — תכנון וביצוע פרויקטי זכוכית אדריכלית בתקן EN12150. ייצור CNC, Triplex מחוסמת, מדידת לייזר ממוחשבת. מקלחונים, מחיצות משרד, מראות מותאמות.",
   keywords: [
-    "זכוכית אדריכלית",
+    "צמרת הזכוכית",
     "מקלחונים",
     "מחיצות זכוכית",
     "זכוכית בטיחותית",
     "EN12150",
     "Triplex",
     "CNC",
-    "צמרת הזכוכית",
     "קיסריה",
   ],
   openGraph: {
-    title: "צמרת הזכוכית | זכוכית אדריכלית — תכנון, הנדסה וביצוע",
+    title: "צמרת הזכוכית — תכנון, הנדסה וביצוע",
     description:
       "פרויקטי זכוכית אדריכלית בתקן EN12150 — ייצור CNC, Triplex מחוסמת, מדידת לייזר ממוחשבת. ייעוץ ראשוני ללא עלות.",
     locale: "he_IL",
@@ -57,7 +63,7 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body
-        className={`${rubik.variable} ${cormorantGaramond.variable} ${assistant.variable} overflow-x-hidden antialiased`}
+        className={`${rubik.variable} ${cormorantGaramond.variable} ${assistant.variable} ${meaCulpa.variable} overflow-x-hidden antialiased`}
       >
         <a
           href="#main-content"

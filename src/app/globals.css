@@ -99,12 +99,12 @@ section[id] {
 }
 
 #contact {
-  scroll-margin-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  scroll-margin-bottom: 0;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 1023px) {
   #contact {
-    scroll-margin-bottom: 0;
+    overflow: hidden;
   }
 }
 
@@ -201,6 +201,23 @@ body {
 .lead-form-panel:focus-within {
   border-color: var(--brand-gold);
   box-shadow: var(--shadow-focus);
+}
+
+/* Mobile contact form — black frame clipped to card (no gold border bleed) */
+@media (max-width: 1023px) {
+  #contact .lead-form-panel,
+  #contact .lead-form-panel.form-elevated,
+  #contact .lead-form-panel:focus-within {
+    border: none !important;
+    box-shadow: none !important;
+    background:
+      linear-gradient(var(--text-main), var(--text-main)) top / 100% 1px no-repeat,
+      linear-gradient(var(--text-main), var(--text-main)) bottom / 100% 1px no-repeat,
+      linear-gradient(var(--text-main), var(--text-main)) left / 1px 100% no-repeat,
+      linear-gradient(var(--text-main), var(--text-main)) right / 1px 100% no-repeat,
+      var(--bg-elevated) !important;
+    overflow: hidden;
+  }
 }
 
 @media (hover: hover) {

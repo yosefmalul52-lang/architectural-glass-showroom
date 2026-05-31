@@ -2,7 +2,6 @@ import { IntroLoader } from "@/components/IntroLoader";
 import { Footer } from "@/components/layout/Footer";
 import { GrainOverlay } from "@/components/editorial/GrainOverlay";
 import { ScrollProgress } from "@/components/editorial/ScrollProgress";
-import { StickyCtaBar } from "@/components/conversion/StickyCtaBar";
 import { Hero } from "@/components/sections/Hero";
 import { EngineeringPillars } from "@/components/sections/EngineeringPillars";
 import { DynamicShowroom } from "@/components/sections/DynamicShowroom";
@@ -17,7 +16,7 @@ export default function Home() {
       <IntroLoader />
       <GrainOverlay />
       <ScrollProgress />
-      <main id="main-content" className="m-0 p-0 pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0">
+      <main id="main-content" className="m-0 p-0">
         <Hero />
         <DynamicShowroom />
         <EngineeringPillars />
@@ -26,7 +25,6 @@ export default function Home() {
         <LeadCapture />
       </main>
       <Footer />
-      <StickyCtaBar />
       <WhatsAppFAB />
     </>
   );

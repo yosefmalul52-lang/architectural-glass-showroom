@@ -14,10 +14,10 @@ const services = [
 function FooterHeading({ children }: { children: string }) {
   return (
     <div className="mb-5 flex flex-col items-start gap-3">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-text-main/50">
+      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-teal md:text-base">
         {children}
       </p>
-      <span className="block h-px w-6 bg-brand-gold" aria-hidden />
+      <span className="block h-px w-12 bg-black md:w-14" aria-hidden />
     </div>
   );
 }
@@ -35,24 +35,18 @@ export function Footer() {
         {/* Main grid */}
         <div className="grid items-start gap-10 py-16 md:grid-cols-[1.4fr_1fr_1fr_1.2fr] md:gap-16 md:py-20">
 
-          {/* Brand */}
-          <div>
-            <div className="mb-5 flex justify-end">
+          {/* Brand — blend removes baked-in black square; top-aligned with column headings on desktop */}
+          <div className="flex flex-col items-center md:items-start md:pt-0.5">
+            <div className="isolate inline-flex justify-center md:justify-start">
               <Image
                 src="/logo-tzameret-latest-transparent.png"
                 alt={BRAND.name}
                 width={320}
                 height={320}
                 unoptimized
-                className="h-24 w-auto object-contain object-center lg:h-28"
+                className="h-48 w-auto object-contain object-center mix-blend-screen sm:h-[13.5rem] md:h-[7.5rem] md:object-right lg:h-[8.25rem]"
               />
             </div>
-            <p className="text-sm font-light leading-relaxed tracking-wide text-text-main/60">
-              {BRAND.tagline}
-            </p>
-            <p className="mt-1 text-sm font-light text-text-main/40">
-              מ-{BRAND.founded}
-            </p>
           </div>
 
           {/* Services */}
@@ -104,12 +98,24 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col items-end gap-2 border-t border-black/8 pt-5 pb-7 sm:flex-row-reverse sm:items-center sm:justify-between">
-          <p className="text-xs font-light tracking-wide text-text-main/40">
-            © {new Date().getFullYear()} {BRAND.name} — כל הזכויות שמורות
+        <div className="flex w-full flex-col items-center justify-center gap-3 border-t border-black/8 px-10 pt-6 pb-[calc(1.75rem+env(safe-area-inset-bottom))] text-center sm:flex-row sm:gap-12 md:px-16 lg:gap-20 lg:px-24">
+          <p className="text-xs font-light uppercase tracking-widest text-brand-teal">
+            צמרת הזכוכית · תכנון וביצוע · ישראל
           </p>
-          <p className="text-xs font-light tracking-widest text-text-main/35 uppercase">
-            זכוכית אדריכלית · תכנון וביצוע · ישראל
+          <span
+            className="hidden h-4 w-px shrink-0 bg-black/25 sm:block"
+            aria-hidden
+          />
+          <p className="text-xs font-light tracking-wide text-brand-teal">
+            כל הזכויות שמורות ל -{" "}
+            <a
+              href="https://www.jt-solutions.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline-offset-2 transition-opacity duration-300 hover:underline hover:opacity-80"
+            >
+              jt solutions
+            </a>
           </p>
         </div>
       </div>

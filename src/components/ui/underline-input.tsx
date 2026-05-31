@@ -17,7 +17,7 @@ const UnderlineInput = React.forwardRef<HTMLInputElement, UnderlineInputProps>(
     return (
       <div
         className={cn(
-          "group relative w-full border-b border-hairline pb-1 transition-all duration-500 focus-within:border-brand-gold focus-within:pb-2",
+          "group relative w-full border-b border-brand-gold/70 pb-1 transition-all duration-500 focus-within:border-brand-gold focus-within:pb-2",
           isInvalid && "border-red-700/70"
         )}
       >
@@ -26,6 +26,11 @@ const UnderlineInput = React.forwardRef<HTMLInputElement, UnderlineInputProps>(
           className="mb-2 block text-xs tracking-[0.1em] text-text-muted"
         >
           {label}
+          {props.required && (
+            <span className="ms-1 text-red-600" aria-hidden>
+              *
+            </span>
+          )}
         </label>
         <input
           ref={ref}

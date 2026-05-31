@@ -59,81 +59,81 @@ export function AtelierReel() {
       className="relative border-t border-black border-b border-brand-gold bg-white py-section"
     >
       <div className="mx-auto max-w-[1400px] px-6 lg:px-10">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20 items-start">
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-20">
 
-          {/* Content column — intro + spec cards */}
-          <div className="flex flex-col gap-10">
-            {/* Intro */}
-            <aside className="text-center lg:text-start">
-              <div className="flex flex-col items-center gap-6 lg:flex-row lg:items-stretch lg:gap-5">
-                <div
-                  className="relative hidden h-44 w-px shrink-0 bg-brand-gold/60 lg:block"
-                  aria-hidden
-                />
-                <div className="min-w-0 flex-1">
-                  <motion.h2
-                    variants={headingContainerVariant}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={scrollRevealViewport}
-                    className="font-display text-display-4xl leading-[1.12] tracking-tight text-text-main lg:text-display-5xl"
-                  >
-                    {[
-                      { text: "חומרים שנבחרים בקפידה.", weight: "font-light" },
-                      { text: "גימור שמדבר בעד עצמו.", weight: "font-semibold" },
-                    ].map(({ text, weight }, i) => (
-                      <span key={i} className="block overflow-hidden">
-                        <motion.span
-                          className={`block ${weight} ${i > 0 ? "mt-1" : ""}`}
-                          variants={headingLineVariant}
-                          transition={{ duration: 0.88, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
-                        >
-                          {text}
-                        </motion.span>
-                      </span>
-                    ))}
-                  </motion.h2>
+          {/* Intro — mobile: first; desktop: top-left */}
+          <aside className="order-1 text-center lg:order-none lg:text-start">
+            <div className="flex flex-col items-center gap-6 lg:flex-row lg:items-stretch lg:gap-5">
+              <div
+                className="relative hidden h-44 w-px shrink-0 bg-brand-gold/60 lg:block"
+                aria-hidden
+              />
+              <div className="min-w-0 flex-1">
+                <motion.h2
+                  variants={headingContainerVariant}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={scrollRevealViewport}
+                  className="font-display text-display-4xl leading-[1.12] tracking-tight text-text-main lg:text-display-5xl"
+                >
+                  {[
+                    { text: "חומרים שנבחרים בקפידה.", weight: "font-light" },
+                    { text: "גימור שמדבר בעד עצמו.", weight: "font-semibold" },
+                  ].map(({ text, weight }, i) => (
+                    <span key={i} className="block overflow-hidden">
+                      <motion.span
+                        className={`block ${weight} ${i > 0 ? "mt-1" : ""}`}
+                        variants={headingLineVariant}
+                        transition={{ duration: 0.88, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
+                      >
+                        {text}
+                      </motion.span>
+                    </span>
+                  ))}
+                </motion.h2>
 
-                  <div className="flex justify-center lg:justify-start">
-                    <HeadingAccent align="start" color="#000000" diamondColor="var(--brand-gold)" />
-                  </div>
-
-                  <motion.p
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={scrollRevealViewport}
-                    variants={subtextVariant}
-                    className="type-lead mx-auto mt-6 max-w-md font-body leading-relaxed !text-text-main lg:mx-0 lg:max-w-none"
-                  >
-                    כל רכיב — פרופיל, זכוכית, ציר וחיבור — נבחר לפי ביצועים, אסתטיקה ועמידות
-                    לאורך שנים.{" "}
-                    <span className="text-brand-gold">מגיע עם תעודת יצרן ואחריות כתובה.</span>
-                  </motion.p>
+                <div className="flex justify-center lg:justify-start">
+                  <HeadingAccent align="start" color="#000000" diamondColor="var(--brand-gold)" />
                 </div>
+
+                <motion.p
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={scrollRevealViewport}
+                  variants={subtextVariant}
+                  className="type-lead mx-auto mt-6 max-w-md font-body leading-relaxed !text-text-main lg:mx-0 lg:max-w-none"
+                >
+                  כל רכיב — פרופיל, זכוכית, ציר וחיבור — נבחר לפי ביצועים, אסתטיקה ועמידות
+                  לאורך שנים.{" "}
+                  <span className="text-brand-gold">מגיע עם תעודת יצרן ואחריות כתובה.</span>
+                </motion.p>
               </div>
-            </aside>
-
-            {/* Spec plates */}
-            <div className="flex flex-col gap-6 lg:gap-8" aria-label="מפרט חומרים">
-              {craftSpecs.map((item, index) => (
-                <MaterialSpecCard key={item.code} item={item} index={index} />
-              ))}
             </div>
-          </div>
+          </aside>
 
-          {/* Image column — sticky showcase */}
+          {/* Image — mobile: after intro; desktop: sticky right column */}
           <div
-            className="relative h-[400px] w-full overflow-hidden border-2 border-brand-gold lg:sticky lg:top-32 lg:h-[620px]"
+            className="relative order-2 h-[400px] w-full overflow-hidden border-2 border-brand-gold lg:order-none lg:sticky lg:top-32 lg:row-span-2 lg:h-[620px]"
             style={{ boxShadow: "0 20px 60px rgba(200,180,155,0.2)" }}
           >
             <Image
-              src="/portfolio/atelier-showcase.png"
+              src="/portfolio/atelier-materials.jpeg"
               alt="מפרט חומרים — צמרת הזכוכית"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover object-center"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+          </div>
+
+          {/* Spec plates — mobile: after image; desktop: bottom-left */}
+          <div
+            className="order-3 flex flex-col gap-6 lg:order-none lg:gap-8"
+            aria-label="מפרט חומרים"
+          >
+            {craftSpecs.map((item, index) => (
+              <MaterialSpecCard key={item.code} item={item} index={index} />
+            ))}
           </div>
 
         </div>
