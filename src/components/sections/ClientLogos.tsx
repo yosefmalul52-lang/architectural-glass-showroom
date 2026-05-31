@@ -1,68 +1,87 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import { HeadingAccent } from "@/components/editorial/HeadingAccent";
 import { cn } from "@/lib/utils";
 
 type BrandLogo = {
   id: string;
   name: string;
-  className: string;
+  src: string;
+  width: number;
+  height: number;
+  className?: string;
 };
 
 const brands: BrandLogo[] = [
   {
-    id: "razili",
-    name: "Razili",
-    className: "font-display text-2xl font-light tracking-[0.12em]",
+    id: "eilon-nadlan",
+    name: 'אילון נדל"ן',
+    src: "/clients/eilon-nadlan.png",
+    width: 152,
+    height: 146,
   },
   {
-    id: "icon-fitness",
-    name: "!CON FITNESS",
-    className: "font-body text-sm font-black uppercase tracking-[0.28em]",
+    id: "zeevik-investments",
+    name: 'זאביק השקעות בע"מ',
+    src: "/clients/zeevik-investments.png",
+    width: 952,
+    height: 129,
+    className: "max-w-[11rem] md:max-w-[13rem]",
   },
   {
-    id: "worker",
-    name: "WORKER",
-    className: "font-body text-sm font-bold uppercase tracking-[0.42em]",
+    id: "mantina",
+    name: "mantina by Lital Ezra",
+    src: "/clients/mantina.png",
+    width: 337,
+    height: 96,
+    className: "max-w-[9rem] md:max-w-[10.5rem]",
   },
   {
-    id: "zavulon",
-    name: "מועצה אזורית זבולון",
-    className: "font-body text-sm font-medium tracking-wide",
+    id: "a-weiss",
+    name: "A.weiss",
+    src: "/clients/a-weiss.png",
+    width: 276,
+    height: 127,
+    className: "max-w-[8.5rem] md:max-w-[10rem]",
   },
   {
-    id: "mishmar",
-    name: "המשמר העירוני",
-    className: "font-display text-lg font-medium tracking-wide",
-  },
-  {
-    id: "tiv-taam",
-    name: "טיב טעם",
-    className: "font-display text-xl font-semibold tracking-tight",
-  },
-  {
-    id: "punkt",
-    name: "PUNKT design",
-    className: "font-body text-sm font-light lowercase tracking-[0.22em]",
+    id: "erez-sapir",
+    name: "ארז ספיר",
+    src: "/clients/erez-sapir.png",
+    width: 321,
+    height: 226,
+    className: "max-w-[7.5rem] md:max-w-[9rem]",
   },
 ];
+
+function LogoMark({ brand }: { brand: BrandLogo }) {
+  return (
+    <div
+      className={cn(
+        "flex h-14 shrink-0 items-center justify-center md:h-16",
+        brand.className
+      )}
+    >
+      <Image
+        src={brand.src}
+        alt={brand.name}
+        width={brand.width}
+        height={brand.height}
+        className="h-full w-auto max-h-12 object-contain opacity-75 transition-opacity duration-500 hover:opacity-100 md:max-h-14"
+        draggable={false}
+      />
+    </div>
+  );
+}
 
 function LogoTrack({ ariaHidden }: { ariaHidden?: boolean }) {
   return (
     <div
-      className="flex w-max shrink-0 items-center gap-10 px-6 md:gap-14 md:px-8"
+      className="flex w-max shrink-0 items-center gap-12 px-8 md:gap-16 md:px-10"
       aria-hidden={ariaHidden}
     >
       {brands.map((brand) => (
-        <span
-          key={brand.id}
-          className={cn(
-            "shrink-0 whitespace-nowrap opacity-80 transition-opacity duration-500 hover:opacity-100",
-            brand.className
-          )}
-          style={{ color: "var(--text-main)" }}
-        >
-          {brand.name}
-        </span>
+        <LogoMark key={brand.id} brand={brand} />
       ))}
     </div>
   );
@@ -80,15 +99,12 @@ export function ClientLogos({ trustStrip }: { trustStrip?: ReactNode }) {
       </div>
 
       <div className="relative">
-
-        <div className="flex w-full overflow-hidden py-2">
-          <div className="flex w-max animate-marquee-rtl hover:[animation-play-state:paused]">
+        <div
+          className="client-marquee-viewport overflow-hidden py-2"
+          dir="ltr"
+        >
+          <div className="client-marquee-track hover:[animation-play-state:paused]">
             <LogoTrack />
-          </div>
-          <div
-            className="flex w-max animate-marquee-rtl hover:[animation-play-state:paused]"
-            aria-hidden
-          >
             <LogoTrack ariaHidden />
           </div>
         </div>
