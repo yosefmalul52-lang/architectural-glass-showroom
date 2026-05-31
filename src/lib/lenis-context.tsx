@@ -65,10 +65,10 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       if (!mounted) return;
 
       const instance = new Lenis({
-        lerp: 0.1,
+        lerp: 0.16,
         smoothWheel: true,
         syncTouch: true,
-        wheelMultiplier: 0.9,
+        wheelMultiplier: 0.95,
       }) as LenisInstance;
 
       instance.on("scroll", () => {
@@ -109,7 +109,7 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       const el = document.querySelector(href) as HTMLElement | null;
       if (!el) return;
       e.preventDefault();
-      lenis.scrollTo(el, { offset: -SCROLL_ANCHOR_OFFSET, duration: 1.2 });
+      lenis.scrollTo(el, { offset: -SCROLL_ANCHOR_OFFSET, duration: 0.85 });
     };
 
     document.addEventListener("click", handleClick);
@@ -126,7 +126,7 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       if (lenis) {
         lenis.scrollTo(el, {
           offset: options?.offset ?? -SCROLL_ANCHOR_OFFSET,
-          duration: 1.2,
+          duration: 0.85,
         });
       } else {
         el.scrollIntoView({ behavior: "smooth", block: "start" });

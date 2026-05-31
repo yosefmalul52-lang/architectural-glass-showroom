@@ -13,19 +13,32 @@ import { WhatsAppFAB } from "@/components/sections/WhatsAppFAB";
 export default function Home() {
   return (
     <>
+      <div
+        id="intro-loader-static"
+        className="fixed inset-0 z-[9999] flex items-center justify-center bg-bg-primary"
+        aria-hidden
+      >
+        <img
+          src="/logo-loading-transparent.png"
+          alt=""
+          className="h-52 w-auto object-contain sm:h-60 md:h-[17rem] lg:h-72"
+        />
+      </div>
       <IntroLoader />
-      <GrainOverlay />
-      <ScrollProgress />
-      <main id="main-content" className="m-0 max-w-full overflow-x-clip p-0">
-        <Hero />
-        <DynamicShowroom />
-        <EngineeringPillars />
-        <AtelierReel />
-        <CraftBridge />
-        <LeadCapture />
-      </main>
-      <Footer />
-      <WhatsAppFAB />
+      <div id="site-shell">
+        <GrainOverlay />
+        <ScrollProgress />
+        <main id="main-content" className="m-0 max-w-full overflow-x-clip p-0">
+          <Hero />
+          <DynamicShowroom />
+          <EngineeringPillars />
+          <AtelierReel />
+          <CraftBridge />
+          <LeadCapture />
+        </main>
+        <Footer />
+        <WhatsAppFAB />
+      </div>
     </>
   );
 }

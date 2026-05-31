@@ -7,59 +7,48 @@ import { BRAND } from "@/data/site";
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 const EASE_EXIT = [0.76, 0, 0.24, 1] as const;
 
+function finishIntro() {
+  (window as Window & { __introLoaderDone?: boolean }).__introLoaderDone = true;
+  window.dispatchEvent(new Event("intro-loader:done"));
+}
+
+function revealSiteShell() {
+  document.documentElement.classList.remove("intro-loading");
+  document.getElementById("intro-loader-static")?.remove();
+}
+
 export function IntroLoader() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const html = document.documentElement;
-    const body = document.body;
-    const prevHtmlOverflow = html.style.overflow;
-    const prevBodyOverflow = body.style.overflow;
+    document.documentElement.classList.add("intro-loading");
+    document.getElementById("intro-loader-static")?.remove();
 
-    html.style.overflow = "hidden";
-    body.style.overflow = "hidden";
-
-    const t = setTimeout(() => {
+    const t = window.setTimeout(() => {
+      revealSiteShell();
       setIsLoading(false);
-      (window as Window & { __introLoaderDone?: boolean }).__introLoaderDone = true;
-      window.dispatchEvent(new Event("intro-loader:done"));
     }, 3600);
 
-    return () => {
-      clearTimeout(t);
-      html.style.overflow = prevHtmlOverflow;
-      body.style.overflow = prevBodyOverflow;
-    };
+    return () => window.clearTimeout(t);
   }, []);
 
   useEffect(() => {
     if (isLoading) return;
-
     document.documentElement.style.overflow = "";
     document.body.style.overflow = "";
   }, [isLoading]);
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait" onExitComplete={finishIntro}>
       {isLoading && (
         <motion.div
           key="intro-loader"
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center overflow-hidden bg-bg-primary"
           dir="rtl"
           style={{ width: "100%", maxWidth: "100%" }}
-          initial={{ opacity: 0, scale: 0.96, filter: "blur(14px)" }}
-          animate={{
-            opacity: 1,
-            scale: [0.96, 1],
-            filter: "blur(0px)",
-          }}
-          exit={{ opacity: 0, y: "-100%" }}
-          transition={{
-            opacity: { duration: 0.85, ease: EASE_OUT, delay: 0.1 },
-            scale: { duration: 1.25, ease: EASE_OUT, delay: 0.1 },
-            filter: { duration: 1.2, ease: "easeOut", delay: 0.1 },
-            default: { duration: 0.85, ease: EASE_EXIT },
-          }}
+          initial={false}
+          exit={{ y: "-100%" }}
+          transition={{ duration: 0.85, ease: EASE_EXIT }}
         >
           <div
             className="pointer-events-none absolute inset-0 overflow-hidden opacity-70"
@@ -69,7 +58,6 @@ export function IntroLoader() {
             }}
           />
 
-          {/* Page-wide gold shimmer — kept inside viewport bounds */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
             <motion.div
               className="absolute top-0 h-full w-1/3 bg-gradient-to-r from-transparent via-[rgba(200,180,155,0.45)] to-transparent blur-2xl"
@@ -86,10 +74,16 @@ export function IntroLoader() {
           </div>
 
           <div className="relative z-10 flex flex-col items-center">
-            <img
+            <motion.img
               src="/logo-loading-transparent.png"
               alt={BRAND.name}
               className="h-52 w-auto object-contain sm:h-60 md:h-[17rem] lg:h-72"
+              initial={{ opacity: 0, filter: "blur(14px)" }}
+              animate={{ opacity: 1, filter: "blur(0px)" }}
+              transition={{
+                opacity: { duration: 0.85, ease: EASE_OUT, delay: 0.1 },
+                filter: { duration: 1.2, ease: "easeOut", delay: 0.1 },
+              }}
             />
           </div>
         </motion.div>

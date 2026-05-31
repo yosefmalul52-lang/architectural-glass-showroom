@@ -13,7 +13,7 @@ const services = [
 
 function FooterHeading({ children }: { children: string }) {
   return (
-    <div className="mb-5 flex flex-col items-start gap-3">
+    <div className="mb-5 flex flex-col items-center gap-3 md:items-start">
       <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-teal md:text-base">
         {children}
       </p>
@@ -31,12 +31,12 @@ export function Footer() {
       {/* Top accent line */}
       <div className="h-px w-full bg-gradient-to-r from-transparent via-brand-gold/60 to-transparent" />
 
-      <div className="mx-auto max-w-[1400px] px-6 text-right lg:px-10">
-        {/* Main grid */}
-        <div className="grid items-start gap-10 py-16 grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1.2fr] md:gap-16 md:py-20">
+      <div className="mx-auto max-w-[1400px] px-6 text-center md:text-right lg:px-10">
+        {/* Mobile: vertical stack · Desktop: 4-column grid */}
+        <div className="flex flex-col items-center gap-12 py-16 md:grid md:grid-cols-[1.4fr_1fr_1fr_1.2fr] md:items-start md:gap-16 md:py-20">
 
           {/* Brand logo */}
-          <div className="col-span-2 flex flex-col items-center md:col-span-1 md:items-start md:pt-0.5">
+          <div className="flex flex-col items-center md:items-start md:pt-0.5">
             <div className="isolate inline-flex justify-center md:justify-start">
               <Image
                 src="/logo-tzameret-footer-transparent.png"
@@ -50,7 +50,7 @@ export function Footer() {
           </div>
 
           {/* Services */}
-          <div className="text-right">
+          <div className="w-full max-w-sm md:max-w-none">
             <FooterHeading>שירותים</FooterHeading>
             <ul className="space-y-3">
               {services.map((s) => (
@@ -62,9 +62,12 @@ export function Footer() {
           </div>
 
           {/* Navigation */}
-          <div className="text-right">
+          <div className="w-full max-w-sm md:max-w-none">
             <FooterHeading>ניווט</FooterHeading>
-            <nav className="flex flex-col gap-3" aria-label="ניווט תחתון">
+            <nav
+              className="flex flex-col items-center gap-3 md:items-start"
+              aria-label="ניווט תחתון"
+            >
               {navSections.map((link) => (
                 <Link key={link.id} href={`#${link.id}`} className={linkClass}>
                   {link.label}
@@ -74,9 +77,9 @@ export function Footer() {
           </div>
 
           {/* Contact */}
-          <div className="col-span-2 text-right md:col-span-1">
+          <div className="w-full max-w-sm md:max-w-none">
             <FooterHeading>יצירת קשר</FooterHeading>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col items-center gap-3 md:items-start">
               <a
                 href={`tel:${CONTACT.phoneTel}`}
                 className="text-sm font-light tracking-wide text-text-main transition-colors duration-300 hover:text-brand-gold"
@@ -98,7 +101,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex w-full flex-col items-center justify-center gap-3 border-t border-black/8 px-10 pt-6 pb-[calc(1.75rem+env(safe-area-inset-bottom))] text-center sm:flex-row sm:gap-12 md:px-16 lg:gap-20 lg:px-24">
+        <div className="flex w-full flex-col items-center justify-center gap-3 border-t border-black/8 px-6 pt-6 pb-[calc(1.75rem+env(safe-area-inset-bottom))] text-center sm:flex-row sm:gap-12 md:px-16 lg:gap-20 lg:px-24">
           <p className="text-xs font-light uppercase tracking-widest text-brand-teal">
             צמרת הזכוכית · תכנון וביצוע · ישראל
           </p>

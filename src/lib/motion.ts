@@ -7,12 +7,11 @@ export const luxuryTransition: Transition = {
   ease: MOTION_EASE,
 };
 
-/** Repeatable scroll reveal — fires every time element enters viewport */
+/** One-shot scroll reveal — content stays visible after first enter */
 export const scrollRevealViewport = {
-  once: false,
-  // Mobile-friendly threshold: triggers earlier on first downward scroll.
-  margin: "0px 0px -12% 0px" as const,
-  amount: 0.12,
+  once: true,
+  margin: "0px 0px -5% 0px" as const,
+  amount: 0.05,
 };
 
 /** One-shot reveal for decorative / non-heading elements */
@@ -23,12 +22,11 @@ export const scrollRevealOnce = {
 };
 
 export const fadeUpVariants: Variants = {
-  hidden: { y: 36, opacity: 0, filter: "blur(4px)" },
+  hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    filter: "blur(0px)",
-    transition: { duration: 0.9, ease: MOTION_EASE },
+    transition: { duration: 0.65, ease: MOTION_EASE },
   },
 };
 

@@ -76,7 +76,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="he" dir="rtl" className="overflow-x-clip">
+    <html lang="he" dir="rtl" className="overflow-x-clip intro-loading">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('intro-loading');",
+          }}
+        />
+      </head>
       <body
         className={`${rubik.variable} ${cormorantGaramond.variable} ${assistant.variable} ${meaCulpa.variable} ${fupGalil.variable} ${montserrat.variable} overflow-x-clip antialiased`}
       >
