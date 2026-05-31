@@ -27,7 +27,7 @@ export function CraftBridge() {
           variants={fadeUpVariants}
           className="mx-auto max-w-3xl text-center"
         >
-          <h2 className="font-display text-display-3xl font-light leading-tight tracking-tight text-text-main lg:text-display-4xl">
+          <h2 className="font-display text-display-3xl font-light leading-tight tracking-tight text-heading-light lg:text-display-4xl">
             כל שלב נבנה בדיוק —{" "}
             <span className="font-semibold text-accent-teal">בלי קיצורי דרך</span>
           </h2>
@@ -42,7 +42,7 @@ export function CraftBridge() {
           className="mt-14 lg:mt-16"
           aria-label="עמודי אמון"
         >
-          <div className="grid grid-cols-1 gap-px bg-accent-teal/45 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-px bg-accent-teal/45 lg:grid-cols-4">
             {trustPillars.map(({ Icon, title, sub }, index) => (
               <motion.div
                 key={title}
@@ -51,7 +51,7 @@ export function CraftBridge() {
                 whileHover={{ y: -4 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.55, ease: MOTION_EASE, delay: index * 0.08 }}
-                className="flex flex-col items-center bg-[#F3ECE1] px-6 py-8 text-center"
+                className="flex flex-col items-center bg-[#F3ECE1] px-4 py-6 text-center sm:px-6 sm:py-8"
               >
                 {Icon ? (
                   <Icon

@@ -85,13 +85,13 @@ export function SectionIntro({
             initial="hidden"
             whileInView="visible"
             viewport={scrollRevealViewport}
-            className="font-display text-display-4xl leading-[1.12] tracking-tight text-text-main lg:text-display-5xl"
+            className="font-display text-display-4xl leading-[1.12] tracking-tight lg:text-display-5xl"
           >
             {lines.length > 1 ? (
               lines.map((line, i) => (
                 <span key={i} className="block overflow-hidden">
                   <motion.span
-                    className={`block ${i === lines.length - 1 ? "font-semibold" : "font-light"}`}
+                    className={`block ${i === lines.length - 1 ? "font-semibold text-accent-teal" : "font-light text-heading-light"}`}
                     variants={headingLineVariant}
                     transition={{
                       duration: 0.88,
@@ -105,7 +105,7 @@ export function SectionIntro({
               ))
             ) : (
               <span className="block overflow-hidden">
-                <motion.span className="block font-light" variants={headingLineVariant}>
+                <motion.span className="block font-light text-heading-light" variants={headingLineVariant}>
                   {title}
                 </motion.span>
               </span>

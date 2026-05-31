@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
-import { Rubik, Assistant, Cormorant_Garamond, Mea_Culpa } from "next/font/google";
+import localFont from "next/font/local";
+import { Rubik, Assistant, Cormorant_Garamond, Mea_Culpa, Montserrat } from "next/font/google";
 import { ClientShell } from "@/components/layout/ClientShell";
 import "./globals.css";
+
+const fupGalil = localFont({
+  src: "../fonts/FUP-Galil-Medium.otf",
+  variable: "--font-fup-galil",
+  weight: "500",
+  display: "swap",
+});
 
 const rubik = Rubik({
   variable: "--font-rubik",
@@ -29,6 +37,13 @@ const meaCulpa = Mea_Culpa({
   variable: "--font-mea-culpa",
   subsets: ["latin"],
   weight: "400",
+  display: "swap",
+});
+
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin", "latin-ext"],
+  weight: ["300"],
   display: "swap",
 });
 
@@ -61,9 +76,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="he" dir="rtl">
+    <html lang="he" dir="rtl" className="overflow-x-clip">
       <body
-        className={`${rubik.variable} ${cormorantGaramond.variable} ${assistant.variable} ${meaCulpa.variable} overflow-x-hidden antialiased`}
+        className={`${rubik.variable} ${cormorantGaramond.variable} ${assistant.variable} ${meaCulpa.variable} ${fupGalil.variable} ${montserrat.variable} overflow-x-clip antialiased`}
       >
         <a
           href="#main-content"

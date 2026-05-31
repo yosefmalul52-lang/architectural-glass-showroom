@@ -14,7 +14,7 @@ import {
 const E = [0.16, 1, 0.3, 1] as const;
 
 const titleLines = [
-  { text: "הפרטים שמייחדים פרויקט זכוכית", weight: "light" as const, color: "text-text-main" },
+  { text: "הפרטים שמייחדים פרויקט זכוכית", weight: "light" as const, color: "text-heading-light" },
   { text: "שנעשה נכון", weight: "semibold" as const, color: "text-accent-teal" },
 ];
 

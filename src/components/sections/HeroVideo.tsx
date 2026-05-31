@@ -105,6 +105,12 @@ export function HeroVideo() {
           )}
         </>
       )}
+
+      {/* Dark → transparent, right to left (supports RTL hero copy) */}
+      <div
+        className="pointer-events-none absolute inset-0 z-[3] bg-[linear-gradient(to_left,rgba(21,21,21,0.48)_0%,rgba(21,21,21,0.16)_42%,transparent_68%)]"
+        aria-hidden
+      />
     </div>
   );
 }

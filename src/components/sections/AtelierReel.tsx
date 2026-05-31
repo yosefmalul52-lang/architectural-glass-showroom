@@ -74,15 +74,15 @@ export function AtelierReel() {
                   initial="hidden"
                   whileInView="visible"
                   viewport={scrollRevealViewport}
-                  className="font-display text-display-4xl leading-[1.12] tracking-tight text-text-main lg:text-display-5xl"
+                  className="font-display text-display-4xl leading-[1.12] tracking-tight lg:text-display-5xl"
                 >
                   {[
-                    { text: "חומרים שנבחרים בקפידה.", weight: "font-light" },
-                    { text: "גימור שמדבר בעד עצמו.", weight: "font-semibold" },
-                  ].map(({ text, weight }, i) => (
+                    { text: "חומרים שנבחרים בקפידה.", weight: "font-light", color: "text-heading-light" },
+                    { text: "גימור שמדבר בעד עצמו.", weight: "font-semibold", color: "text-accent-teal" },
+                  ].map(({ text, weight, color }, i) => (
                     <span key={i} className="block overflow-hidden">
                       <motion.span
-                        className={`block ${weight} ${i > 0 ? "mt-1" : ""}`}
+                        className={`block ${weight} ${color} ${i > 0 ? "mt-1" : ""}`}
                         variants={headingLineVariant}
                         transition={{ duration: 0.88, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
                       >
@@ -113,7 +113,7 @@ export function AtelierReel() {
 
           {/* Image — mobile: after intro; desktop: sticky right column */}
           <div
-            className="relative order-2 h-[400px] w-full overflow-hidden border-2 border-brand-gold lg:order-none lg:sticky lg:top-32 lg:row-span-2 lg:h-[620px]"
+            className="relative order-2 h-[260px] w-full overflow-hidden border-2 border-brand-gold sm:h-[320px] lg:order-none lg:sticky lg:top-32 lg:row-span-2 lg:h-[620px]"
             style={{ boxShadow: "0 20px 60px rgba(200,180,155,0.2)" }}
           >
             <Image
@@ -128,7 +128,7 @@ export function AtelierReel() {
 
           {/* Spec plates — mobile: after image; desktop: bottom-left */}
           <div
-            className="order-3 flex flex-col gap-6 lg:order-none lg:gap-8"
+            className="order-3 grid grid-cols-2 gap-4 sm:gap-5 lg:order-none lg:flex lg:flex-col lg:gap-8"
             aria-label="מפרט חומרים"
           >
             {craftSpecs.map((item, index) => (
@@ -159,8 +159,8 @@ function MaterialSpecCard({ item, index }: { item: CraftSpec; index: number }) {
         {item.code}
       </span>
 
-      <div className="relative z-[1] px-7 py-7 md:px-9 md:py-8">
-        <h3 className="font-display text-xl font-light leading-snug text-text-main md:text-2xl">
+      <div className="relative z-[1] px-4 py-4 sm:px-6 sm:py-6 md:px-9 md:py-8">
+        <h3 className="font-display text-base font-light leading-snug text-text-main sm:text-xl md:text-2xl">
           {item.title}
         </h3>
 
@@ -168,7 +168,7 @@ function MaterialSpecCard({ item, index }: { item: CraftSpec; index: number }) {
 
         <div className="mt-4 h-px w-full bg-brand-gold/45" />
 
-        <p className="type-lead mt-4 max-w-prose font-body text-base leading-[1.75] !text-text-main">
+        <p className="type-lead mt-3 max-w-prose font-body text-xs leading-[1.65] !text-text-main sm:mt-4 sm:text-sm md:text-base md:leading-[1.75]">
           {item.detail}
         </p>
       </div>

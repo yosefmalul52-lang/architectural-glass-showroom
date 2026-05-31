@@ -89,7 +89,7 @@ export function DynamicShowroom() {
           align="center"
           title="כל פרויקט — גימור ייחודי, תכנון מדויק"
           description="חלק מהפרויקטים האחרונים שלנו:"
-          className="[&_h2]:!text-text-main"
+          className="mb-10 lg:mb-14"
           accentColor="var(--brand-gold)"
           descriptionClassName="!text-brand-gold"
         />

@@ -19,6 +19,8 @@ const config: Config = {
         body: ["var(--font-assistant)", "system-ui", "sans-serif"],
         latin: ["var(--font-cormorant)", "Georgia", "serif"],
         "hero-stat": ["var(--font-mea-culpa)", "cursive"],
+        hero: ["var(--font-fup-galil)", "var(--font-rubik)", "sans-serif"],
+        montserrat: ["var(--font-montserrat)", "system-ui", "sans-serif"],
       },
       spacing: {
         section: "clamp(6rem, 14vw, 16rem)",

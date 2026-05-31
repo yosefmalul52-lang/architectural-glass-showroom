@@ -37,13 +37,13 @@ export function Navbar() {
             className="flex items-center justify-center bg-transparent"
           >
             <Image
-              src="/logo-tzameret-latest-transparent.png"
+              src="/logo-tzameret-navbar-transparent.png"
               alt={BRAND.name}
               width={320}
               height={320}
               priority
               unoptimized
-              className="h-[5rem] w-auto object-contain object-center bg-transparent sm:h-[5.25rem] lg:h-[5.75rem]"
+              className="h-[3.75rem] w-auto object-contain object-center sm:h-[4rem] lg:h-[4.25rem]"
             />
           </motion.div>
         </Link>

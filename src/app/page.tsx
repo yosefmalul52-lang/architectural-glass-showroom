@@ -16,7 +16,7 @@ export default function Home() {
       <IntroLoader />
       <GrainOverlay />
       <ScrollProgress />
-      <main id="main-content" className="m-0 p-0">
+      <main id="main-content" className="m-0 max-w-full overflow-x-clip p-0">
         <Hero />
         <DynamicShowroom />
         <EngineeringPillars />

@@ -38,34 +38,25 @@ export function Hero() {
     <section
       id="hero"
       data-funnel-step="awareness"
-      className="hero-viewport relative isolate w-full overflow-clip"
+      className="hero-viewport relative isolate w-full max-w-full overflow-x-clip overflow-y-hidden"
     >
       <HeroVideo />
       <Navbar />
 
       {/* Right-aligned block, vertically centered */}
-      <div className="relative z-10 flex h-full min-h-0 w-full flex-col items-center justify-center px-4 pb-[calc(env(safe-area-inset-bottom)+4rem)] pt-[calc(env(safe-area-inset-top)+5rem)] sm:items-start sm:px-6 sm:pt-[calc(env(safe-area-inset-top)+5.5rem)] lg:px-16 lg:pt-[calc(env(safe-area-inset-top)+6rem)]">
-        <div className="relative z-10 mt-8 flex w-full flex-col items-center sm:mt-10 sm:items-start lg:mt-12">
-          {/* Scoped gradient — behind text */}
-          <motion.div
-            className="pointer-events-none absolute -inset-x-6 -inset-y-8 z-0 bg-text-main/40 blur-2xl lg:-inset-x-10 lg:-inset-y-10"
-            initial={{ opacity: 0 }}
-            animate={introDone ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            aria-hidden
-          />
-
+      <div className="relative z-10 flex h-full min-h-0 w-full max-w-full flex-col items-center justify-center overflow-x-clip px-4 pb-[calc(env(safe-area-inset-bottom)+4rem)] pt-[calc(env(safe-area-inset-top)+5rem)] sm:items-start sm:px-6 sm:pt-[calc(env(safe-area-inset-top)+5.5rem)] lg:px-16 lg:pt-[calc(env(safe-area-inset-top)+6rem)]">
+        <div className="relative z-10 mt-8 flex w-full min-w-0 max-w-full flex-col items-center sm:mt-10 sm:items-start lg:mt-12">
           {/* Content */}
           <motion.div
-            className="relative z-20 flex w-full max-w-2xl flex-col items-center gap-y-2.5 text-center sm:items-start sm:text-right md:gap-y-3 lg:gap-y-4"
+            className="relative z-20 flex w-full min-w-0 max-w-2xl flex-col items-center gap-y-2.5 text-center sm:items-start sm:text-right md:gap-y-3 lg:gap-y-4"
             initial={{ opacity: 0, y: 20 }}
             animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           >
-            <h1 className="mx-auto max-w-[360px] text-balance text-center font-display text-display-hero font-semibold leading-[1.05] tracking-tight text-white sm:mx-0 sm:text-right md:max-w-xl lg:max-w-2xl [text-shadow:0_2px_24px_rgba(0,0,0,0.5),0_1px_4px_rgba(0,0,0,0.4)]">
+            <h1 className="mx-auto max-w-[360px] text-balance text-center font-hero text-display-hero font-medium leading-[1.05] tracking-tight text-white sm:mx-0 sm:text-right md:max-w-xl lg:max-w-2xl">
               <span className="block overflow-hidden">
                 <motion.span
-                  className="block font-semibold"
+                  className="block font-medium"
                   variants={wordRevealVariants}
                   initial="hidden"
                   animate={introDone ? "visible" : "hidden"}
@@ -80,7 +71,7 @@ export function Hero() {
               </span>
               <span className="block overflow-hidden">
                 <motion.span
-                  className="block font-semibold text-[#C8B49B]"
+                  className="block font-medium"
                   variants={wordRevealVariants}
                   initial="hidden"
                   animate={introDone ? "visible" : "hidden"}
@@ -90,7 +81,8 @@ export function Hero() {
                     ease: heroEase,
                   }}
                 >
-                  שלך לצמרת.
+                  <span className="text-white">שלך</span>{" "}
+                  <span className="text-[#C8B49B]">לצמרת</span>
                 </motion.span>
               </span>
             </h1>
@@ -99,10 +91,16 @@ export function Hero() {
               initial={{ opacity: 0, y: 24 }}
               animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
               transition={{ delay: 1.35, duration: 0.9, ease: heroEase }}
-              className="mx-auto max-w-[22rem] text-balance text-center text-[1.15rem] leading-relaxed tracking-[0.01em] text-white/90 sm:mx-0 sm:max-w-xl sm:text-right md:text-[1.3rem] [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]"
+              className="mx-auto max-w-[22rem] text-balance text-center font-hero text-[0.95rem] font-normal leading-relaxed tracking-[0.01em] text-white/90 sm:mx-0 sm:max-w-xl sm:text-right md:text-[1.05rem]"
             >
+              <span className="text-white/90" aria-hidden="true">
+                ״
+              </span>
               קו נקי, חומרים בתקן המחמיר ביותר וגימור סופי מושלם. הסטנדרט החדש
               של עבודות הפרימיום.
+              <span className="text-white/90" aria-hidden="true">
+                ״
+              </span>
             </motion.p>
 
             <motion.div
@@ -110,7 +108,7 @@ export function Hero() {
               initial="hidden"
               animate={introDone ? "visible" : "hidden"}
               transition={{ delay: 1.5, duration: 1, ease: heroEase }}
-              className="mx-auto mt-1.5 h-px w-full max-w-[20.5rem] origin-center bg-brand-gold/70 sm:mx-0 sm:max-w-xs sm:origin-right"
+              className="mx-auto mt-1.5 h-px w-full max-w-[14rem] origin-center bg-brand-gold/70 sm:mx-0 sm:max-w-[15rem] sm:origin-right"
             />
 
             <motion.div

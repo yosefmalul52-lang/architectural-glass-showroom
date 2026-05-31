@@ -33,18 +33,18 @@ export function Footer() {
 
       <div className="mx-auto max-w-[1400px] px-6 text-right lg:px-10">
         {/* Main grid */}
-        <div className="grid items-start gap-10 py-16 md:grid-cols-[1.4fr_1fr_1fr_1.2fr] md:gap-16 md:py-20">
+        <div className="grid items-start gap-10 py-16 grid-cols-2 md:grid-cols-[1.4fr_1fr_1fr_1.2fr] md:gap-16 md:py-20">
 
-          {/* Brand — blend removes baked-in black square; top-aligned with column headings on desktop */}
-          <div className="flex flex-col items-center md:items-start md:pt-0.5">
+          {/* Brand logo */}
+          <div className="col-span-2 flex flex-col items-center md:col-span-1 md:items-start md:pt-0.5">
             <div className="isolate inline-flex justify-center md:justify-start">
               <Image
-                src="/logo-tzameret-latest-transparent.png"
+                src="/logo-tzameret-footer-transparent.png"
                 alt={BRAND.name}
                 width={320}
                 height={320}
                 unoptimized
-                className="h-48 w-auto object-contain object-center mix-blend-screen sm:h-[13.5rem] md:h-[7.5rem] md:object-right lg:h-[8.25rem]"
+                className="h-32 w-auto object-contain object-center sm:h-40 md:h-[7.5rem] md:object-right lg:h-[8.25rem]"
               />
             </div>
           </div>
@@ -74,7 +74,7 @@ export function Footer() {
           </div>
 
           {/* Contact */}
-          <div className="text-right">
+          <div className="col-span-2 text-right md:col-span-1">
             <FooterHeading>יצירת קשר</FooterHeading>
             <div className="flex flex-col gap-3">
               <a

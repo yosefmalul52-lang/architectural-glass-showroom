@@ -20,6 +20,7 @@
   /* ── Text ── */
   --text-main:     #151515;           /* ink black */
   --text-muted:    #4d4d4d;           /* softened charcoal */
+  --text-heading-light: #18344a;      /* section heading light lines */
 
   /* ── Taupe accent (warm — replaces gold) ── */
   --brand-gold:    #C8B49B;           /* taupe — given */
@@ -73,6 +74,7 @@
   --color-bg-gold-wash: var(--bg-gold-wash);
   --color-text-main: var(--text-main);
   --color-text-muted: var(--text-muted);
+  --color-heading-light: var(--text-heading-light);
   --color-brand-gold: var(--brand-gold);
   --color-gold-light: var(--gold-light);
   --color-gold-deep: var(--gold-deep);
@@ -81,6 +83,7 @@
   --color-hairline: var(--hairline);
   --font-display: var(--font-rubik);
   --font-body: var(--font-assistant);
+  --font-hero: var(--font-fup-galil), var(--font-rubik), sans-serif;
 }
 
 *,
@@ -134,9 +137,15 @@ html.lenis.lenis-stopped body {
   overflow: hidden;
 }
 
+html {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
 body {
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
   background: var(--bg-primary);
   color: var(--text-main);
   font-family: var(--font-assistant), system-ui, sans-serif;
@@ -311,6 +320,14 @@ p,
   font-family: var(--font-cormorant), Georgia, serif;
   font-feature-settings: "kern" 1, "liga" 1;
   font-optical-sizing: auto;
+}
+
+.font-hero {
+  font-family: var(--font-fup-galil), var(--font-rubik), sans-serif;
+}
+
+.font-montserrat {
+  font-family: var(--font-montserrat), system-ui, sans-serif;
 }
 
 .text-display-hero {

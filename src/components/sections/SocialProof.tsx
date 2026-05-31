@@ -292,7 +292,7 @@ export function SocialProof() {
               accentColor="var(--accent-teal)"
             >
               <h2 className="mx-auto max-w-4xl font-display text-display-4xl leading-[1.12] tracking-tight lg:text-display-5xl">
-                <span className="block font-light text-text-main">מה שנשאר —</span>
+                <span className="block font-light text-heading-light">מה שנשאר —</span>
                 <span className="block font-semibold text-accent-teal">אחרי שהאבק שוקע</span>
               </h2>
             </SectionIntro>

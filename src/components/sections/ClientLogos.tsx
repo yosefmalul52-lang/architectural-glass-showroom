@@ -72,8 +72,8 @@ export function ClientLogos({ trustStrip }: { trustStrip?: ReactNode }) {
   return (
     <div className="w-full overflow-hidden px-4 py-10 sm:px-6 lg:py-12">
       <div className="mb-10 text-center lg:mb-12">
-        <h2 className="font-display text-display-3xl tracking-tight text-text-main lg:text-display-4xl">
-          <span className="block font-light">חלק מהלקוחות</span>
+        <h2 className="font-display text-display-3xl tracking-tight lg:text-display-4xl">
+          <span className="block font-light text-heading-light">חלק מהלקוחות</span>
           <span className="block font-semibold text-accent-teal">שעובדים איתנו</span>
         </h2>
         <HeadingAccent align="center" className="mx-auto" color="#000000" diamondColor="var(--accent-teal)" />
