@@ -37,13 +37,31 @@ function isRateLimited(ip: string): { limited: boolean; retryAfterSec?: number }
   return { limited: false };
 }
 
-function getTransporter() {
+function getEmailEnv() {
+  const smtpUser = process.env.SMTP_USER;
+  const leadToEmail = process.env.LEAD_TO_EMAIL;
+
+  if (!smtpUser || !leadToEmail) {
+    console.error("CRITICAL: Missing Email Env Vars", {
+      SMTP_USER: Boolean(smtpUser),
+      LEAD_TO_EMAIL: Boolean(leadToEmail),
+    });
+    throw new Error("Email environment variables are not configured");
+  }
+
+  return { smtpUser, leadToEmail };
+}
+
+function getTransporter(smtpUser: string) {
   const host = process.env.SMTP_HOST;
   const port = Number(process.env.SMTP_PORT ?? "587");
-  const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
 
-  if (!host || !user || !pass) {
+  if (!host || !pass) {
+    console.error("CRITICAL: Missing Email Env Vars", {
+      SMTP_HOST: Boolean(host),
+      SMTP_PASS: Boolean(pass),
+    });
     throw new Error("SMTP credentials are missing");
   }
 
@@ -51,12 +69,12 @@ function getTransporter() {
     host,
     port,
     secure: port === 465,
-    auth: { user, pass },
+    auth: { user: smtpUser, pass },
   });
 }
 
-function getMailFrom(): string {
-  return process.env.SMTP_FROM ?? process.env.SMTP_USER ?? "noreply@tzameret-glass.co.il";
+function getMailFrom(smtpUser: string): string {
+  return process.env.SMTP_FROM ?? smtpUser;
 }
 
 function renderLeadHtml(data: ContactFormData): string {
@@ -158,11 +176,10 @@ export async function POST(request: Request) {
     );
   }
 
-  const leadToEmail = process.env.LEAD_TO_EMAIL ?? "tzamerethazchuchit@gmail.com";
-
   try {
-    const transporter = getTransporter();
-    const from = getMailFrom();
+    const { smtpUser, leadToEmail } = getEmailEnv();
+    const transporter = getTransporter(smtpUser);
+    const from = getMailFrom(smtpUser);
 
     const leadMailPromise = transporter.sendMail({
       from,
