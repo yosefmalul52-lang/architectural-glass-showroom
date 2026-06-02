@@ -197,38 +197,52 @@ export const officeProjects: PortfolioProject[] = [
 
 export const railingProjects: PortfolioProject[] = [
   {
-    id: "railing-stair-gold",
-    slug: "stair-glass-railing-gold",
-    title: "מעקה זכוכית במדרגות — פרופיל זהב",
+    id: "railing-wood-standoffs",
+    slug: "stair-glass-railing-wood-standoffs",
+    title: "מעקה זכוכית במדרגות עץ",
     description:
-      "מעקה Triplex 10 מ״מ, פרופיל זהב מברש, עיגון מוסתר וגימור ללא קצוות חשופים.",
-    alt: "מעקה זכוכית במדרגות עם פרופיל זהב",
-    image: img("office-black-profile-charcoal"),
+      "זכוכית Triplex מחוסמת 10 מ״מ, עיגון ספיידר בצד המדרגה, מדרגות עץ טבעי וגימור נקי ללא מסגרת עליונה.",
+    alt: "מעקה זכוכית עם עיגון ספיידר על מדרגות עץ וקיר אבן",
+    image: "/portfolio/railing-wood-standoffs.png",
     category: "railings",
-    materials: ["gold", "clear"],
+    materials: ["clear"],
     featured: true,
     aspect: "landscape",
   },
   {
-    id: "railing-balcony-frameless",
-    slug: "balcony-frameless-railing",
-    title: "מעקה מרפסת frameless",
-    description: "זכוכית שקופה ללא מסגרת נראית, עמודי נירוסטה מינימליים וסגירה בטיחותית.",
-    alt: "מעקה זכוכית שקופה במרפסת",
-    image: img("office-slat-ceiling-corridor"),
+    id: "railing-white-interior",
+    slug: "stair-glass-railing-white-interior",
+    title: "מעקה frameless בבית פרטי",
+    description:
+      "מעקה זכוכית שקופה לאורך מדרגות ומשטח ביניים, עמידות בטיחותית מלאה ומראה פתוח לחלל.",
+    alt: "מעקה זכוכית שקוף במדרגות פנימיות עם קירות לבנים",
+    image: "/portfolio/railing-white-interior.png",
     category: "railings",
     materials: ["clear"],
     aspect: "landscape",
   },
   {
-    id: "railing-landing-smoked",
-    slug: "landing-smoked-glass-railing",
-    title: "מעקה מעושן בקומה",
-    description: "זכוכית מעושנת 8 מ״מ, מעקה רציף לאורך מעקה פנים ופרופיל שחור מאט.",
-    alt: "מעקה זכוכית מעושנת בחלל פנים",
-    image: img("spa-smoked-gold-shower"),
+    id: "railing-multilevel-home",
+    slug: "stair-glass-railing-multilevel",
+    title: "מעקה רב-קומתי בוילה",
+    description:
+      "המשכיות זכוכית לאורך מספר מפלסים, עיגון נקודתי מדויק והתאמה לקו המדרגות והמרפסת הפנימית.",
+    alt: "מעקה זכוכית רב-קומתי בבית מודרני עם מדרגות עץ כהה",
+    image: "/portfolio/railing-multilevel-home.png",
     category: "railings",
-    materials: ["smoked", "black"],
+    materials: ["clear"],
+    aspect: "landscape",
+  },
+  {
+    id: "railing-marble-stair",
+    slug: "stair-glass-railing-marble",
+    title: "מעקה על מדרגות שיש",
+    description:
+      "זכוכית בטיחותית על מדרגות אבן, ספיידרים מברגל ועיבוד מדויק לפי מידות השטח.",
+    alt: "מעקה זכוכית עם עיגון ספיידר על מדרגות שיש בהירות",
+    image: "/portfolio/railing-marble-stair.png",
+    category: "railings",
+    materials: ["clear"],
     aspect: "landscape",
   },
 ];
@@ -253,7 +267,11 @@ export const showroomCategories = [
     value: "railings" as const,
     label: "מעקים",
     cover: railingProjects[0]
-      ? { ...railingProjects[0], image: "/portfolio/railing-cover.png", alt: "מעקה זכוכית עם נוף פנורמי — צמרת הזכוכית" }
+      ? {
+          ...railingProjects[0],
+          image: "/portfolio/railing-cover.png",
+          alt: "מעקה זכוכית במדרגות עץ עם עיגון ספיידר — צמרת הזכוכית",
+        }
       : null,
   },
 ];
