@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Rubik, Assistant, Cormorant_Garamond, Mea_Culpa, Montserrat } from "next/font/google";
+import { CookieConsent } from "@/components/CookieConsent";
 import { ClientShell } from "@/components/layout/ClientShell";
 import "./globals.css";
 
@@ -124,6 +125,7 @@ export default function RootLayout({
           דלג לתוכן הראשי
         </a>
         <ClientShell>{children}</ClientShell>
+        <CookieConsent />
       </body>
     </html>
   );

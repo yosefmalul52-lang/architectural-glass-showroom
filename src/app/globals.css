@@ -151,6 +151,11 @@ html.intro-loading #site-shell {
   visibility: hidden;
 }
 
+/* Site visible under sliding loader — keep overflow locked until intro fully ends */
+html.intro-exiting #site-shell {
+  visibility: visible;
+}
+
 body {
   margin: 0;
   overflow-x: clip;

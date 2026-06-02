@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -13,7 +13,20 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const w = window as Window & { __introLoaderDone?: boolean };
+    if (w.__introLoaderDone) {
+      setIntroDone(true);
+      return;
+    }
+
+    const onIntroDone = () => setIntroDone(true);
+    window.addEventListener("intro-loader:done", onIntroDone);
+    return () => window.removeEventListener("intro-loader:done", onIntroDone);
+  }, []);
 
   return (
     <header
@@ -32,7 +45,7 @@ export function Navbar() {
         >
           <motion.div
             initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
             transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
             className="flex items-center justify-center bg-transparent"
           >
