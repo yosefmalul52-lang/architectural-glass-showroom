@@ -6,10 +6,10 @@ export const BRAND = {
 } as const;
 
 export const CONTACT = {
-  phone: "073-345-6789",
-  phoneTel: "+972733456789",
-  email: "office@pisga-glass.co.il",
-  whatsapp: "972733456789",
+  phone: "050-470-1265",
+  phoneTel: "+972504701265",
+  email: "tzamerethazchuchit@gmail.com",
+  whatsapp: "972504701265",
   address: "פארק תעשיות, קיסריה",
   hours: "ראשון–חמישי: 08:00–17:00",
 } as const;

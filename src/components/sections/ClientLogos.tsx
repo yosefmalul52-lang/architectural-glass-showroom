@@ -54,7 +54,20 @@ const brands: BrandLogo[] = [
   },
 ];
 
+const CLIENT_LOGO_NAVY = "var(--text-heading-light)";
+
 function LogoMark({ brand }: { brand: BrandLogo }) {
+  const maskStyle = {
+    WebkitMaskImage: `url(${brand.src})`,
+    maskImage: `url(${brand.src})`,
+    WebkitMaskSize: "contain",
+    maskSize: "contain",
+    WebkitMaskRepeat: "no-repeat",
+    maskRepeat: "no-repeat",
+    WebkitMaskPosition: "center",
+    maskPosition: "center",
+  } as const;
+
   return (
     <div
       className={cn(
@@ -62,14 +75,21 @@ function LogoMark({ brand }: { brand: BrandLogo }) {
         brand.className
       )}
     >
-      <Image
-        src={brand.src}
-        alt={brand.name}
-        width={brand.width}
-        height={brand.height}
-        className="h-full w-auto max-h-12 object-contain opacity-75 transition-opacity duration-500 hover:opacity-100 md:max-h-14"
-        draggable={false}
-      />
+      <span className="group relative inline-flex h-full max-h-12 items-center md:max-h-14">
+        <Image
+          src={brand.src}
+          alt={brand.name}
+          width={brand.width}
+          height={brand.height}
+          className="h-full w-auto max-h-12 object-contain opacity-0 md:max-h-14"
+          draggable={false}
+        />
+        <span
+          aria-hidden
+          className="absolute inset-0 opacity-90 transition-opacity duration-500 group-hover:opacity-100"
+          style={{ ...maskStyle, backgroundColor: CLIENT_LOGO_NAVY }}
+        />
+      </span>
     </div>
   );
 }

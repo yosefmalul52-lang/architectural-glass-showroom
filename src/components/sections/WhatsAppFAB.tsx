@@ -11,6 +11,7 @@ export function WhatsAppFAB() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="צור קשר בוואטסאפ"
+        className="cursor-pointer"
         style={{
           display: "flex",
           alignItems: "center",

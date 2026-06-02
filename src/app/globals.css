@@ -168,6 +168,11 @@ body {
   font-optical-sizing: auto;
 }
 
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
 .glass-panel {
   background: var(--glass-panel-bg);
   backdrop-filter: blur(24px);

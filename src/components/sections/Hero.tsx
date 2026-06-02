@@ -53,7 +53,7 @@ export function Hero() {
             animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.4, duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           >
-            <h1 className="mx-auto max-w-[360px] text-balance text-center font-hero text-display-hero font-medium leading-[1.05] tracking-tight text-white sm:mx-0 sm:text-right md:max-w-xl lg:max-w-2xl">
+            <h1 className="mx-auto max-w-[360px] text-balance text-center font-hero text-display-hero font-medium leading-[1.05] tracking-tight text-white [text-shadow:0_2px_14px_rgba(0,0,0,0.38),0_1px_4px_rgba(0,0,0,0.22)] sm:mx-0 sm:text-right md:max-w-xl lg:max-w-2xl">
               <span className="block overflow-hidden">
                 <motion.span
                   className="block font-medium"
@@ -82,7 +82,7 @@ export function Hero() {
                   }}
                 >
                   <span className="text-white">שלך</span>{" "}
-                  <span className="text-[#C8B49B]">לצמרת</span>
+                  <span className="text-[#C8B49B]">לצמרת.</span>
                 </motion.span>
               </span>
             </h1>
