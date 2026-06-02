@@ -184,6 +184,7 @@ export async function POST(request: Request) {
     const leadMailPromise = transporter.sendMail({
       from,
       to: leadToEmail,
+      bcc: smtpUser,
       replyTo: parsed.email,
       subject: `פנייה חדשה מהאתר — ${parsed.fullName}`,
       html: renderLeadHtml(parsed),
