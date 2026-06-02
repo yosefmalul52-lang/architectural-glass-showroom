@@ -47,10 +47,16 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: "צמרת הזכוכית — תכנון, הנדסה וביצוע",
   description:
     "צמרת הזכוכית — תכנון וביצוע פרויקטי זכוכית אדריכלית בתקן EN12150. ייצור CNC, Triplex מחוסמת, מדידת לייזר ממוחשבת. מקלחונים, מחיצות משרד, מראות מותאמות.",
+  applicationName: "צמרת הזכוכית",
   keywords: [
     "צמרת הזכוכית",
     "מקלחונים",
@@ -61,12 +67,36 @@ export const metadata: Metadata = {
     "CNC",
     "קיסריה",
   ],
+  icons: {
+    icon: [
+      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/icon-192.png", sizes: "192x192", type: "image/png" }],
+  },
   openGraph: {
     title: "צמרת הזכוכית — תכנון, הנדסה וביצוע",
     description:
       "פרויקטי זכוכית אדריכלית בתקן EN12150 — ייצור CNC, Triplex מחוסמת, מדידת לייזר ממוחשבת. ייעוץ ראשוני ללא עלות.",
     locale: "he_IL",
     type: "website",
+    siteName: "צמרת הזכוכית",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 1200,
+        alt: "צמרת הזכוכית — לוגו",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "צמרת הזכוכית — תכנון, הנדסה וביצוע",
+    description:
+      "פרויקטי זכוכית אדריכלית בתקן EN12150 — ייצור CNC, Triplex מחוסמת, מדידת לייזר ממוחשבת.",
+    images: ["/og-image.png"],
   },
 };
 
