@@ -85,10 +85,6 @@ export const processSteps = [
   { step: "04", label: "התקנה ובדיקה סופית" },
 ];
 
-/** Lead capture — private consultation request */
-export const WEBHOOK_URL =
-  process.env.NEXT_PUBLIC_WEBHOOK_URL ?? "";
-
 export const consultationIntro = {
   number: "",
   label: "",
@@ -113,52 +109,3 @@ export const consultationProcessSteps = [
   { step: "04", label: "התקנה נקייה ואחריות" },
 ] as const;
 
-export type LeadPayload = {
-  name: string;
-  phone: string;
-  projectScope: ProjectScopeValue;
-  projectScopeLabel: string;
-  message?: string;
-  showroomInterest?: string;
-  submittedAt: string;
-  source: "website";
-};
-
-export function buildLeadPayload(data: {
-  name: string;
-  phone: string;
-  projectScope: ProjectScopeValue;
-  message?: string;
-  showroomInterest?: string;
-}): LeadPayload {
-  const scope = projectScopes.find((s) => s.value === data.projectScope);
-  return {
-    name: data.name.trim(),
-    phone: data.phone.trim(),
-    projectScope: data.projectScope,
-    projectScopeLabel: scope?.label ?? data.projectScope,
-    message: data.message?.trim() || undefined,
-    showroomInterest: data.showroomInterest?.trim() || undefined,
-    submittedAt: new Date().toISOString(),
-    source: "website",
-  };
-}
-
-export async function submitLeadToWebhook(payload: LeadPayload): Promise<void> {
-  if (!WEBHOOK_URL) {
-    if (process.env.NODE_ENV === "development") {
-      console.info("[LeadCapture] WEBHOOK_URL not set — payload:", payload);
-    }
-    return;
-  }
-
-  const res = await fetch(WEBHOOK_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-
-  if (!res.ok) {
-    throw new Error(`Webhook failed: ${res.status}`);
-  }
-}

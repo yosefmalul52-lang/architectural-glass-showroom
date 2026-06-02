@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { UnderlineInput } from "@/components/ui/underline-input";
 import {
@@ -17,12 +19,13 @@ import { HeadingAccent } from "@/components/editorial/HeadingAccent";
 import { SectionIntro } from "@/components/editorial/SectionIntro";
 import { SuccessCheck } from "@/components/experience/SuccessCheck";
 import {
-  buildLeadPayload,
   consultationIntro,
   projectScopes,
-  submitLeadToWebhook,
-  type ProjectScopeValue,
 } from "@/data/funnel";
+import {
+  contactFormSchema,
+  type ContactFormData,
+} from "@/lib/contact-form-schema";
 import { WHATSAPP_DEFAULT_URL } from "@/data/site";
 import { fadeUpVariants, scrollRevealViewport } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -33,22 +36,14 @@ type LeadFormBodyProps = {
   submitted: boolean;
   formFocused: boolean;
   setFormFocused: (focused: boolean) => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  nameError: string | null;
-  setNameError: (v: string | null) => void;
-  phoneError: string | null;
-  setPhoneError: (v: string | null) => void;
-  projectScope: ProjectScopeValue | "";
-  setProjectScope: (v: ProjectScopeValue) => void;
-  projectScopeError: string | null;
-  setProjectScopeError: (v: string | null) => void;
-  message: string;
-  setMessage: (v: string) => void;
+  onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
+  register: ReturnType<typeof useForm<ContactFormData>>["register"];
+  projectScope: ContactFormData["projectScope"] | undefined;
+  setProjectScope: (v: ContactFormData["projectScope"]) => void;
+  errors: ReturnType<typeof useForm<ContactFormData>>["formState"]["errors"];
+  notes: string;
+  setNotes: (v: string) => void;
   submitError: string | null;
-  agreed: boolean;
-  setAgreed: (v: boolean) => void;
-  agreedError: string | null;
-  setAgreedError: (v: string | null) => void;
   isSubmitting: boolean;
 };
 
@@ -56,22 +51,14 @@ function LeadFormBody({
   submitted,
   formFocused,
   setFormFocused,
-  handleSubmit,
-  nameError,
-  setNameError,
-  phoneError,
-  setPhoneError,
+  onSubmit,
+  register,
   projectScope,
   setProjectScope,
-  projectScopeError,
-  setProjectScopeError,
-  message,
-  setMessage,
+  errors,
+  notes,
+  setNotes,
   submitError,
-  agreed,
-  setAgreed,
-  agreedError,
-  setAgreedError,
   isSubmitting,
 }: LeadFormBodyProps) {
   const formContent = (
@@ -101,7 +88,7 @@ function LeadFormBody({
         </div>
       ) : (
         <form
-          onSubmit={handleSubmit}
+          onSubmit={onSubmit}
           onFocus={() => setFormFocused(true)}
           onBlur={(e) => {
             if (!e.currentTarget.contains(e.relatedTarget as Node)) {
@@ -117,34 +104,66 @@ function LeadFormBody({
             <div>
               <UnderlineInput
                 label="שם מלא"
-                name="name"
+                {...register("fullName")}
                 required
                 autoComplete="name"
-                aria-invalid={Boolean(nameError)}
-                aria-describedby={nameError ? "lead-name-error" : undefined}
-                onChange={() => nameError && setNameError(null)}
+                aria-invalid={Boolean(errors.fullName)}
+                aria-describedby={errors.fullName ? "lead-name-error" : undefined}
               />
-              {nameError && (
+              {errors.fullName?.message && (
                 <p id="lead-name-error" className="mt-2 text-xs text-red-700/90" role="alert">
-                  {nameError}
+                  {errors.fullName.message}
+                </p>
+              )}
+            </div>
+            <div>
+              <UnderlineInput
+                label="אימייל"
+                {...register("email")}
+                type="email"
+                required
+                autoComplete="email"
+                aria-invalid={Boolean(errors.email)}
+                aria-describedby={errors.email ? "lead-email-error" : undefined}
+              />
+              {errors.email?.message && (
+                <p id="lead-email-error" className="mt-2 text-xs text-red-700/90" role="alert">
+                  {errors.email.message}
                 </p>
               )}
             </div>
             <div>
               <UnderlineInput
                 label="טלפון"
-                name="phone"
+                {...register("phone")}
                 type="tel"
                 required
                 autoComplete="tel"
                 inputMode="tel"
-                aria-invalid={Boolean(phoneError)}
-                aria-describedby={phoneError ? "lead-phone-error" : undefined}
-                onChange={() => phoneError && setPhoneError(null)}
+                aria-invalid={Boolean(errors.phone)}
+                aria-describedby={errors.phone ? "lead-phone-error" : undefined}
               />
-              {phoneError && (
+              {errors.phone?.message && (
                 <p id="lead-phone-error" className="mt-2 text-xs text-red-700/90" role="alert">
-                  {phoneError}
+                  {errors.phone.message}
+                </p>
+              )}
+            </div>
+            <div>
+              <UnderlineInput
+                label="סוג פרויקט"
+                {...register("projectType")}
+                required
+                aria-invalid={Boolean(errors.projectType)}
+                aria-describedby={errors.projectType ? "lead-project-type-error" : undefined}
+              />
+              {errors.projectType?.message && (
+                <p
+                  id="lead-project-type-error"
+                  className="mt-2 text-xs text-red-700/90"
+                  role="alert"
+                >
+                  {errors.projectType.message}
                 </p>
               )}
             </div>
@@ -153,14 +172,14 @@ function LeadFormBody({
           <div
             className={cn(
               "border-b border-brand-gold/70 pb-1 transition-colors duration-500 focus-within:border-brand-gold",
-              projectScopeError && "border-red-700/70"
+              errors.projectScope && "border-red-700/70"
             )}
           >
             <label
               htmlFor="project-scope"
               className="mb-2 block text-xs tracking-[0.1em] text-text-muted"
             >
-              סוג הפרויקט
+              היקף הפרויקט
               <span className="ms-1 text-red-600" aria-hidden>
                 *
               </span>
@@ -168,8 +187,7 @@ function LeadFormBody({
             <Select
               value={projectScope}
               onValueChange={(v) => {
-                setProjectScope(v as ProjectScopeValue);
-                if (projectScopeError) setProjectScopeError(null);
+                setProjectScope(v as ContactFormData["projectScope"]);
               }}
               required
               aria-required
@@ -177,8 +195,8 @@ function LeadFormBody({
               <SelectTrigger
                 id="project-scope"
                 aria-label="בחרו את היקף הפרויקט"
-                aria-invalid={Boolean(projectScopeError)}
-                aria-describedby={projectScopeError ? "lead-scope-error" : undefined}
+                aria-invalid={Boolean(errors.projectScope)}
+                aria-describedby={errors.projectScope ? "lead-scope-error" : undefined}
                 className="min-h-[48px] border-0 border-none bg-transparent px-0 text-right shadow-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold [&>span]:flex [&>span]:w-full [&>span]:justify-end"
               >
                 <SelectValue placeholder="בחרו את היקף הפרויקט" />
@@ -191,18 +209,17 @@ function LeadFormBody({
                 ))}
               </SelectContent>
             </Select>
-            {projectScopeError && (
+            {errors.projectScope?.message && (
               <p id="lead-scope-error" className="mt-2 text-xs text-red-700/90" role="alert">
-                {projectScopeError}
+                {errors.projectScope.message}
               </p>
             )}
           </div>
 
           <UnderlineInput
             label="הערות לייעוץ (אופציונלי)"
-            name="message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
           />
 
           {submitError && (
@@ -214,43 +231,37 @@ function LeadFormBody({
           <label
             className={cn(
               "flex cursor-pointer items-start gap-3 rounded-sm pt-1 transition-colors",
-              agreedError && "ring-1 ring-red-700/50 ring-offset-2 ring-offset-bg-elevated"
+              errors.consent && "ring-1 ring-red-700/50 ring-offset-2 ring-offset-bg-elevated"
             )}
           >
             <div className="relative mt-0.5 shrink-0">
               <input
                 type="checkbox"
-                checked={agreed}
-                onChange={(e) => {
-                  setAgreed(e.target.checked);
-                  if (agreedError) setAgreedError(null);
-                }}
+                {...register("consent")}
                 className="peer sr-only"
-                aria-invalid={Boolean(agreedError)}
-                aria-describedby={agreedError ? "lead-agreed-error" : undefined}
+                aria-invalid={Boolean(errors.consent)}
+                aria-describedby={errors.consent ? "lead-agreed-error" : undefined}
               />
               <div
                 className={cn(
                   "h-4 w-4 border transition-colors peer-checked:border-accent-teal peer-checked:bg-accent-teal",
-                  agreedError ? "border-red-700/70" : "border-accent-teal/40"
+                  errors.consent ? "border-red-700/70" : "border-accent-teal/40"
                 )}
               />
-              {agreed && (
-                <svg
-                  className="pointer-events-none absolute inset-0 m-auto h-2.5 w-2.5 text-white"
-                  viewBox="0 0 10 10"
-                  fill="none"
-                  aria-hidden
-                >
-                  <path
-                    d="M1.5 5l2.5 2.5 4.5-4.5"
-                    stroke="currentColor"
-                    strokeWidth={1.8}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              )}
+              <svg
+                className="pointer-events-none absolute inset-0 m-auto h-2.5 w-2.5 text-white opacity-0 peer-checked:opacity-100"
+                viewBox="0 0 10 10"
+                fill="none"
+                aria-hidden
+              >
+                <path
+                  d="M1.5 5l2.5 2.5 4.5-4.5"
+                  stroke="currentColor"
+                  strokeWidth={1.8}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </div>
             <span className="text-right text-[13px] leading-relaxed text-text-muted sm:text-sm">
               <span className="text-red-600" aria-hidden>
@@ -259,9 +270,9 @@ function LeadFormBody({
               קראתי ואני מסכים/ה לקבל יצירת קשר חוזרת בנוגע לפרויקט שלי
             </span>
           </label>
-          {agreedError && (
+          {errors.consent?.message && (
             <p id="lead-agreed-error" className="-mt-4 text-xs text-red-700/90" role="alert">
-              {agreedError}
+              {errors.consent.message}
             </p>
           )}
 
@@ -274,16 +285,22 @@ function LeadFormBody({
               disabled={isSubmitting}
             >
               {isSubmitting ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  שולח בקשה...
-                </>
+                <svg
+                  className="h-4 w-4 animate-spin"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <circle cx="12" cy="12" r="10" strokeOpacity="0.25" strokeWidth="4" />
+                  <path d="M22 12a10 10 0 0 1-10 10" strokeWidth="4" />
+                </svg>
               ) : (
                 <>
                   לתיאום ייעוץ אישי
                   <ArrowLeft className="h-4 w-4" />
                 </>
               )}
+              {isSubmitting && " שולח בקשה..."}
             </Button>
           </div>
         </form>
@@ -311,116 +328,118 @@ function ContactSideImage({ src, alt }: { src: string; alt: string }) {
 }
 
 export function LeadCapture() {
-  const [projectScope, setProjectScope] = useState<ProjectScopeValue | "">("");
-  const [message, setMessage] = useState("");
-  const [showroomInterest, setShowroomInterest] = useState<string | undefined>(undefined);
   const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [nameError, setNameError] = useState<string | null>(null);
-  const [phoneError, setPhoneError] = useState<string | null>(null);
-  const [projectScopeError, setProjectScopeError] = useState<string | null>(null);
   const [formFocused, setFormFocused] = useState(false);
-  const [agreed, setAgreed] = useState(false);
-  const [agreedError, setAgreedError] = useState<string | null>(null);
+  const [showroomInterest, setShowroomInterest] = useState<string | undefined>(undefined);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      fullName: "",
+      phone: "",
+      email: "",
+      projectType: "",
+      projectScope: undefined,
+      notes: "",
+      consent: false,
+      showroomInterest: "",
+    },
+  });
 
   useEffect(() => {
     const interest = sessionStorage.getItem(SHOWROOM_INTEREST_KEY);
     if (interest) {
       setShowroomInterest(interest);
+      setValue("showroomInterest", interest);
       sessionStorage.removeItem(SHOWROOM_INTEREST_KEY);
     }
 
     const params = new URLSearchParams(window.location.search);
     const type = params.get("type");
-    const scopeMap: Record<string, ProjectScopeValue> = {
+    const scopeMap: Record<string, ContactFormData["projectScope"]> = {
       showers: "custom-showers",
       mirrors: "premium-mirrors",
       offices: "office-cladding",
       railings: "complex-architectural",
     };
     if (type && scopeMap[type]) {
-      setProjectScope(scopeMap[type]);
+      setValue("projectScope", scopeMap[type], { shouldValidate: true });
     }
-  }, []);
+  }, [setValue]);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  const onSubmit = handleSubmit(async (data) => {
     setSubmitError(null);
-    setNameError(null);
-    setPhoneError(null);
-    setProjectScopeError(null);
-    setAgreedError(null);
-
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const name = String(formData.get("name") ?? "").trim();
-    const phone = String(formData.get("phone") ?? "").trim();
-
-    let hasError = false;
-    if (!name) {
-      setNameError("נא להזין שם מלא");
-      hasError = true;
-    }
-    if (!phone) {
-      setPhoneError("נא להזין מספר טלפון");
-      hasError = true;
-    }
-    if (!projectScope) {
-      setProjectScopeError("נא לבחור את סוג הפרויקט");
-      hasError = true;
-    }
-    if (!agreed) {
-      setAgreedError("נא לאשר את ההסכמה ליצירת קשר");
-      hasError = true;
-    }
-    if (hasError) return;
-
-    const scope = projectScope;
-    if (!scope) return;
-
-    const payload = buildLeadPayload({
-      name,
-      phone,
-      projectScope: scope,
-      message: message || undefined,
-      showroomInterest,
-    });
-
-    setIsSubmitting(true);
 
     try {
-      await submitLeadToWebhook(payload);
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...data,
+          showroomInterest: data.showroomInterest || showroomInterest,
+        }),
+      });
+
+      if (!response.ok) {
+        let message = "שגיאת שרת פנימית";
+        try {
+          const rawText = await response.text();
+          if (rawText) {
+            try {
+              const parsed = JSON.parse(rawText) as { error?: string };
+              message = parsed.error || message;
+            } catch {
+              message = rawText || message;
+            }
+          }
+        } catch {
+          message = "שגיאת שרת פנימית";
+        }
+        throw new Error(message);
+      }
+
       setSubmitted(true);
-    } catch {
+      reset({
+        fullName: "",
+        phone: "",
+        email: "",
+        projectType: "",
+        projectScope: undefined,
+        notes: "",
+        consent: false,
+        showroomInterest: showroomInterest ?? "",
+      });
+    } catch (error) {
       setSubmitError(
-        "לא הצלחנו לשלוח את הבקשה. נסו שוב או פנו אלינו ישירות בוואטסאפ."
+        error instanceof Error
+          ? error.message
+          : "לא הצלחנו לשלוח את הבקשה. נסו שוב או פנו אלינו ישירות בוואטסאפ."
       );
-    } finally {
-      setIsSubmitting(false);
     }
-  }
+  });
 
   const formBodyProps: LeadFormBodyProps = {
     submitted,
     formFocused,
     setFormFocused,
-    handleSubmit,
-    nameError,
-    setNameError,
-    phoneError,
-    setPhoneError,
-    projectScope,
-    setProjectScope,
-    projectScopeError,
-    setProjectScopeError,
-    message,
-    setMessage,
+    onSubmit,
+    register,
+    projectScope: watch("projectScope"),
+    setProjectScope: (v) => setValue("projectScope", v, { shouldValidate: true }),
+    errors,
+    notes: watch("notes") ?? "",
+    setNotes: (v) => setValue("notes", v, { shouldValidate: true }),
     submitError,
-    agreed,
-    setAgreed,
-    agreedError,
-    setAgreedError,
     isSubmitting,
   };
 

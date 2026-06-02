@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { IntroLoader } from "@/components/IntroLoader";
 import { Footer } from "@/components/layout/Footer";
 import { GrainOverlay } from "@/components/editorial/GrainOverlay";
@@ -18,9 +19,12 @@ export default function Home() {
         className="fixed inset-0 z-[9999] flex items-center justify-center bg-bg-primary"
         aria-hidden
       >
-        <img
+        <Image
           src="/logo-loading-transparent.png"
           alt=""
+          width={500}
+          height={500}
+          priority
           className="h-52 w-auto object-contain sm:h-60 md:h-[17rem] lg:h-72"
         />
       </div>
