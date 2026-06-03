@@ -156,6 +156,14 @@ html.intro-exiting #site-shell {
   visibility: visible;
 }
 
+/* EqualWeb accessibility widget — bottom-right, aligned with site FAB spacing */
+#INDbtnWrap {
+  top: auto !important;
+  bottom: max(1rem, env(safe-area-inset-bottom)) !important;
+  right: max(1rem, env(safe-area-inset-right)) !important;
+  left: auto !important;
+}
+
 body {
   margin: 0;
   overflow-x: clip;

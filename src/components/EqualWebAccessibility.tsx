@@ -39,8 +39,8 @@ export function EqualWebAccessibility() {
       Menulang: "HE",
       draggable: true,
       btnStyle: {
-        vPosition: ["80%", "80%"],
-        margin: ["0", "0"],
+        vPosition: ["24px", "24px"],
+        margin: ["12px", "12px"],
         scale: ["0.65", "0.65"],
         color: {
           main: "#2d6b84",
