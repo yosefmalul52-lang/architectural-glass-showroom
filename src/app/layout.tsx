@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Rubik, Assistant, Cormorant_Garamond, Mea_Culpa, Montserrat } from "next/font/google";
 import { CookieConsent } from "@/components/CookieConsent";
+import { EqualWebAccessibility } from "@/components/EqualWebAccessibility";
 import { ClientShell } from "@/components/layout/ClientShell";
 import "./globals.css";
 
@@ -151,6 +152,7 @@ export default function RootLayout({
         </a>
         <ClientShell>{children}</ClientShell>
         <CookieConsent />
+        <EqualWebAccessibility />
       </body>
     </html>
   );
