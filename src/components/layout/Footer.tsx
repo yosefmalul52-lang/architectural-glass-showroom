@@ -35,9 +35,9 @@ export function Footer() {
         {/* Mobile: vertical stack · Desktop: 4-column grid */}
         <div className="flex flex-col items-center gap-12 py-16 md:grid md:grid-cols-[1.4fr_1fr_1fr_1.2fr] md:items-start md:gap-16 md:py-20">
 
-          {/* Brand logo */}
-          <div className="flex flex-col items-center md:items-start md:pt-0.5">
-            <div className="isolate inline-flex justify-center md:justify-start">
+          {/* Brand logo — image block unchanged; blurb sits below without shifting logo */}
+          <div className="flex w-full max-w-sm flex-col items-center md:max-w-none md:items-start md:pt-0.5">
+            <div className="isolate inline-flex shrink-0 justify-center md:justify-start">
               <Image
                 src="/logo-tzameret-footer-transparent.png"
                 alt={BRAND.name}
@@ -47,6 +47,9 @@ export function Footer() {
                 className="h-32 w-auto object-contain object-center sm:h-40 md:h-[7.5rem] md:object-right lg:h-[8.25rem]"
               />
             </div>
+            <p className="mt-4 max-w-[17rem] text-sm font-light leading-relaxed tracking-wide text-text-main/60 sm:max-w-[19rem] md:max-w-[15rem] md:text-right">
+              {BRAND.footerBlurb}
+            </p>
           </div>
 
           {/* Services */}

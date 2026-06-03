@@ -6,7 +6,7 @@ import { BRAND } from "@/data/site";
 
 const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 const EASE_EXIT = [0.76, 0, 0.24, 1] as const;
-const INTRO_HOLD_MS = 3600;
+const INTRO_HOLD_MS = 1940;
 
 function revealSiteUnderLoader() {
   document.documentElement.classList.add("intro-exiting");
@@ -49,7 +49,7 @@ export function IntroLoader() {
           dir="rtl"
           initial={false}
           exit={{ y: "-100%" }}
-          transition={{ duration: 0.9, ease: EASE_EXIT }}
+          transition={{ duration: 0.68, ease: EASE_EXIT }}
           style={{ willChange: "transform" }}
         >
           <div
@@ -65,13 +65,13 @@ export function IntroLoader() {
               className="absolute top-0 left-0 h-full w-[50vw] bg-gradient-to-r from-transparent via-[rgba(200,180,155,0.48)] to-transparent blur-2xl"
               initial={{ x: "-50vw" }}
               animate={{ x: "100vw" }}
-              transition={{ duration: 2.45, ease: EASE_OUT, delay: 0.15 }}
+              transition={{ duration: 1.75, ease: EASE_OUT, delay: 0.08 }}
             />
             <motion.div
               className="absolute top-0 left-0 h-full w-[28vw] bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.3)] to-transparent blur-xl"
               initial={{ x: "-28vw" }}
               animate={{ x: "100vw" }}
-              transition={{ duration: 2.7, ease: EASE_OUT, delay: 0.35 }}
+              transition={{ duration: 1.95, ease: EASE_OUT, delay: 0.18 }}
             />
           </div>
 
