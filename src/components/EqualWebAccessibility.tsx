@@ -39,7 +39,8 @@ export function EqualWebAccessibility() {
       Menulang: "HE",
       draggable: true,
       btnStyle: {
-        vPosition: ["24px", "24px"],
+        // EqualWeb: % > 50 anchors from bottom (100% = flush bottom)
+        vPosition: ["100%", "100%"],
         margin: ["12px", "12px"],
         scale: ["0.65", "0.65"],
         color: {
@@ -64,6 +65,36 @@ export function EqualWebAccessibility() {
     coreCall.crossOrigin = "anonymous";
     coreCall.setAttribute("data-cfasync", "true");
     document.body.appendChild(coreCall);
+
+    const pinBottomRight = () => {
+      const btn = document.getElementById("INDmenu-btn");
+      const wrap = document.getElementById("INDbtnWrap");
+      for (const el of [btn, wrap]) {
+        if (!el) continue;
+        el.style.setProperty("position", "fixed", "important");
+        el.style.setProperty("top", "auto", "important");
+        el.style.setProperty(
+          "bottom",
+          "max(1rem, env(safe-area-inset-bottom))",
+          "important"
+        );
+        el.style.setProperty(
+          "right",
+          "max(1rem, env(safe-area-inset-right))",
+          "important"
+        );
+        el.style.setProperty("left", "auto", "important");
+      }
+    };
+
+    const observer = new MutationObserver(() => {
+      if (document.getElementById("INDmenu-btn")) {
+        pinBottomRight();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
   }, []);
 
   return null;

@@ -157,7 +157,9 @@ html.intro-exiting #site-shell {
 }
 
 /* EqualWeb accessibility widget — bottom-right, aligned with site FAB spacing */
+#INDmenu-btn,
 #INDbtnWrap {
+  position: fixed !important;
   top: auto !important;
   bottom: max(1rem, env(safe-area-inset-bottom)) !important;
   right: max(1rem, env(safe-area-inset-right)) !important;
