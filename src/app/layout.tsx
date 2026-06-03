@@ -50,24 +50,47 @@ const montserrat = Montserrat({
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://tzameret-glass.com");
+
+const canonicalUrl = new URL("/", siteUrl).toString();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "צמרת הזכוכית — תכנון, הנדסה וביצוע",
+  title: {
+    default: "צמרת הזכוכית — עבודות זכוכית | תכנון, הנדסה וביצוע",
+    template: "%s | צמרת הזכוכית",
+  },
   description:
-    "צמרת הזכוכית — תכנון וביצוע פרויקטי זכוכית אדריכלית בתקן EN12150. ייצור CNC, Triplex מחוסמת, מדידת לייזר ממוחשבת. מקלחונים, מחיצות משרד, מראות מותאמות.",
+    "צמרת הזכוכית — מומחים לעבודות זכוכית אדריכלית ברמת פרימיום: מקלחונים, מחיצות, מעקים, מראות LED וחזיתות. תכנון הנדסי, ייצור CNC ומתקין מוסמך בתקן EN12150. ייעוץ ראשוני ללא עלות.",
   applicationName: "צמרת הזכוכית",
   keywords: [
     "צמרת הזכוכית",
+    "עבודות זכוכית",
+    "זכוכית אדריכלית",
     "מקלחונים",
     "מחיצות זכוכית",
+    "מעקי זכוכית",
+    "מראות LED",
     "זכוכית בטיחותית",
     "EN12150",
-    "Triplex",
-    "CNC",
     "קיסריה",
   ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: canonicalUrl,
+    languages: {
+      "he-IL": canonicalUrl,
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
@@ -77,28 +100,30 @@ export const metadata: Metadata = {
     apple: [{ url: "/icon-192.png", sizes: "192x192", type: "image/png" }],
   },
   openGraph: {
-    title: "צמרת הזכוכית — תכנון, הנדסה וביצוע",
+    title: "צמרת הזכוכית — עבודות זכוכית | תכנון, הנדסה וביצוע",
     description:
-      "פרויקטי זכוכית אדריכלית בתקן EN12150 — ייצור CNC, Triplex מחוסמת, מדידת לייזר ממוחשבת. ייעוץ ראשוני ללא עלות.",
+      "עבודות זכוכית אדריכלית ברמת פרימיום — מקלחונים, מחיצות, מעקים ומראות. תכנון הנדסי, ייצור CNC ומתקין מוסמך.",
+    url: canonicalUrl,
+    siteName: "צמרת הזכוכית",
     locale: "he_IL",
     type: "website",
-    siteName: "צמרת הזכוכית",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 1200,
-        alt: "צמרת הזכוכית — לוגו",
+        alt: "צמרת הזכוכית — עבודות זכוכית אדריכלית",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "צמרת הזכוכית — תכנון, הנדסה וביצוע",
+    title: "צמרת הזכוכית — עבודות זכוכית",
     description:
-      "פרויקטי זכוכית אדריכלית בתקן EN12150 — ייצור CNC, Triplex מחוסמת, מדידת לייזר ממוחשבת.",
+      "תכנון, ייצור והתקנת עבודות זכוכית אדריכלית בתקן EN12150 — מקלחונים, מחיצות, מעקים ומראות.",
     images: ["/og-image.png"],
   },
+  category: "construction",
 };
 
 export default function RootLayout({
