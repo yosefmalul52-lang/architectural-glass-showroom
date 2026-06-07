@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import localFont from "next/font/local";
 import { Rubik, Assistant, Cormorant_Garamond, Mea_Culpa, Montserrat } from "next/font/google";
 import { CookieConsent } from "@/components/CookieConsent";
@@ -140,6 +141,18 @@ export default function RootLayout({
             __html: "document.documentElement.classList.add('intro-loading');",
           }}
         />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-S1RX9TZCP2"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-S1RX9TZCP2');
+          `}
+        </Script>
       </head>
       <body
         className={`${rubik.variable} ${cormorantGaramond.variable} ${assistant.variable} ${meaCulpa.variable} ${fupGalil.variable} ${montserrat.variable} overflow-x-clip antialiased`}
