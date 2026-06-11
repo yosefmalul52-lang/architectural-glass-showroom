@@ -13,6 +13,9 @@ export const contactFormSchema = z.object({
     .max(24, "מספר הטלפון ארוך מדי")
     .regex(/^[\d\s\-+()]+$/, "מספר טלפון לא תקין"),
   notes: z.string().trim().max(2000, "הערות ארוכות מדי").optional(),
+  consent: z
+    .boolean()
+    .refine((value) => value, { message: "נא לאשר הסכמה ליצירת קשר" }),
   showroomInterest: z.string().trim().max(200).optional(),
 });
 

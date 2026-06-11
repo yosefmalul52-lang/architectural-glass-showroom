@@ -136,6 +136,54 @@ function LeadFormBody({
             </p>
           )}
 
+          <label
+            className={cn(
+              "flex cursor-pointer items-start gap-3 rounded-sm pt-1 transition-colors",
+              errors.consent && "ring-1 ring-red-700/50 ring-offset-2 ring-offset-bg-elevated"
+            )}
+          >
+            <div className="relative mt-0.5 shrink-0">
+              <input
+                type="checkbox"
+                {...register("consent")}
+                className="peer sr-only"
+                aria-invalid={Boolean(errors.consent)}
+                aria-describedby={errors.consent ? "lead-agreed-error" : undefined}
+              />
+              <div
+                className={cn(
+                  "h-4 w-4 border transition-colors peer-checked:border-accent-teal peer-checked:bg-accent-teal",
+                  errors.consent ? "border-red-700/70" : "border-accent-teal/40"
+                )}
+              />
+              <svg
+                className="pointer-events-none absolute inset-0 m-auto h-2.5 w-2.5 text-white opacity-0 peer-checked:opacity-100"
+                viewBox="0 0 10 10"
+                fill="none"
+                aria-hidden
+              >
+                <path
+                  d="M1.5 5l2.5 2.5 4.5-4.5"
+                  stroke="currentColor"
+                  strokeWidth={1.8}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <span className="text-right text-[13px] leading-relaxed text-text-muted sm:text-sm">
+              <span className="text-red-600" aria-hidden>
+                *{" "}
+              </span>
+              קראתי ואני מסכים/ה לקבל יצירת קשר חוזרת בנוגע לפרויקט שלי
+            </span>
+          </label>
+          {errors.consent?.message && (
+            <p id="lead-agreed-error" className="-mt-4 text-xs text-red-700/90" role="alert">
+              {errors.consent.message}
+            </p>
+          )}
+
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <Button
               type="submit"
@@ -205,6 +253,7 @@ export function LeadCapture() {
       fullName: "",
       phone: "",
       notes: "",
+      consent: false,
       showroomInterest: "",
     },
   });
@@ -256,6 +305,7 @@ export function LeadCapture() {
         fullName: "",
         phone: "",
         notes: "",
+        consent: false,
         showroomInterest: showroomInterest ?? "",
       });
     } catch (error) {
