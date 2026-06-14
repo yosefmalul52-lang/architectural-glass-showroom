@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MessageCircle, ArrowLeft } from "lucide-react";
 import { useScrolled } from "@/hooks/useScrolled";
 import { WHATSAPP_URL } from "@/data/funnel";
+import { onWhatsAppClick } from "@/lib/meta-pixel";
 import { cn } from "@/lib/utils";
 
 export function StickyCtaBar() {
@@ -59,6 +60,7 @@ export function StickyCtaBar() {
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => onWhatsAppClick("sticky_bar")}
           className="flex h-[52px] w-[52px] shrink-0 items-center justify-center bg-brand-teal text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
           aria-label="וואטסאפ ישיר"
         >

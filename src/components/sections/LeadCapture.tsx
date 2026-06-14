@@ -17,6 +17,7 @@ import {
   type ContactFormData,
 } from "@/lib/contact-form-schema";
 import { WHATSAPP_DEFAULT_URL } from "@/data/site";
+import { onWhatsAppClick, trackMetaFormSubmit } from "@/lib/meta-pixel";
 import { fadeUpVariants, scrollRevealViewport } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -62,6 +63,7 @@ function LeadFormBody({
               href={WHATSAPP_DEFAULT_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => onWhatsAppClick("contact_form_success")}
               className="text-brand-gold underline-offset-2 hover:underline"
             >
               וואטסאפ ישיר
@@ -301,6 +303,7 @@ export function LeadCapture() {
       }
 
       setSubmitted(true);
+      trackMetaFormSubmit();
       reset({
         fullName: "",
         phone: "",

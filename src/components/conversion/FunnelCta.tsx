@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { funnelCtas, type FunnelCtaKey } from "@/data/funnel";
+import { isWhatsAppUrl, onWhatsAppClick } from "@/lib/meta-pixel";
 import { HeadingAccent } from "@/components/editorial/HeadingAccent";
 import { fadeUpVariants, scrollRevealViewport } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,7 @@ interface FunnelCtaProps {
 export function FunnelCta({ step, className }: FunnelCtaProps) {
   const cta = funnelCtas[step];
   const isExternal = cta.secondaryHref.startsWith("http");
+  const isWhatsApp = isExternal && isWhatsAppUrl(cta.secondaryHref);
 
   return (
     <motion.aside
@@ -48,7 +50,16 @@ export function FunnelCta({ step, className }: FunnelCtaProps) {
         </Button>
         <Button variant="outline" asChild>
           {isExternal ? (
-            <a href={cta.secondaryHref} target="_blank" rel="noopener noreferrer">
+            <a
+              href={cta.secondaryHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={
+                isWhatsApp
+                  ? () => onWhatsAppClick(`funnel_${step}`)
+                  : undefined
+              }
+            >
               {cta.secondaryLabel}
             </a>
           ) : (

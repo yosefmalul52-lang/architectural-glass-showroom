@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Cookie } from "lucide-react";
+import { loadMetaPixel } from "@/lib/meta-pixel";
 
 const STORAGE_KEY = "cookie-consent-accepted";
 const DECLINED_KEY = "cookie-consent-declined";
@@ -47,8 +48,16 @@ export function CookieConsent() {
     };
   }, [mounted]);
 
+  useEffect(() => {
+    if (!mounted) return;
+    if (localStorage.getItem(STORAGE_KEY) === "true") {
+      loadMetaPixel();
+    }
+  }, [mounted]);
+
   function accept() {
     localStorage.setItem(STORAGE_KEY, "true");
+    loadMetaPixel();
     setOpen(false);
   }
 
