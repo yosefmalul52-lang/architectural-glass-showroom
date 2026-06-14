@@ -55,7 +55,7 @@ export function loadMetaPixel() {
 
   const fbq = function (...args: unknown[]) {
     if (fbq.callMethod) {
-      fbq.callMethod.apply(fbq, args);
+      fbq.callMethod(...args);
     } else {
       fbq.queue.push(args);
     }
