@@ -1,5 +1,6 @@
 import {
   trackFormSubmit as trackGaFormSubmit,
+  trackPhoneClick as trackGaPhoneClick,
   trackWhatsAppClick as trackGaWhatsAppClick,
 } from "@/lib/analytics";
 
@@ -8,6 +9,7 @@ export const META_PIXEL_ID = "887556210310562";
 export const META_EVENTS = {
   FORM_SUBMIT: "LeadFormSubmit",
   WHATSAPP_CONTACT: "WhatsAppContact",
+  PHONE_CONTACT: "PhoneContact",
 } as const;
 
 declare global {
@@ -46,6 +48,10 @@ export function trackMetaWhatsAppContact(source: string) {
   trackMetaEvent(META_EVENTS.WHATSAPP_CONTACT, { source });
 }
 
+export function trackMetaPhoneContact(source: string) {
+  trackMetaEvent(META_EVENTS.PHONE_CONTACT, { source });
+}
+
 export function isWhatsAppUrl(url: string) {
   return url.includes("wa.me") || url.includes("whatsapp.com");
 }
@@ -53,6 +59,11 @@ export function isWhatsAppUrl(url: string) {
 export function onWhatsAppClick(source: string) {
   trackMetaWhatsAppContact(source);
   trackGaWhatsAppClick(source);
+}
+
+export function onPhoneClick(source: string) {
+  trackMetaPhoneContact(source);
+  trackGaPhoneClick(source);
 }
 
 export function loadMetaPixel() {
