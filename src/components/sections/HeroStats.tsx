@@ -6,7 +6,7 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { MOTION_EASE } from "@/lib/motion";
 
 const STATS = [
-  { lines: ["דיוק במפרט", "הנדסי"], target: 100, suffix: "%" },
+  { lines: ["התאמה אישית", "לכל פרויקט"], target: 100, suffix: "%" },
   { lines: ["פרויקטים", "ייחודיים"], target: 50, suffix: "+" },
   { lines: ["שנות ניסיון", "ומומחיות"], target: 7, suffix: "+" },
 ] as const;

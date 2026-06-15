@@ -4,6 +4,7 @@ export const GA_EVENTS = {
   FORM_SUBMIT: "generate_lead",
   WHATSAPP_CONTACT: "whatsapp_contact",
   PHONE_CONTACT: "phone_contact",
+  GALLERY_CLICK: "gallery_click",
 } as const;
 
 declare global {
@@ -33,4 +34,23 @@ export function trackWhatsAppClick(source: string) {
 
 export function trackPhoneClick(source: string) {
   trackGaEvent(GA_EVENTS.PHONE_CONTACT, { source });
+}
+
+export function trackGalleryClick({
+  category,
+  label,
+  interaction,
+  projectId,
+}: {
+  category: string;
+  label: string;
+  interaction: "category" | "project";
+  projectId?: string;
+}) {
+  trackGaEvent(GA_EVENTS.GALLERY_CLICK, {
+    gallery_category: category,
+    gallery_label: label,
+    interaction,
+    ...(projectId ? { project_id: projectId } : {}),
+  });
 }

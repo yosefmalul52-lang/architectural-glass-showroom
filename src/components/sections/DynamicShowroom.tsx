@@ -11,6 +11,7 @@ import {
   type ProjectCategory,
 } from "@/data/portfolio";
 import { MOTION_EASE, scrollRevealOnce } from "@/lib/motion";
+import { trackGalleryClick } from "@/lib/analytics";
 import { ProjectLightbox } from "./ProjectLightbox";
 
 const gridStagger = {
@@ -73,8 +74,26 @@ export function DynamicShowroom() {
   function openCategory(category: ProjectCategory) {
     const projects = projectsByCategory[category];
     if (projects.length === 0) return;
+    const meta = showroomCategories.find((cat) => cat.value === category);
+    trackGalleryClick({
+      category,
+      label: meta?.label ?? category,
+      interaction: "category",
+    });
     setLightboxCategory(category);
     setLightboxProject(projects[0]);
+  }
+
+  function handleNavigate(project: PortfolioProject) {
+    if (lightboxCategory) {
+      trackGalleryClick({
+        category: lightboxCategory,
+        label: project.title,
+        interaction: "project",
+        projectId: project.id,
+      });
+    }
+    setLightboxProject(project);
   }
 
   function handleClose() {
@@ -176,7 +195,7 @@ export function DynamicShowroom() {
         project={lightboxProject}
         projects={lightboxProjects}
         onClose={handleClose}
-        onNavigate={setLightboxProject}
+        onNavigate={handleNavigate}
       />
     </section>
   );
