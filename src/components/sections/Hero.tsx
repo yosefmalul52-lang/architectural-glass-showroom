@@ -133,7 +133,7 @@ export function Hero() {
       </div>
 
       <motion.div
-        className="absolute bottom-4 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-1 md:flex"
+        className="absolute bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-1 md:bottom-4"
         initial={{ opacity: 0 }}
         animate={introDone ? { opacity: 1 } : { opacity: 0 }}
         transition={{ delay: 2.1, ...luxuryTransition }}
