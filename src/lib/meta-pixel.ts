@@ -1,15 +1,12 @@
 import {
   trackFormSubmit as trackGaFormSubmit,
-  trackPhoneClick as trackGaPhoneClick,
   trackWhatsAppClick as trackGaWhatsAppClick,
 } from "@/lib/analytics";
 
 export const META_PIXEL_ID = "887556210310562";
 
 export const META_EVENTS = {
-  FORM_SUBMIT: "LeadFormSubmit",
   WHATSAPP_CONTACT: "WhatsAppContact",
-  PHONE_CONTACT: "PhoneContact",
 } as const;
 
 declare global {
@@ -34,11 +31,12 @@ export function trackMetaEvent(
   params?: Record<string, string>
 ) {
   if (typeof window === "undefined" || !window.fbq) return;
-  window.fbq("trackCustom", eventName, params);
+  window.fbq("trackSingleCustom", META_PIXEL_ID, eventName, params);
 }
 
-export function trackMetaFormSubmit() {
-  trackMetaEvent(META_EVENTS.FORM_SUBMIT, {
+export function trackMetaLeadSuccess() {
+  if (typeof window === "undefined" || !window.fbq) return;
+  window.fbq("trackSingle", META_PIXEL_ID, "Lead", {
     content_name: "contact_form",
   });
   trackGaFormSubmit();
@@ -48,10 +46,6 @@ export function trackMetaWhatsAppContact(source: string) {
   trackMetaEvent(META_EVENTS.WHATSAPP_CONTACT, { source });
 }
 
-export function trackMetaPhoneContact(source: string) {
-  trackMetaEvent(META_EVENTS.PHONE_CONTACT, { source });
-}
-
 export function isWhatsAppUrl(url: string) {
   return url.includes("wa.me") || url.includes("whatsapp.com");
 }
@@ -59,11 +53,6 @@ export function isWhatsAppUrl(url: string) {
 export function onWhatsAppClick(source: string) {
   trackMetaWhatsAppContact(source);
   trackGaWhatsAppClick(source);
-}
-
-export function onPhoneClick(source: string) {
-  trackMetaPhoneContact(source);
-  trackGaPhoneClick(source);
 }
 
 export function loadMetaPixel() {
@@ -92,14 +81,7 @@ export function loadMetaPixel() {
   const firstScript = document.getElementsByTagName("script")[0];
   firstScript?.parentNode?.insertBefore(script, firstScript);
 
-  window.fbq("init", META_PIXEL_ID);
+  window.fbq("set", "autoConfig", false, META_PIXEL_ID);
+  window.fbq("init", META_PIXEL_ID, {}, { autoConfig: false });
   window.fbq("track", "PageView");
-
-  const noscriptImg = document.createElement("img");
-  noscriptImg.height = 1;
-  noscriptImg.width = 1;
-  noscriptImg.style.display = "none";
-  noscriptImg.src = `https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`;
-  noscriptImg.alt = "";
-  document.body.appendChild(noscriptImg);
 }

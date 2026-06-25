@@ -7,7 +7,6 @@ import Image from "next/image";
 import { Phone } from "lucide-react";
 import { navSections } from "@/data/funnel";
 import { BRAND, CONTACT } from "@/data/site";
-import { onPhoneClick } from "@/lib/meta-pixel";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -89,7 +88,6 @@ export function Navbar() {
         <div className="flex shrink-0 items-center gap-3">
           <motion.a
             href={`tel:${CONTACT.phoneTel}`}
-            onClick={() => onPhoneClick("navbar_desktop")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, ease: EASE, delay: 0.55 }}
@@ -139,7 +137,6 @@ export function Navbar() {
           ))}
           <a
             href={`tel:${CONTACT.phoneTel}`}
-            onClick={() => onPhoneClick("navbar_mobile")}
             className="mt-4 inline-flex items-center gap-2 border border-brand-gold px-4 py-2.5 font-display text-base text-white transition-colors duration-200 hover:bg-brand-gold/10 hover:text-brand-gold"
           >
             <Phone size={13} strokeWidth={1.5} />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
@@ -17,7 +17,7 @@ import {
   type ContactFormData,
 } from "@/lib/contact-form-schema";
 import { WHATSAPP_DEFAULT_URL } from "@/data/site";
-import { onWhatsAppClick, trackMetaFormSubmit } from "@/lib/meta-pixel";
+import { onWhatsAppClick, trackMetaLeadSuccess } from "@/lib/meta-pixel";
 import { fadeUpVariants, scrollRevealViewport } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -72,7 +72,10 @@ function LeadFormBody({
         </div>
       ) : (
         <form
-          onSubmit={onSubmit}
+          onSubmit={(e) => {
+            e.preventDefault();
+            void onSubmit(e);
+          }}
           onFocus={() => setFormFocused(true)}
           onBlur={(e) => {
             if (!e.currentTarget.contains(e.relatedTarget as Node)) {
@@ -188,11 +191,12 @@ function LeadFormBody({
 
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <Button
-              type="submit"
+              type="button"
               variant="teal"
               size="lg"
               className="w-full sm:w-auto"
               disabled={isSubmitting}
+              onClick={() => void onSubmit()}
             >
               {isSubmitting ? (
                 <svg
@@ -242,6 +246,7 @@ export function LeadCapture() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [formFocused, setFormFocused] = useState(false);
   const [showroomInterest, setShowroomInterest] = useState<string | undefined>(undefined);
+  const leadTrackedRef = useRef(false);
 
   const {
     register,
@@ -268,6 +273,12 @@ export function LeadCapture() {
       sessionStorage.removeItem(SHOWROOM_INTEREST_KEY);
     }
   }, [setValue]);
+
+  useEffect(() => {
+    if (!submitted || leadTrackedRef.current) return;
+    leadTrackedRef.current = true;
+    trackMetaLeadSuccess();
+  }, [submitted]);
 
   const onSubmit = handleSubmit(async (data) => {
     setSubmitError(null);
@@ -302,8 +313,12 @@ export function LeadCapture() {
         throw new Error(message);
       }
 
+      const result = (await response.json()) as { ok?: boolean };
+      if (!result.ok) {
+        throw new Error("לא הצלחנו לשלוח את הבקשה. נסו שוב או פנו אלינו ישירות בוואטסאפ.");
+      }
+
       setSubmitted(true);
-      trackMetaFormSubmit();
       reset({
         fullName: "",
         phone: "",
