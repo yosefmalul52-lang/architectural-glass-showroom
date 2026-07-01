@@ -139,7 +139,7 @@ export async function POST(request: Request) {
       from,
       to: leadToEmail,
       bcc: smtpUser,
-      subject: `פנייה חדשה מהאתר — ${parsed.fullName}`,
+      subject: "פנייה חדשה מהאתר — צמרת הזכוכית",
       html: renderLeadHtml(parsed),
     });
 
